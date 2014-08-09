@@ -16,16 +16,21 @@
 #include <stdio.h>
 #include <limits.h>
 
-void (*xChuck_UI_Manager_start)() = NULL;
 
 class chugl
 {
 public:
-    static chugl *instance()
+    
+    chugl()
     {
-        if(s_instance == NULL)
-            s_instance = new chugl();
-        return s_instance;
+        m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
+        if(m_Chuck_UI_Manager_start != NULL)
+            m_Chuck_UI_Manager_start();
+        // else fuck it we'll do it live
+        // TODO: check if in miniAudicle; otherwise log warning
+        
+        m_lock = false;
+        m_windowWidth = m_windowHeight = 0;
     }
     
     void openWindow(float width, float height)
@@ -47,48 +52,34 @@ public:
         });
     }
     
-    void glEnter()
+    void lock()
     {
-        if(!m_enter)
+        if(!m_lock)
         {
             CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
             [m_ctx makeCurrentContext];
         }
         
-        m_enter = true;
+        m_lock = true;
     }
     
-    void glExit()
+    void unlock()
     {
         CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
-        m_enter = false;
+        m_lock = false;
     }
     
     t_CKFLOAT windowWidth() { return m_windowWidth; }
     t_CKFLOAT windowHeight() { return m_windowHeight; }
     
 private:
-    static chugl *s_instance;
     
+    void (*m_Chuck_UI_Manager_start)();
     NSOpenGLContext *m_ctx;
-    bool m_enter;
-    t_CKFLOAT m_windowWidth, m_windowHeight;
-    
-    chugl()
-    {
-        xChuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
-        if(xChuck_UI_Manager_start != NULL)
-            xChuck_UI_Manager_start();
-        // else fuck it we'll do it live
-        // TODO: check if in miniAudicle; otherwise log warning
-        
-        m_enter = false;
-        m_windowWidth = m_windowHeight = 0;
-    }
+    bool m_lock;
+    t_CKFLOAT m_windowWidth, m_windowHeight;    
 };
 
-void chuglEnter() { chugl::instance()->glEnter(); }
-void chuglExit() { chugl::instance()->glExit(); }
 
 template<typename T>
 T rad2deg(T rad)
@@ -97,85 +88,125 @@ T rad2deg(T rad)
 }
 
 
-chugl *chugl::s_instance = NULL;
+
+t_CKINT chugl_offset_data = 0;
+
+CK_DLL_CTOR(chugl_ctor)
+{
+    chugl *chgl = new chugl();
+    OBJ_MEMBER_INT(SELF, chugl_offset_data) = (t_CKINT) chgl;
+}
+
+CK_DLL_DTOR(chugl_dtor)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(chgl) delete chgl;
+    OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
+}
+
+CK_DLL_MFUN(chugl_lock)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chgl->lock();
+}
+
+CK_DLL_MFUN(chugl_unlock)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chgl->unlock();
+}
 
 // example of getter/setter
-CK_DLL_SFUN(chugl_openWindow)
+CK_DLL_MFUN(chugl_openWindow)
 {
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
     
-    chugl::instance()->openWindow(x, y);
+    chgl->openWindow(x, y);
 }
 
-CK_DLL_SFUN(chugl_beginDraw)
+CK_DLL_MFUN(chugl_beginDraw)
 {
-    chuglEnter();
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    chgl->lock();
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, chugl::instance()->windowWidth(), 0, chugl::instance()->windowHeight(), -0.1, 100);
+    glOrtho(0, chgl->windowWidth(), 0, chgl->windowHeight(), -0.1, 100);
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    chuglExit();
+    chgl->unlock();
 }
 
-CK_DLL_SFUN(chugl_endDraw)
+CK_DLL_MFUN(chugl_endDraw)
 {
-    chuglEnter();
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    chgl->lock();
     
     glFlush();
     
-    chuglExit();
+    chgl->unlock();
 }
 
-CK_DLL_SFUN(chugl_color4)
+CK_DLL_MFUN(chugl_color4)
 {
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
     t_CKFLOAT r = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT g = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT b = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT a = GET_NEXT_FLOAT(ARGS);
     
-    chuglEnter();
+    chgl->lock();
     
     glColor4f(r, g, b, a);
     
-    chuglExit();
+    chgl->unlock();
 }
 
-CK_DLL_SFUN(chugl_translate2)
+CK_DLL_MFUN(chugl_translate2)
 {
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
     
-    chuglEnter();
+    chgl->lock();
     
     glTranslatef(x, y, 0);
     
-    chuglExit();
+    chgl->unlock();
 }
 
-CK_DLL_SFUN(chugl_rotateZ)
+CK_DLL_MFUN(chugl_rotateZ)
 {
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
     t_CKFLOAT z = GET_NEXT_FLOAT(ARGS);
     
-    chuglEnter();
+    chgl->lock();
     
     glRotatef(rad2deg(z), 0, 0, 1);
     
-    chuglExit();
+    chgl->unlock();
 }
 
-CK_DLL_SFUN(chugl_rect)
+CK_DLL_MFUN(chugl_rect)
 {
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
     
-    chuglEnter();
+    chgl->lock();
     
     glBegin(GL_TRIANGLE_STRIP);
     glVertex3f(x, y, 0);
@@ -184,17 +215,19 @@ CK_DLL_SFUN(chugl_rect)
     glVertex3f(x+width, y+height, 0);
     glEnd();
     
-    chuglExit();
+    chgl->unlock();
 }
 
-CK_DLL_SFUN(chugl_clear)
+CK_DLL_MFUN(chugl_clear)
 {
-    chuglEnter();
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    chgl->lock();
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    chuglExit();
+    chgl->unlock();
 }
 
 
@@ -208,32 +241,40 @@ CK_DLL_QUERY( chugl )
     
     // begin the class definition
     // can change the second argument to extend a different ChucK class
-    QUERY->begin_class(QUERY, "gfx", "Object");
+    QUERY->begin_class(QUERY, "chugl", "Object");
     
-    QUERY->add_sfun(QUERY, chugl_openWindow, "void", "openWindow");
+    QUERY->add_ctor(QUERY, chugl_ctor);
+    QUERY->add_dtor(QUERY, chugl_dtor);
+    
+    chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
+    
+    QUERY->add_mfun(QUERY, chugl_lock, "void", "lock");
+    QUERY->add_mfun(QUERY, chugl_unlock, "void", "unlock");    
+    
+    QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
     QUERY->add_arg(QUERY, "float", "height");
     
-    QUERY->add_sfun(QUERY, chugl_beginDraw, "void", "beginDraw");
+    QUERY->add_mfun(QUERY, chugl_beginDraw, "void", "beginDraw");
     
-    QUERY->add_sfun(QUERY, chugl_endDraw, "void", "endDraw");
+    QUERY->add_mfun(QUERY, chugl_endDraw, "void", "endDraw");
     
-    QUERY->add_sfun(QUERY, chugl_clear, "void", "clear");
+    QUERY->add_mfun(QUERY, chugl_clear, "void", "clear");
     
-    QUERY->add_sfun(QUERY, chugl_rotateZ, "void", "rotate");
+    QUERY->add_mfun(QUERY, chugl_rotateZ, "void", "rotate");
     QUERY->add_arg(QUERY, "float", "z");
     
-    QUERY->add_sfun(QUERY, chugl_translate2, "void", "translate");
+    QUERY->add_mfun(QUERY, chugl_translate2, "void", "translate");
     QUERY->add_arg(QUERY, "float", "x");
     QUERY->add_arg(QUERY, "float", "y");
     
-    QUERY->add_sfun(QUERY, chugl_color4, "void", "color");
+    QUERY->add_mfun(QUERY, chugl_color4, "void", "color");
     QUERY->add_arg(QUERY, "float", "r");
     QUERY->add_arg(QUERY, "float", "g");
     QUERY->add_arg(QUERY, "float", "b");
     QUERY->add_arg(QUERY, "float", "a");
     
-    QUERY->add_sfun(QUERY, chugl_rect, "void", "rect");
+    QUERY->add_mfun(QUERY, chugl_rect, "void", "rect");
     QUERY->add_arg(QUERY, "float", "x");
     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width");

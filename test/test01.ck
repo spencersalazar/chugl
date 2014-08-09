@@ -4,10 +4,13 @@
 512 => float WIDTH;
 512 => float HEIGHT;
 
+chugl gfx;
+
 gfx.openWindow(WIDTH, HEIGHT);
 
 while(true)
 {
+    gfx.lock();
     gfx.beginDraw();
     gfx.clear();
     
@@ -17,6 +20,7 @@ while(true)
     gfx.rect(-50, -50, 100, 100);
     
     gfx.endDraw();
+    gfx.unlock();
     
     (1.0/60.0)::second => now;
 }
