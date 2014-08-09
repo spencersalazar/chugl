@@ -218,6 +218,46 @@ CK_DLL_MFUN(chugl_rect)
     chgl->unlock();
 }
 
+CK_DLL_MFUN(chugl_line)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    t_CKFLOAT x1 = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y1 = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT x2 = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y2 = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->lock();
+    
+    glBegin(GL_LINES);
+    glVertex3f(x1, y1, 0);
+    glVertex3f(x2, y2, 0);
+    glEnd();
+    
+    chgl->unlock();
+}
+
+CK_DLL_MFUN(chugl_ellipse)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->lock();
+    
+    glBegin(GL_TRIANGLE_STRIP);
+    glVertex3f(x, y, 0);
+    glVertex3f(x+width, y, 0);
+    glVertex3f(x, y+height, 0);
+    glVertex3f(x+width, y+height, 0);
+    glEnd();
+    
+    chgl->unlock();
+}
+
 CK_DLL_MFUN(chugl_clear)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -279,6 +319,12 @@ CK_DLL_QUERY( chugl )
     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width");
     QUERY->add_arg(QUERY, "float", "height");
+    
+    QUERY->add_mfun(QUERY, chugl_line, "void", "line");
+    QUERY->add_arg(QUERY, "float", "x1");
+    QUERY->add_arg(QUERY, "float", "y1");
+    QUERY->add_arg(QUERY, "float", "x2");
+    QUERY->add_arg(QUERY, "float", "y2");
     
     // end the class definition
     // IMPORTANT: this MUST be called!
