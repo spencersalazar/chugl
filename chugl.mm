@@ -52,6 +52,31 @@ public:
         });
     }
     
+    void openFullscreen()
+    {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSRect mainDisplayRect = [[NSScreen mainScreen] frame];
+            
+            NSWindow *window = [[NSWindow alloc] initWithContentRect:mainDisplayRect
+                styleMask:NSBorderlessWindowMask
+                backing:NSBackingStoreBuffered
+                defer:YES];
+            
+            [window setLevel:NSMainMenuWindowLevel+1];
+            [window setOpaque:YES];
+            [window setHidesOnDeactivate:YES];
+            
+            [window makeKeyAndOrderFront:nil];
+            
+            NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+            [[window contentView] addSubview:glView];
+            
+            m_ctx = [glView openGLContext];
+            m_windowWidth = mainDisplayRect.size.width;
+            m_windowHeight = mainDisplayRect.size.height;
+        });
+    }
+    
     void lock()
     {
         if(!m_lock)
@@ -104,6 +129,39 @@ CK_DLL_DTOR(chugl_dtor)
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
 }
 
+// example of getter/setter
+CK_DLL_MFUN(chugl_openWindow)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->openWindow(x, y);
+}
+
+// example of getter/setter
+CK_DLL_MFUN(chugl_fullscreen)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    chgl->openFullscreen();
+}
+
+CK_DLL_MFUN(chugl_width)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_float = chgl->windowWidth();
+}
+
+CK_DLL_MFUN(chugl_height)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_float = chgl->windowHeight();
+}
+
 CK_DLL_MFUN(chugl_lock)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -114,17 +172,6 @@ CK_DLL_MFUN(chugl_unlock)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     chgl->unlock();
-}
-
-// example of getter/setter
-CK_DLL_MFUN(chugl_openWindow)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    
-    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
-    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
-    
-    chgl->openWindow(x, y);
 }
 
 CK_DLL_MFUN(chugl_beginDraw)
@@ -150,6 +197,21 @@ CK_DLL_MFUN(chugl_endDraw)
     chgl->lock();
     
     glFlush();
+    
+    chgl->unlock();
+}
+
+CK_DLL_MFUN(chugl_color3)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    t_CKFLOAT r = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT g = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT b = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->lock();
+    
+    glColor4f(r, g, b, 1.0);
     
     chgl->unlock();
 }
@@ -184,6 +246,20 @@ CK_DLL_MFUN(chugl_translate2)
     chgl->unlock();
 }
 
+CK_DLL_MFUN(chugl_scale2)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->lock();
+    
+    glScalef(x, y, 1);
+    
+    chgl->unlock();
+}
+
 CK_DLL_MFUN(chugl_rotateZ)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -193,6 +269,28 @@ CK_DLL_MFUN(chugl_rotateZ)
     chgl->lock();
     
     glRotatef(rad2deg(z), 0, 0, 1);
+    
+    chgl->unlock();
+}
+
+CK_DLL_MFUN(chugl_pushMatrix)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+        
+    chgl->lock();
+    
+    glPushMatrix();
+    
+    chgl->unlock();
+}
+
+CK_DLL_MFUN(chugl_popMatrix)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    chgl->lock();
+    
+    glPopMatrix();
     
     chgl->unlock();
 }
@@ -288,18 +386,25 @@ CK_DLL_QUERY( chugl )
     
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
     
-    QUERY->add_mfun(QUERY, chugl_lock, "void", "lock");
-    QUERY->add_mfun(QUERY, chugl_unlock, "void", "unlock");    
-    
     QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
     QUERY->add_arg(QUERY, "float", "height");
     
-    QUERY->add_mfun(QUERY, chugl_beginDraw, "void", "beginDraw");
+    QUERY->add_mfun(QUERY, chugl_fullscreen, "void", "fullscreen");
     
+    QUERY->add_mfun(QUERY, chugl_width, "float", "width");
+    QUERY->add_mfun(QUERY, chugl_height, "float", "height");
+    
+    QUERY->add_mfun(QUERY, chugl_lock, "void", "lock");
+    QUERY->add_mfun(QUERY, chugl_unlock, "void", "unlock");    
+    
+    QUERY->add_mfun(QUERY, chugl_beginDraw, "void", "beginDraw");
     QUERY->add_mfun(QUERY, chugl_endDraw, "void", "endDraw");
     
     QUERY->add_mfun(QUERY, chugl_clear, "void", "clear");
+    
+    QUERY->add_mfun(QUERY, chugl_pushMatrix, "void", "pushMatrix");
+    QUERY->add_mfun(QUERY, chugl_popMatrix, "void", "popMatrix");
     
     QUERY->add_mfun(QUERY, chugl_rotateZ, "void", "rotate");
     QUERY->add_arg(QUERY, "float", "z");
@@ -308,11 +413,20 @@ CK_DLL_QUERY( chugl )
     QUERY->add_arg(QUERY, "float", "x");
     QUERY->add_arg(QUERY, "float", "y");
     
+    QUERY->add_mfun(QUERY, chugl_scale2, "void", "scale");
+    QUERY->add_arg(QUERY, "float", "x");
+    QUERY->add_arg(QUERY, "float", "y");
+    
     QUERY->add_mfun(QUERY, chugl_color4, "void", "color");
     QUERY->add_arg(QUERY, "float", "r");
     QUERY->add_arg(QUERY, "float", "g");
     QUERY->add_arg(QUERY, "float", "b");
     QUERY->add_arg(QUERY, "float", "a");
+    
+    QUERY->add_mfun(QUERY, chugl_color3, "void", "color");
+    QUERY->add_arg(QUERY, "float", "r");
+    QUERY->add_arg(QUERY, "float", "g");
+    QUERY->add_arg(QUERY, "float", "b");
     
     QUERY->add_mfun(QUERY, chugl_rect, "void", "rect");
     QUERY->add_arg(QUERY, "float", "x");

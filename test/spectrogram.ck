@@ -2,7 +2,7 @@
 1::samp => now;
 
 adc => FFT fft => blackhole;
-4096 => fft.size;
+2048 => fft.size;
 Windowing.hamming(fft.size()/2) => fft.window;
 
 complex spec[fft.size()/2];
