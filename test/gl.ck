@@ -1,11 +1,9 @@
 
-1::samp => now;
-
 512 => float WIDTH;
 512 => float HEIGHT;
 
 chugl gfx;
-OpenGL gl;
+gfx.gl @=> OpenGL @ gl;
 
 gfx.openWindow(WIDTH, HEIGHT);
 

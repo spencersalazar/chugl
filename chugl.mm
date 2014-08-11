@@ -22,8 +22,10 @@
 -----------------------------------------------------------------------------*/
 
 // this should align with the correct versions of these ChucK files
-#include "chuck_dl.h"
-#include "chuck_def.h"
+#include "chugl.h"
+
+#include "chuck_type.h"
+#include "chuck_instr.h"
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
@@ -34,97 +36,111 @@
 #include <stdio.h>
 #include <limits.h>
 
+class chugl_osx : public chugl
+{
+public:
+    chugl_osx() : chugl(), m_ctx(nil) { }
+    virtual ~chugl_osx() { }
+    
+    void openWindow(float width, float height);
+    void openFullscreen();
+    
+    void lock();
+    void unlock();
+    
+private:
+    NSOpenGLContext *m_ctx;
+};
+
 
 extern t_CKBOOL OpenGL_query(Chuck_DL_Query *QUERY);
 
 
-class chugl
+chugl::chugl()
 {
-public:
+    m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
+    if(m_Chuck_UI_Manager_start != NULL)
+        m_Chuck_UI_Manager_start();
+    // else fuck it we'll do it live
+    // TODO: check if in miniAudicle; otherwise log warning
     
-    chugl()
-    {
-        m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
-        if(m_Chuck_UI_Manager_start != NULL)
-            m_Chuck_UI_Manager_start();
-        // else fuck it we'll do it live
-        // TODO: check if in miniAudicle; otherwise log warning
+    m_lock = false;
+    m_good = false;
+    m_windowWidth = m_windowHeight = 0;
+}
+
+chugl::~chugl()
+{
+}
+
+
+void chugl_osx::openWindow(float width, float height)
+{
+    m_windowWidth = width;
+    m_windowHeight = height;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
+            styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask
+            backing:NSBackingStoreBuffered
+            defer:NO];
+        [window center];
+        [window makeKeyAndOrderFront:nil];
         
-        m_lock = false;
-        m_windowWidth = m_windowHeight = 0;
-    }
-    
-    void openWindow(float width, float height)
-    {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
-                styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask
-                backing:NSBackingStoreBuffered
-                defer:NO];
-            [window center];
-            [window makeKeyAndOrderFront:nil];
-            
-            NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
-            [[window contentView] addSubview:glView];
-            
-            m_ctx = [glView openGLContext];
-            m_windowWidth = width;
-            m_windowHeight = height;
-        });
-    }
-    
-    void openFullscreen()
-    {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            NSRect mainDisplayRect = [[NSScreen mainScreen] frame];
-            
-            NSWindow *window = [[NSWindow alloc] initWithContentRect:mainDisplayRect
-                styleMask:NSBorderlessWindowMask
-                backing:NSBackingStoreBuffered
-                defer:YES];
-            
-            [window setLevel:NSMainMenuWindowLevel+1];
-            [window setOpaque:YES];
-            [window setHidesOnDeactivate:YES];
-            
-            [window makeKeyAndOrderFront:nil];
-            
-            NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
-            [[window contentView] addSubview:glView];
-            
-            m_ctx = [glView openGLContext];
-            m_windowWidth = mainDisplayRect.size.width;
-            m_windowHeight = mainDisplayRect.size.height;
-        });
-    }
-    
-    void lock()
-    {
-        if(!m_lock)
-        {
-            CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
-            [m_ctx makeCurrentContext];
-        }
+        NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        [[window contentView] addSubview:glView];
         
+        m_ctx = [glView openGLContext];
+        m_good = true;
+    });
+}
+
+void chugl_osx::openFullscreen()
+{
+    NSRect mainDisplayRect = [[NSScreen mainScreen] frame];
+    m_windowWidth = mainDisplayRect.size.width;
+    m_windowHeight = mainDisplayRect.size.height;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSWindow *window = [[NSWindow alloc] initWithContentRect:mainDisplayRect
+            styleMask:NSBorderlessWindowMask
+            backing:NSBackingStoreBuffered
+            defer:YES];
+        
+        [window setLevel:NSMainMenuWindowLevel+1];
+        [window setOpaque:YES];
+        [window setHidesOnDeactivate:YES];
+        
+        [window makeKeyAndOrderFront:nil];
+        
+        NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        [[window contentView] addSubview:glView];
+        
+        m_ctx = [glView openGLContext];
+        m_good = true;
+    });
+}
+
+void chugl_osx::lock()
+{
+    if(!m_lock && m_ctx != NULL)
+    {
+        CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
+        [m_ctx makeCurrentContext];
         m_lock = true;
-    }
-    
-    void unlock()
+    }        
+}
+
+void chugl_osx::unlock()
+{
+    if(m_lock && m_ctx != NULL)
     {
         CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
         m_lock = false;
     }
-    
-    t_CKFLOAT windowWidth() { return m_windowWidth; }
-    t_CKFLOAT windowHeight() { return m_windowHeight; }
-    
-private:
-    
-    void (*m_Chuck_UI_Manager_start)();
-    NSOpenGLContext *m_ctx;
-    bool m_lock;
-    t_CKFLOAT m_windowWidth, m_windowHeight;    
-};
+}
+
 
 
 template<typename T>
@@ -136,11 +152,26 @@ T rad2deg(T rad)
 
 
 t_CKINT chugl_offset_data = 0;
+t_CKINT chugl_offset_gl = 0;
+
+extern t_CKINT Chuck_OpenGL_offset_chugl;
 
 CK_DLL_CTOR(chugl_ctor)
 {
-    chugl *chgl = new chugl();
+    chugl *chgl = new chugl_osx();
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = (t_CKINT) chgl;
+    
+    Chuck_Env * env = Chuck_Env::instance();
+    a_Id_List list = new_id_list( "OpenGL", 0 ); // TODO: nested types
+    
+    Chuck_Type * type = type_engine_find_type( env, list );
+    
+    delete_id_list( list );
+    
+    Chuck_Object * gl = instantiate_and_initialize_object( type, NULL );
+    
+    OBJ_MEMBER_INT(gl, Chuck_OpenGL_offset_chugl) = (t_CKINT) chgl;
+    OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = gl;
 }
 
 CK_DLL_DTOR(chugl_dtor)
@@ -176,6 +207,13 @@ CK_DLL_MFUN(chugl_width)
     RETURN->v_float = chgl->windowWidth();
 }
 
+CK_DLL_MFUN(chugl_good)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_int = chgl->good();
+}
+
 CK_DLL_MFUN(chugl_height)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -186,18 +224,23 @@ CK_DLL_MFUN(chugl_height)
 CK_DLL_MFUN(chugl_lock)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
+    
     chgl->lock();
 }
 
 CK_DLL_MFUN(chugl_unlock)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
+    
     chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_beginDraw)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     chgl->lock();
     
@@ -216,6 +259,7 @@ CK_DLL_MFUN(chugl_beginDraw)
 CK_DLL_MFUN(chugl_endDraw)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     chgl->lock();
     
@@ -227,6 +271,7 @@ CK_DLL_MFUN(chugl_endDraw)
 CK_DLL_MFUN(chugl_color3)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT r = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT g = GET_NEXT_FLOAT(ARGS);
@@ -242,6 +287,7 @@ CK_DLL_MFUN(chugl_color3)
 CK_DLL_MFUN(chugl_color4)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT r = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT g = GET_NEXT_FLOAT(ARGS);
@@ -258,6 +304,7 @@ CK_DLL_MFUN(chugl_color4)
 CK_DLL_MFUN(chugl_translate2)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
@@ -272,6 +319,7 @@ CK_DLL_MFUN(chugl_translate2)
 CK_DLL_MFUN(chugl_scale2)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
@@ -286,6 +334,7 @@ CK_DLL_MFUN(chugl_scale2)
 CK_DLL_MFUN(chugl_rotateZ)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT z = GET_NEXT_FLOAT(ARGS);
     
@@ -299,7 +348,8 @@ CK_DLL_MFUN(chugl_rotateZ)
 CK_DLL_MFUN(chugl_pushMatrix)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-        
+    if(!chgl->good()) return;
+    
     chgl->lock();
     
     glPushMatrix();
@@ -310,6 +360,7 @@ CK_DLL_MFUN(chugl_pushMatrix)
 CK_DLL_MFUN(chugl_popMatrix)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     chgl->lock();
     
@@ -321,6 +372,7 @@ CK_DLL_MFUN(chugl_popMatrix)
 CK_DLL_MFUN(chugl_rect)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
@@ -342,6 +394,7 @@ CK_DLL_MFUN(chugl_rect)
 CK_DLL_MFUN(chugl_line)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT x1 = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y1 = GET_NEXT_FLOAT(ARGS);
@@ -361,6 +414,7 @@ CK_DLL_MFUN(chugl_line)
 CK_DLL_MFUN(chugl_ellipse)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
@@ -382,6 +436,7 @@ CK_DLL_MFUN(chugl_ellipse)
 CK_DLL_MFUN(chugl_clear)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
     
     chgl->lock();
     
@@ -400,6 +455,9 @@ CK_DLL_QUERY( chugl )
     // hmm, don't change this...
     QUERY->setname(QUERY, "chugl");
     
+    // add OpenGL
+    OpenGL_query(QUERY);
+    
     // begin the class definition
     // can change the second argument to extend a different ChucK class
     QUERY->begin_class(QUERY, "chugl", "Object");
@@ -408,6 +466,7 @@ CK_DLL_QUERY( chugl )
     QUERY->add_dtor(QUERY, chugl_dtor);
     
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
+    chugl_offset_gl = QUERY->add_mvar(QUERY, "OpenGL", "gl", FALSE);
     
     QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
@@ -417,6 +476,8 @@ CK_DLL_QUERY( chugl )
     
     QUERY->add_mfun(QUERY, chugl_width, "float", "width");
     QUERY->add_mfun(QUERY, chugl_height, "float", "height");
+    
+    QUERY->add_mfun(QUERY, chugl_good, "int", "good");
     
     QUERY->add_mfun(QUERY, chugl_lock, "void", "lock");
     QUERY->add_mfun(QUERY, chugl_unlock, "void", "unlock");    
@@ -466,9 +527,6 @@ CK_DLL_QUERY( chugl )
     // end the class definition
     // IMPORTANT: this MUST be called!
     QUERY->end_class(QUERY);
-
-    // add OpenGL
-    OpenGL_query(QUERY);
 
     // wasn't that a breeze?
     return TRUE;

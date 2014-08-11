@@ -60,6 +60,8 @@ ifneq (,$(strip $(filter linux-alsa,$(MAKECMDGOALS))))
 include makefile.linux
 endif
 
+FLAGS+=-I.
+
 ifneq ($(CHUCK_DEBUG),)
 FLAGS+= -g
 else
@@ -108,7 +110,7 @@ $(CXX_OBJECTS): %.o: %.cpp $(CK_SRC_PATH)/chuck_dl.h
 $(OBJCXX_OBJECTS): %.o: %.mm $(CK_SRC_PATH)/chuck_dl.h
 	$(OBJCXX) $(FLAGS) -c -o $@ $<
 
-OpenGL/chugl_opengl.cpp: 
+OpenGL/chugl_opengl.cpp: OpenGL/gl.xml OpenGL/ck.py OpenGL/genchugin.py
 	cd OpenGL; python genchugin.py
 
 install: $(CHUG)

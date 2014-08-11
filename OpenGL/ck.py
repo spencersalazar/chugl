@@ -49,6 +49,8 @@ chugin_template = """
   U.S.A.
 -----------------------------------------------------------------------------*/
 
+#include "chugl.h"
+
 #include "chuck_dl.h"
 #include "chuck_def.h"
 
@@ -64,6 +66,13 @@ chugin_template = """
 #include <limits.h>
 
 
+t_CKINT Chuck_OpenGL_offset_chugl = 0;
+
+CK_DLL_CTOR(Chuck_OpenGL_ctor)
+{{
+    OBJ_MEMBER_OBJECT(SELF, Chuck_OpenGL_offset_chugl) = NULL;
+}}
+
 {chugin_defines}
 
 {chugin_query}
@@ -74,6 +83,8 @@ chugin_template = """
     // begin the class definition
     // can change the second argument to extend a different ChucK class
     QUERY->begin_class(QUERY, "OpenGL", "Object");
+    
+    Chuck_OpenGL_offset_chugl = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
     
 {chugin_imports}
     
@@ -90,6 +101,9 @@ chugin_query_static="t_CKBOOL OpenGL_query(Chuck_DL_Query *QUERY)"
 define_mfun_template = """
 CK_DLL_MFUN(Chuck_OpenGL_{mfun_name})
 {{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
+    if(chgl == NULL || !chgl->good()) return;
+    
 {mfun_getargs}
     {mfun_return}{cfun_name}({mfun_args});
 }}

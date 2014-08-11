@@ -1,6 +1,4 @@
 
-1::samp => now;
-
 adc => FFT fft => blackhole;
 2048 => fft.size;
 Windowing.hamming(fft.size()/2) => fft.window;
