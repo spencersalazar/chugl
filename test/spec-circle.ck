@@ -33,10 +33,12 @@ while(true)
 
     for(int i; i < spec.size(); i++)
     {
+        float dbAmp;
+        
         gfx.pushMatrix();
         gfx.rotate(-(i$float)/spec.size()*pi);
         
-        20*Math.log10((spec[i]$polar).mag) => float dbAmp;
+        20*Math.log10((spec[i]$polar).mag) => dbAmp;
         Math.max(0, 110+dbAmp) => dbAmp;
         gfx.line(0, 0, 0, dbAmp*HEIGHT/100);
         

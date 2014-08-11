@@ -187,6 +187,8 @@ CK_DLL_MFUN(chugl_beginDraw)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
+    glEnable(GL_LINE_SMOOTH);
+    
     chgl->unlock();
 }
 
