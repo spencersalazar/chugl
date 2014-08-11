@@ -4,7 +4,7 @@ CHUGIN_NAME=chugl
 
 # all of the c/cpp files that compose this chugin
 C_MODULES=
-CXX_MODULES=
+CXX_MODULES=OpenGL/chugl_opengl.cpp
 OBJCXX_MODULES=chugl.mm
 
 # where the chuck headers are
@@ -108,11 +108,14 @@ $(CXX_OBJECTS): %.o: %.cpp $(CK_SRC_PATH)/chuck_dl.h
 $(OBJCXX_OBJECTS): %.o: %.mm $(CK_SRC_PATH)/chuck_dl.h
 	$(OBJCXX) $(FLAGS) -c -o $@ $<
 
+OpenGL/chugl_opengl.cpp: 
+	cd OpenGL; python genchugin.py
+
 install: $(CHUG)
 	mkdir -p $(CHUGIN_PATH)
 	cp $^ $(CHUGIN_PATH)
 	chmod 755 $(CHUGIN_PATH)/$(CHUG)
 
 clean: 
-	rm -rf $(OBJS) $(CHUG) Release Debug
+	rm -rf $(OBJS) $(CHUG) Release Debug OpenGL/chugl_opengl.cpp
 
