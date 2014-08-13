@@ -50,7 +50,17 @@ private:
 };
 
 
+@class CKOpenGLView;
+
 @interface CKOpenGLWindow : NSWindow
+{
+    CKOpenGLView *_openGLView;
+    BOOL _isFullscreen;
+    NSRect _windowedSize;
+}
+
+@property (retain, nonatomic) CKOpenGLView *openGLView;
+@property (nonatomic) BOOL isFullscreen;
 
 @end
 
@@ -72,14 +82,19 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
     
     dispatch_async(dispatch_get_main_queue(), ^{
         CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
-            styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask
+            styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
             backing:NSBackingStoreBuffered
             defer:NO];
         [window setTitle:@"chugl"];
         [window center];
+        [window setExcludedFromWindowsMenu:NO];
         
         CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        [glView setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
         [[window contentView] addSubview:glView];
+        window.openGLView = glView;
+        
+        window.isFullscreen = NO;
         
         [window makeKeyAndOrderFront:nil];
         
@@ -100,16 +115,15 @@ void chugl_osx::openFullscreen()
             styleMask:NSBorderlessWindowMask
             backing:NSBackingStoreBuffered
             defer:YES];
-        
-        [window setLevel:NSMainMenuWindowLevel+1];
-        [window setOpaque:YES];
-        [window setHidesOnDeactivate:YES];
-        [window setExcludedFromWindowsMenu:NO];
         [window setTitle:@"chugl"];
+        [window setExcludedFromWindowsMenu:NO];
         
         CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        [glView setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
         [[window contentView] addSubview:glView];
-        [window setInitialFirstResponder:glView];
+        window.openGLView = glView;
+        
+        window.isFullscreen = YES;
         
         [window makeKeyAndOrderFront:nil];
         
@@ -165,6 +179,73 @@ void chugl_osx::unlock()
 
 @implementation CKOpenGLWindow
 
+@synthesize openGLView = _openGLView;
+@synthesize isFullscreen = _isFullscreen;
+
+- (void)setIsFullscreen:(BOOL)fullscreen
+{
+    if(fullscreen != _isFullscreen)
+    {
+        _isFullscreen = fullscreen;
+        
+        if(fullscreen)
+        {
+            _windowedSize = [self frame];
+            
+            [self setStyleMask:NSBorderlessWindowMask];
+            NSRect screenRect = [[self screen] frame];
+            [self setFrame:screenRect display:YES];
+            
+            [self setLevel:NSMainMenuWindowLevel+1];
+            [self setOpaque:YES];
+            [self setHidesOnDeactivate:YES];
+        }
+        else
+        {
+            BOOL doCenter = NO;
+            if(_windowedSize.size.width == 0 && _windowedSize.size.height == 0)
+            {
+                NSRect frame = [self frame];
+                _windowedSize.size.width = frame.size.width*0.62;
+                _windowedSize.size.height = frame.size.height*0.62;
+                doCenter = YES;
+            }
+            
+            [self setStyleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask];
+            [self setFrame:_windowedSize display:YES];
+            if(doCenter) [self center];
+            
+            [self setLevel:NSNormalWindowLevel];
+            [self setHidesOnDeactivate:NO];
+        }
+        
+        [self makeKeyAndOrderFront:nil];
+        [self makeFirstResponder:self.openGLView];
+    }
+}
+
+- (id)initWithContentRect:(NSRect)contentRect
+    styleMask:(NSUInteger)windowStyle
+    backing:(NSBackingStoreType)bufferingType
+    defer:(BOOL)deferCreation
+{
+    if(self = [super initWithContentRect:contentRect
+        styleMask:windowStyle
+        backing:bufferingType
+        defer:deferCreation])
+    {
+        _windowedSize = NSMakeRect(0, 0, 0, 0);
+    }
+    
+    return self;
+}
+
+
+- (void)zoom:(id)sender
+{
+    self.isFullscreen = !self.isFullscreen;
+}
+
 - (BOOL)canBecomeKeyWindow
 {
     return YES;
@@ -200,7 +281,7 @@ void chugl_osx::unlock()
     else if([[theEvent charactersIgnoringModifiers] isEqualToString:@"\033"]) 
     {
         // ESC key
-        [[self window] orderOut:nil];
+        [[self window] zoom:nil];
     }
     else
     {
