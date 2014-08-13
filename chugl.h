@@ -21,6 +21,9 @@
   U.S.A.
 -----------------------------------------------------------------------------*/
 
+#ifndef CHUGL_H
+#define CHUGL_H
+
 #include "chuck_dl.h"
 #include "chuck_def.h"
 
@@ -49,4 +52,6 @@ protected:
     t_CKBOOL m_good;
     t_CKFLOAT m_windowWidth, m_windowHeight;
 };
+
+#endif // CHUGL_H
 

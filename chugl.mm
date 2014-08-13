@@ -21,8 +21,8 @@
   U.S.A.
 -----------------------------------------------------------------------------*/
 
-// this should align with the correct versions of these ChucK files
 #include "chugl.h"
+#include "OpenGL/chuck_opengl.h"
 
 #include "chuck_type.h"
 #include "chuck_instr.h"
@@ -225,7 +225,6 @@ void chugl_osx::unlock()
 }
 
 
-
 template<typename T>
 T rad2deg(T rad)
 {
@@ -233,11 +232,9 @@ T rad2deg(T rad)
 }
 
 
-
 t_CKINT chugl_offset_data = 0;
 t_CKINT chugl_offset_gl = 0;
 
-extern t_CKINT Chuck_OpenGL_offset_chugl;
 
 CK_DLL_CTOR(chugl_ctor)
 {
@@ -530,8 +527,6 @@ CK_DLL_MFUN(chugl_clear)
     chgl->unlock();
 }
 
-
-extern t_CKBOOL OpenGL_query(Chuck_DL_Query *QUERY);
 
 // query function: chuck calls this when loading the Chugin
 // NOTE: developer will need to modify this function to
