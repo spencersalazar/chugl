@@ -27,86 +27,17 @@
 #include "chuck_type.h"
 #include "chuck_instr.h"
 
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
+#ifdef __APPLE__
 #import <OpenGL/OpenGL.h>
-#import <dispatch/queue.h>
+#import <OpenGL/gl.h>
+#else
+#include <gl/gl.h>
+#endif // __APPLE__
 
 // general includes
 #include <stdio.h>
 #include <limits.h>
-
-class chugl_osx : public chugl
-{
-public:
-    chugl_osx() : chugl(), m_ctx(nil) { }
-    virtual ~chugl_osx() { }
-    
-    void openWindow(t_CKFLOAT width, t_CKFLOAT height);
-    void openFullscreen();
-    
-    void lock();
-    void unlock();
-    
-private:
-    NSOpenGLContext *m_ctx;
-};
-
-
-@interface CKOpenGLWindow : NSWindow
-
-@end
-
-@implementation CKOpenGLWindow
-
-- (BOOL)canBecomeKeyWindow
-{
-    return YES;
-}
-
-- (BOOL)canBecomeMainWindow
-{
-    return YES;
-}
-
-- (BOOL)acceptsFirstResponder
-{
-    return YES;
-}
-
-@end
-
-
-@interface CKOpenGLView : NSOpenGLView
-
-@end
-
-@implementation CKOpenGLView
-
-- (BOOL)acceptsFirstResponder
-{
-    return YES;
-}
-
-- (void)keyDown:(NSEvent *)theEvent
-{
-    if([[theEvent charactersIgnoringModifiers] isEqualToString:@"w"] &&
-       ([theEvent modifierFlags] & NSCommandKeyMask))
-    {
-        [[self window] close];
-    }
-    else if([[theEvent charactersIgnoringModifiers] isEqualToString:@"\033"]) 
-    {
-        // ESC key
-        [[self window] orderOut:nil];
-    }
-    else
-    {
-        [super keyDown:theEvent];
-    }
-}
-
-@end
+#include <math.h>
 
 
 chugl::chugl()
@@ -127,104 +58,6 @@ chugl::~chugl()
 }
 
 
-void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
-{
-    m_windowWidth = width;
-    m_windowHeight = height;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
-            styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask
-            backing:NSBackingStoreBuffered
-            defer:NO];
-        [window setTitle:@"chugl"];
-        [window center];
-        
-        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
-        [[window contentView] addSubview:glView];
-        
-        [window makeKeyAndOrderFront:nil];
-        
-        m_ctx = [glView openGLContext];
-        m_good = TRUE;
-    });
-}
-
-void chugl_osx::openFullscreen()
-{
-    NSRect mainDisplayRect = [[NSScreen mainScreen] frame];
-    m_windowWidth = mainDisplayRect.size.width;
-    m_windowHeight = mainDisplayRect.size.height;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:mainDisplayRect
-            styleMask:NSBorderlessWindowMask
-            backing:NSBackingStoreBuffered
-            defer:YES];
-        
-        [window setLevel:NSMainMenuWindowLevel+1];
-        [window setOpaque:YES];
-        [window setHidesOnDeactivate:YES];
-        [window setExcludedFromWindowsMenu:NO];
-        [window setTitle:@"chugl"];
-        
-        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
-        [[window contentView] addSubview:glView];
-        [window setInitialFirstResponder:glView];
-        
-        [window makeKeyAndOrderFront:nil];
-        
-        m_ctx = [glView openGLContext];
-        m_good = TRUE;
-    });
-}
-
-void chugl_osx::lock()
-{
-    //NSLog(@"chugl_osx::lock");
-    assert(m_lock >= 0);
-    
-    if(good())
-    {
-        if(m_lock > 0)
-        {
-            // already locked
-            //NSLog(@"lock++");
-            m_lock++;
-        }
-        else
-        {
-            //NSLog(@"lock");
-            CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
-            [m_ctx makeCurrentContext];
-            m_lock = 1;
-        }
-    }        
-}
-
-void chugl_osx::unlock()
-{
-    //NSLog(@"chugl_osx::unlock");
-    assert(m_lock >= 0);
-    
-    if(good())
-    {
-        if(m_lock > 0)
-        {
-            m_lock--;
-            //NSLog(@"lock--");
-            
-            if(m_lock == 0)
-            {
-                //NSLog(@"unlock");
-                CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
-            }
-        }
-    }
-}
-
-
 template<typename T>
 T rad2deg(T rad)
 {
@@ -238,7 +71,7 @@ t_CKINT chugl_offset_gl = 0;
 
 CK_DLL_CTOR(chugl_ctor)
 {
-    chugl *chgl = new chugl_osx();
+    chugl *chgl = chugl::platformMake();
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = (t_CKINT) chgl;
     
     Chuck_Env * env = Chuck_Env::instance();
@@ -612,6 +445,4 @@ CK_DLL_QUERY( chugl )
     // wasn't that a breeze?
     return TRUE;
 }
-
-
 

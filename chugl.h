@@ -31,9 +31,11 @@ class chugl
 {
 public:
     
+    static chugl *platformMake(); // defined by subclass
+    
     chugl();
     virtual ~chugl();
-    
+        
     t_CKBOOL good() const { return m_good; }
     
     virtual void openWindow(t_CKFLOAT width, t_CKFLOAT height) = 0;

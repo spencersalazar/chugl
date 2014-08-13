@@ -1,4 +1,6 @@
 
+OBJCXX_MODULES+=chugl_mac.mm
+
 ARCHS?=i386 x86_64
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 

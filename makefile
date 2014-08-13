@@ -4,8 +4,8 @@ CHUGIN_NAME=chugl
 
 # all of the c/cpp files that compose this chugin
 C_MODULES=
-CXX_MODULES=OpenGL/chugl_opengl.cpp
-OBJCXX_MODULES=chugl.mm
+CXX_MODULES=chugl.cpp OpenGL/chugl_opengl.cpp
+OBJCXX_MODULES=
 
 # where the chuck headers are
 CK_SRC_PATH?=../chuck/src/
