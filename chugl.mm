@@ -42,7 +42,7 @@ public:
     chugl_osx() : chugl(), m_ctx(nil) { }
     virtual ~chugl_osx() { }
     
-    void openWindow(float width, float height);
+    void openWindow(t_CKFLOAT width, t_CKFLOAT height);
     void openFullscreen();
     
     void lock();
@@ -53,7 +53,60 @@ private:
 };
 
 
-extern t_CKBOOL OpenGL_query(Chuck_DL_Query *QUERY);
+@interface CKOpenGLWindow : NSWindow
+
+@end
+
+@implementation CKOpenGLWindow
+
+- (BOOL)canBecomeKeyWindow
+{
+    return YES;
+}
+
+- (BOOL)canBecomeMainWindow
+{
+    return YES;
+}
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
+@end
+
+
+@interface CKOpenGLView : NSOpenGLView
+
+@end
+
+@implementation CKOpenGLView
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    if([[theEvent charactersIgnoringModifiers] isEqualToString:@"w"] &&
+       ([theEvent modifierFlags] & NSCommandKeyMask))
+    {
+        [[self window] close];
+    }
+    else if([[theEvent charactersIgnoringModifiers] isEqualToString:@"\033"]) 
+    {
+        // ESC key
+        [[self window] orderOut:nil];
+    }
+    else
+    {
+        [super keyDown:theEvent];
+    }
+}
+
+@end
 
 
 chugl::chugl()
@@ -64,8 +117,8 @@ chugl::chugl()
     // else fuck it we'll do it live
     // TODO: check if in miniAudicle; otherwise log warning
     
-    m_lock = false;
-    m_good = false;
+    m_lock = 0;
+    m_good = FALSE;
     m_windowWidth = m_windowHeight = 0;
 }
 
@@ -74,24 +127,26 @@ chugl::~chugl()
 }
 
 
-void chugl_osx::openWindow(float width, float height)
+void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
 {
     m_windowWidth = width;
     m_windowHeight = height;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
+        CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
             styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask
             backing:NSBackingStoreBuffered
             defer:NO];
+        [window setTitle:@"chugl"];
         [window center];
-        [window makeKeyAndOrderFront:nil];
         
-        NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
         [[window contentView] addSubview:glView];
         
+        [window makeKeyAndOrderFront:nil];
+        
         m_ctx = [glView openGLContext];
-        m_good = true;
+        m_good = TRUE;
     });
 }
 
@@ -103,7 +158,7 @@ void chugl_osx::openFullscreen()
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        NSWindow *window = [[NSWindow alloc] initWithContentRect:mainDisplayRect
+        CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:mainDisplayRect
             styleMask:NSBorderlessWindowMask
             backing:NSBackingStoreBuffered
             defer:YES];
@@ -111,33 +166,61 @@ void chugl_osx::openFullscreen()
         [window setLevel:NSMainMenuWindowLevel+1];
         [window setOpaque:YES];
         [window setHidesOnDeactivate:YES];
+        [window setExcludedFromWindowsMenu:NO];
+        [window setTitle:@"chugl"];
+        
+        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        [[window contentView] addSubview:glView];
+        [window setInitialFirstResponder:glView];
         
         [window makeKeyAndOrderFront:nil];
         
-        NSOpenGLView *glView = [[NSOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
-        [[window contentView] addSubview:glView];
-        
         m_ctx = [glView openGLContext];
-        m_good = true;
+        m_good = TRUE;
     });
 }
 
 void chugl_osx::lock()
 {
-    if(!m_lock && m_ctx != NULL)
+    //NSLog(@"chugl_osx::lock");
+    assert(m_lock >= 0);
+    
+    if(good())
     {
-        CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
-        [m_ctx makeCurrentContext];
-        m_lock = true;
+        if(m_lock > 0)
+        {
+            // already locked
+            //NSLog(@"lock++");
+            m_lock++;
+        }
+        else
+        {
+            //NSLog(@"lock");
+            CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
+            [m_ctx makeCurrentContext];
+            m_lock = 1;
+        }
     }        
 }
 
 void chugl_osx::unlock()
 {
-    if(m_lock && m_ctx != NULL)
+    //NSLog(@"chugl_osx::unlock");
+    assert(m_lock >= 0);
+    
+    if(good())
     {
-        CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
-        m_lock = false;
+        if(m_lock > 0)
+        {
+            m_lock--;
+            //NSLog(@"lock--");
+            
+            if(m_lock == 0)
+            {
+                //NSLog(@"unlock");
+                CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
+            }
+        }
     }
 }
 
@@ -224,7 +307,8 @@ CK_DLL_MFUN(chugl_height)
 CK_DLL_MFUN(chugl_lock)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    if(!chgl->good()) return;
+    t_CKBOOL good = chgl->good();
+    if(!good) return;
     
     chgl->lock();
 }
@@ -446,6 +530,8 @@ CK_DLL_MFUN(chugl_clear)
     chgl->unlock();
 }
 
+
+extern t_CKBOOL OpenGL_query(Chuck_DL_Query *QUERY);
 
 // query function: chuck calls this when loading the Chugin
 // NOTE: developer will need to modify this function to

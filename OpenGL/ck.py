@@ -86,6 +86,8 @@ CK_DLL_CTOR(Chuck_OpenGL_ctor)
     
     Chuck_OpenGL_offset_chugl = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
     
+    QUERY->add_ctor(QUERY, Chuck_OpenGL_ctor);
+    
 {chugin_imports}
     
     QUERY->end_class(QUERY);
@@ -102,7 +104,7 @@ define_mfun_template = """
 CK_DLL_MFUN(Chuck_OpenGL_{mfun_name})
 {{
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good()) return;
+    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
     
 {mfun_getargs}
     {mfun_return}{cfun_name}({mfun_args});

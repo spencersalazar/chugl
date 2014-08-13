@@ -31,21 +31,22 @@ public:
     chugl();
     virtual ~chugl();
     
-    bool good() const { return m_good; }
+    t_CKBOOL good() const { return m_good; }
     
-    virtual void openWindow(float width, float height) = 0;
+    virtual void openWindow(t_CKFLOAT width, t_CKFLOAT height) = 0;
     virtual void openFullscreen() = 0;
     
     virtual void lock() = 0;
     virtual void unlock() = 0;
+    t_CKBOOL locked() const { return m_lock > 0; }
     
     t_CKFLOAT windowWidth() const { return m_windowWidth; }
     t_CKFLOAT windowHeight() const { return m_windowHeight; }
     
 protected:
     void (*m_Chuck_UI_Manager_start)();
-    bool m_lock;
-    bool m_good;
-    t_CKFLOAT m_windowWidth, m_windowHeight;    
+    t_CKINT m_lock;
+    t_CKBOOL m_good;
+    t_CKFLOAT m_windowWidth, m_windowHeight;
 };
 
