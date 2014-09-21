@@ -130,7 +130,7 @@ es1CoreList = [
 allVersions     = allExtensions = '.*'
 noVersions      = noExtensions = None
 gl12andLaterPat = '1\.[2-9]|[234]\.[0-9]'
-belowgl3Pat = '1\.[0-9]|[2]\.[0-9]'
+belowgl3Pat = '(1|2)\.[0-9]'
 gles2onlyPat    = '2\.[0-9]'
 gles2and30Pat   = '2\.[0-9]|3.0'
 gles2and30and31Pat    = '2.[0-9]|3.[01]'

@@ -107,20 +107,56 @@ CK_DLL_MFUN(Chuck_OpenGL_{mfun_name})
     if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
     
 {mfun_getargs}
-    {mfun_return}{cfun_name}({mfun_args});
+    {mfun_call_and_return}
 }}
 
-""";
+"""
+
+int_arg_type = '    t_CKINT {arg_var} = GET_NEXT_INT(ARGS);\n'
+float_arg_type = '    t_CKFLOAT {arg_var} = GET_NEXT_FLOAT(ARGS);\n'
+int_array1_type = """    ChucK_Array4 * {arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);\n
+    {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];\n
+    t_CKUINT {arg_var}_tmp;
+    for(int i = 0; i < {arg_var}_arr->size(); i++) {{ {arg_var}->get(i, {arg_var}_tmp); {arg_var}[i] = {arg_var}_tmp; }}
+"""
 
 define_get_arg_type = {
-    'int': '    t_CKINT {arg_var} = GET_NEXT_INT(ARGS);\n',
-    'float': '    t_CKFLOAT {arg_var} = GET_NEXT_FLOAT(ARGS);\n',
+    'GLenum': int_arg_type,
+    'GLshort': int_arg_type,
+    'GLushort': int_arg_type,
+    'GLint': int_arg_type,
+    'GLuint': int_arg_type,
+    'GLsizei': int_arg_type,
+    'GLbitfield': int_arg_type,
+    'GLfloat': float_arg_type,
+    'GLdouble': float_arg_type,
+    'GLboolean': int_arg_type,
+    'GLbyte': int_arg_type,
+    'GLubyte': int_arg_type,
+    'constGLushort*': int_array1_type.format(arr_type='GLushort*', arg_var='{arg_var}'),
 }
 
-define_return_type = {
-    'void': '',
-    'int': 'RETURN->v_int = ',
-    'float': 'RETURN->v_float = ',
+void_call_and_return = '{func_call};'
+int_call_and_return = 'RETURN->v_int = {func_call};'
+float_call_and_return = 'RETURN->v_float = {func_call};'
+int_array1_call_and_return = """    
+"""
+
+define_call_and_return = {
+    'void': void_call_and_return,
+    'GLvoid': void_call_and_return,
+    'GLenum': int_call_and_return,
+    'GLshort': int_call_and_return,
+    'GLushort': int_call_and_return,
+    'GLint': int_call_and_return,
+    'GLuint': int_call_and_return,
+    'GLsizei': int_call_and_return,
+    'GLbitfield': int_call_and_return,
+    'GLfloat': float_call_and_return,
+    'GLdouble': float_call_and_return,
+    'GLboolean': int_call_and_return,
+    'GLbyte': int_call_and_return,
+    'GLubyte': int_call_and_return,
 }
 
 import_mfun_template = """    QUERY->add_mfun(QUERY, Chuck_OpenGL_{mfun_name}, "{return_type}", "{mfun_name}");
@@ -148,7 +184,21 @@ gltype2cktype = {
     'GLfloat': 'float',
     'GLdouble': 'float',
     'GLboolean': 'int',
+    'GLbyte': 'int',
     'GLubyte': 'int',
+    # 'constGLchar*const*': 'int[][]',
+    # 'constGLushort*': 'int[]',
+    # 'GLboolean*': 'int[]',
+    # 'GLubyte*': 'int[]',
+    # 'constGLbyte*': 'int[]',
+    # 'constGLint*': 'int[]',
+    # 'constvoid*': '@array',
+    # 'constGLsizei*': 'int[]',
+    # 'constGLuint*': 'int[]',
+    # '': '',
+    # '': '',
+    # '': '',
+    # '': '',
 }
 
 class ChuginOutputGenerator(OutputGenerator):
@@ -161,6 +211,8 @@ class ChuginOutputGenerator(OutputGenerator):
         # Internal state - accumulators for different inner block text
         self.defines = ''
         self.imports = ''
+        self.unknown_types = dict()
+        self.skipped = []
         
     #
     def beginFile(self, genOpts):
@@ -171,6 +223,16 @@ class ChuginOutputGenerator(OutputGenerator):
         self.outFile.write(code);
         # Finish processing in superclass
         OutputGenerator.endFile(self)
+        
+        print "skipped:"
+        for c in self.skipped:
+            # print "%s %s" % (t, self.unknown_types[t])
+            print "%s" % c
+        
+        print "unknown types:"
+        for t in self.unknown_types:
+            # print "%s %s" % (t, self.unknown_types[t])
+            print "%s" % t
     
     def beginFeature(self, interface, emit):
         # Start processing in superclass
@@ -199,9 +261,16 @@ class ChuginOutputGenerator(OutputGenerator):
         OutputGenerator.genCmd(self, cmdinfo, name)
         
         proto = cmdinfo.elem.find('proto')
-        if proto is None or proto.text is None:
+        if proto is None and proto.text is None and len(proto) == 0:
+            self.skipped.append(name)
             return
-        rtype = re.sub(r'\s', '', proto.text)
+        rtype = ''
+        proto_ptype = proto.find('ptype')
+        if proto_ptype is not None:
+            if proto_ptype.text is not None: rtype += proto_ptype.text
+            if proto_ptype.tail is not None: rtype += proto_ptype.tail
+        elif proto.text is not None: rtype += proto.text
+        rtype = re.sub(r'\s', '', rtype)
         cfun_name = proto.find('name').text
         name = re.sub(r'^gl', '', cfun_name)
         
@@ -221,26 +290,34 @@ class ChuginOutputGenerator(OutputGenerator):
                 param['type'] = re.sub('\s', '', xparam.text)
             params.append(param)
         
+        type_fail = False
         if rtype not in gltype2cktype:
-            print 'rtype not found: %s' % rtype
-            return
+            if rtype not in self.unknown_types: self.unknown_types[rtype] = []
+            self.unknown_types[rtype].append(name)
+            type_fail = True
         for param in params:
             if param['type'] not in gltype2cktype:
-                print 'param type not found: %s' % param['type']
-                return
+                if param['type'] not in self.unknown_types: self.unknown_types[param['type']] = []
+                self.unknown_types[param['type']].append(name)
+                type_fail = True
+        if type_fail:
+            self.skipped.append(cfun_name)
+            return
         
         getargs = ''
         callargs = []
         import_args = ''
         for param in params:
-            cktype = gltype2cktype[param['type']]
+            ptype = param['type']
+            cktype = gltype2cktype[ptype]
             arg_var = 'arg_' + param['name']
-            getargs += define_get_arg_type[cktype].format(arg_var=arg_var)
+            getargs += define_get_arg_type[ptype].format(arg_var=arg_var)
             callargs.append(arg_var)
             import_args += import_arg.format(arg_type=cktype, arg_name=param['name'])
         
+        call_and_return = define_call_and_return[rtype].format(func_call='%s(%s)' % (cfun_name, ', '.join(callargs)))
+        
         self.defines += define_mfun_template.format(mfun_name=name, 
-            mfun_getargs=getargs, mfun_return=define_return_type[gltype2cktype[rtype]], 
-            cfun_name=cfun_name, mfun_args=', '.join(callargs))
+            mfun_getargs=getargs, mfun_call_and_return=call_and_return)
         self.imports += import_mfun_template.format(mfun_name=name, return_type=gltype2cktype[rtype], import_args=import_args)
-
+        
