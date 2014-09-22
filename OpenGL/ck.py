@@ -53,6 +53,9 @@ chugin_template = """
 
 #include "chuck_dl.h"
 #include "chuck_def.h"
+#include "chuck_type.h"
+
+#include "boost/scoped_array.hpp"
 
 #ifdef __APPLE__
 #import <OpenGL/OpenGL.h>
@@ -64,6 +67,40 @@ chugin_template = """
 // general includes
 #include <stdio.h>
 #include <limits.h>
+
+
+template<typename T>
+void copy_ckarray4_to_array(T *array, Chuck_Array4 *ckarray)
+{{
+    t_CKUINT val;
+    for(int i = 0; i < ckarray->size(); i++)
+    {{
+        ckarray->get(i, &val);
+        array[i] = val;
+    }}
+}}
+
+template<typename T>
+void copy_ckarray8_to_array(T *array, Chuck_Array8 *ckarray)
+{{
+    t_CKFLOAT val;
+    for(int i = 0; i < ckarray->size(); i++)
+    {{
+        ckarray->get(i, &val);
+        array[i] = val;
+    }}
+}}
+
+template<typename T>
+void copy_array_to_ckarray4(T *array, Chuck_Array4 *ckarray)
+{{
+    t_CKINT val;
+    for(int i = 0; i < ckarray->size(); i++)
+    {{
+        val = array[i];
+        ckarray->set(i, val);
+    }}
+}}
 
 
 t_CKINT Chuck_OpenGL_offset_chugl = 0;
@@ -114,10 +151,36 @@ CK_DLL_MFUN(Chuck_OpenGL_{mfun_name})
 
 int_arg_type = '    t_CKINT {arg_var} = GET_NEXT_INT(ARGS);\n'
 float_arg_type = '    t_CKFLOAT {arg_var} = GET_NEXT_FLOAT(ARGS);\n'
-int_array1_type = """    ChucK_Array4 * {arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);\n
-    {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];\n
-    t_CKUINT {arg_var}_tmp;
-    for(int i = 0; i < {arg_var}_arr->size(); i++) {{ {arg_var}->get(i, {arg_var}_tmp); {arg_var}[i] = {arg_var}_tmp; }}
+int_array1_type = """    Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
+    {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
+    boost::scoped_array<{arr_type}> {arg_var}_scope({arg_var});
+    copy_ckarray4_to_array({arg_var}, {arg_var}_arr);
+"""
+float_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
+    {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
+    boost::scoped_array<{arr_type}> {arg_var}_scope({arg_var});
+    copy_ckarray8_to_array({arg_var}, {arg_var}_arr);
+"""
+void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
+    void *{arg_var};
+    boost::scoped_array<GLubyte> {arg_var}_ub_scope;
+    boost::scoped_array<GLfloat> {arg_var}_f_scope;
+    if(_{arg_var}_arr->m_array_type == &t_int)
+    {{{{
+        Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
+        GLubyte *{arg_var}_v = new GLubyte[{arg_var}_arr->size()];
+        {arg_var}_ub_scope.reset({arg_var}_v);
+        copy_ckarray4_to_array({arg_var}_v, {arg_var}_arr);
+        {arg_var} = (void *) {arg_var}_v;
+    }}}}
+    else if(_{arg_var}_arr->m_array_type == &t_float)
+    {{{{
+        Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) _{arg_var}_arr;
+        GLfloat *{arg_var}_v = new GLfloat[{arg_var}_arr->size()];
+        {arg_var}_f_scope.reset({arg_var}_v);
+        copy_ckarray8_to_array({arg_var}_v, {arg_var}_arr);
+        {arg_var} = (void *) {arg_var}_v;
+    }}}}
 """
 
 define_get_arg_type = {
@@ -133,7 +196,35 @@ define_get_arg_type = {
     'GLboolean': int_arg_type,
     'GLbyte': int_arg_type,
     'GLubyte': int_arg_type,
-    'constGLushort*': int_array1_type.format(arr_type='GLushort*', arg_var='{arg_var}'),
+    
+    'constGLushort*': int_array1_type.format(arr_type='GLushort', arg_var='{arg_var}'),
+    'GLushort*': int_array1_type.format(arr_type='GLushort', arg_var='{arg_var}'),
+    'constGLboolean*': int_array1_type.format(arr_type='GLboolean', arg_var='{arg_var}'),
+    'GLboolean*': int_array1_type.format(arr_type='GLboolean', arg_var='{arg_var}'),
+    'constGLbyte*': int_array1_type.format(arr_type='GLbyte', arg_var='{arg_var}'),
+    'GLbyte*': int_array1_type.format(arr_type='GLbyte', arg_var='{arg_var}'),
+    'constGLint*': int_array1_type.format(arr_type='GLint', arg_var='{arg_var}'),
+    'GLint*': int_array1_type.format(arr_type='GLint', arg_var='{arg_var}'),
+    'constGLsizei*': int_array1_type.format(arr_type='GLsizei', arg_var='{arg_var}'),
+    'GLsizei*': int_array1_type.format(arr_type='GLsizei', arg_var='{arg_var}'),
+    'constGLuint*': int_array1_type.format(arr_type='GLuint', arg_var='{arg_var}'),
+    'GLuint*': int_array1_type.format(arr_type='GLuint', arg_var='{arg_var}'),
+    'constGLenum*': int_array1_type.format(arr_type='GLenum', arg_var='{arg_var}'),
+    'GLenum*': int_array1_type.format(arr_type='GLenum', arg_var='{arg_var}'),
+    'constGLchar*': int_array1_type.format(arr_type='GLchar', arg_var='{arg_var}'),
+    'GLchar*': int_array1_type.format(arr_type='GLchar', arg_var='{arg_var}'),
+    'constGLubyte*': int_array1_type.format(arr_type='GLubyte', arg_var='{arg_var}'),
+    'GLubyte*': int_array1_type.format(arr_type='GLubyte', arg_var='{arg_var}'),
+    'constGLshort*': int_array1_type.format(arr_type='GLshort', arg_var='{arg_var}'),
+    'GLshort*': int_array1_type.format(arr_type='GLshort', arg_var='{arg_var}'),
+    
+    'constGLdouble*': float_array1_type.format(arr_type='GLdouble', arg_var='{arg_var}'),
+    'GLdouble*': float_array1_type.format(arr_type='GLdouble', arg_var='{arg_var}'),
+    'constGLfloat*': float_array1_type.format(arr_type='GLfloat', arg_var='{arg_var}'),
+    'GLfloat*': float_array1_type.format(arr_type='GLfloat', arg_var='{arg_var}'),
+    
+    'constvoid*': void_array1_type.format(arg_var='{arg_var}'),
+    'void*': void_array1_type.format(arg_var='{arg_var}'),
 }
 
 void_call_and_return = '{func_call};'
@@ -159,9 +250,9 @@ define_call_and_return = {
     'GLubyte': int_call_and_return,
 }
 
-import_mfun_template = """    QUERY->add_mfun(QUERY, Chuck_OpenGL_{mfun_name}, "{return_type}", "{mfun_name}");
+import_mfun_template = """
+    QUERY->add_mfun(QUERY, Chuck_OpenGL_{mfun_name}, "{return_type}", "{mfun_name}");
 {import_args}
-
 """;
 import_arg = """    QUERY->add_arg(QUERY, \"{arg_type}\", \"{arg_name}\");
 """;
@@ -186,19 +277,43 @@ gltype2cktype = {
     'GLboolean': 'int',
     'GLbyte': 'int',
     'GLubyte': 'int',
-    # 'constGLchar*const*': 'int[][]',
-    # 'constGLushort*': 'int[]',
-    # 'GLboolean*': 'int[]',
-    # 'GLubyte*': 'int[]',
-    # 'constGLbyte*': 'int[]',
-    # 'constGLint*': 'int[]',
-    # 'constvoid*': '@array',
-    # 'constGLsizei*': 'int[]',
-    # 'constGLuint*': 'int[]',
+    
+    'constGLushort*': 'int[]',
+    'GLushort*': 'int[]',
+    'constGLboolean*': 'int[]',
+    'GLboolean*': 'int[]',
+    'constGLubyte*': 'int[]',
+    'GLubyte*': 'int[]',
+    'constGLbyte*': 'int[]',
+    'GLbyte*': 'int[]',
+    'constGLint*': 'int[]',
+    'GLint*': 'int[]',
+    'constGLsizei*': 'int[]',
+    'GLsizei*': 'int[]',
+    'constGLuint*': 'int[]',
+    'GLuint*': 'int[]',
+    'constGLenum*': 'int[]',
+    'GLenum*': 'int[]',
+    'constGLchar*': 'int[]',
+    'GLchar*': 'int[]',
+    'constGLubyte*': 'int[]',
+    'GLubyte*': 'int[]',
+    'constGLshort*': 'int[]',
+    'GLshort*': 'int[]',
+    
+    'constGLchar*const*': 'int[][]',
+    'GLchar*const*': 'int[][]',
+    
+    'constGLdouble*': 'float[]',
+    'GLdouble*': 'float[]',
+    'constGLfloat*': 'float[]',
+    'GLfloat*': 'float[]',
+    
     # '': '',
     # '': '',
     # '': '',
-    # '': '',
+    'constvoid*': 'Object',
+    'void*': 'Object',
 }
 
 class ChuginOutputGenerator(OutputGenerator):
@@ -291,12 +406,12 @@ class ChuginOutputGenerator(OutputGenerator):
             params.append(param)
         
         type_fail = False
-        if rtype not in gltype2cktype:
+        if rtype not in define_call_and_return:
             if rtype not in self.unknown_types: self.unknown_types[rtype] = []
             self.unknown_types[rtype].append(name)
             type_fail = True
         for param in params:
-            if param['type'] not in gltype2cktype:
+            if param['type'] not in define_get_arg_type:
                 if param['type'] not in self.unknown_types: self.unknown_types[param['type']] = []
                 self.unknown_types[param['type']].append(name)
                 type_fail = True
