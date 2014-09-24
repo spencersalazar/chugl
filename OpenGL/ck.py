@@ -55,7 +55,7 @@ chugin_template = """
 #include "chuck_def.h"
 #include "chuck_type.h"
 
-#include "boost/scoped_array.hpp"
+#include "chugl_util.h"
 
 #ifdef __APPLE__
 #import <OpenGL/OpenGL.h>
@@ -67,41 +67,6 @@ chugin_template = """
 // general includes
 #include <stdio.h>
 #include <limits.h>
-
-
-template<typename T>
-void copy_ckarray4_to_array(T *array, Chuck_Array4 *ckarray)
-{{
-    t_CKUINT val;
-    for(int i = 0; i < ckarray->size(); i++)
-    {{
-        ckarray->get(i, &val);
-        array[i] = val;
-    }}
-}}
-
-template<typename T>
-void copy_ckarray8_to_array(T *array, Chuck_Array8 *ckarray)
-{{
-    t_CKFLOAT val;
-    for(int i = 0; i < ckarray->size(); i++)
-    {{
-        ckarray->get(i, &val);
-        array[i] = val;
-    }}
-}}
-
-template<typename T>
-void copy_array_to_ckarray4(T *array, Chuck_Array4 *ckarray)
-{{
-    t_CKINT val;
-    for(int i = 0; i < ckarray->size(); i++)
-    {{
-        val = array[i];
-        ckarray->set(i, val);
-    }}
-}}
-
 
 t_CKINT Chuck_OpenGL_offset_chugl = 0;
 
@@ -153,23 +118,21 @@ int_arg_type = '    t_CKINT {arg_var} = GET_NEXT_INT(ARGS);\n'
 float_arg_type = '    t_CKFLOAT {arg_var} = GET_NEXT_FLOAT(ARGS);\n'
 int_array1_type = """    Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
-    boost::scoped_array<{arr_type}> {arg_var}_scope({arg_var});
+    chgl->scheduleArrayForCleanup({arg_var});
     copy_ckarray4_to_array({arg_var}, {arg_var}_arr);
 """
 float_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
-    boost::scoped_array<{arr_type}> {arg_var}_scope({arg_var});
+    chgl->scheduleArrayForCleanup({arg_var});
     copy_ckarray8_to_array({arg_var}, {arg_var}_arr);
 """
 void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
     void *{arg_var};
-    boost::scoped_array<GLubyte> {arg_var}_ub_scope;
-    boost::scoped_array<GLfloat> {arg_var}_f_scope;
     if(_{arg_var}_arr->m_array_type == &t_int)
     {{{{
         Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
         GLubyte *{arg_var}_v = new GLubyte[{arg_var}_arr->size()];
-        {arg_var}_ub_scope.reset({arg_var}_v);
+        chgl->scheduleArrayForCleanup({arg_var}_v);
         copy_ckarray4_to_array({arg_var}_v, {arg_var}_arr);
         {arg_var} = (void *) {arg_var}_v;
     }}}}
@@ -177,7 +140,7 @@ void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT
     {{{{
         Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) _{arg_var}_arr;
         GLfloat *{arg_var}_v = new GLfloat[{arg_var}_arr->size()];
-        {arg_var}_f_scope.reset({arg_var}_v);
+        chgl->scheduleArrayForCleanup({arg_var}_v);
         copy_ckarray8_to_array({arg_var}_v, {arg_var}_arr);
         {arg_var} = (void *) {arg_var}_v;
     }}}}
@@ -309,9 +272,6 @@ gltype2cktype = {
     'constGLfloat*': 'float[]',
     'GLfloat*': 'float[]',
     
-    # '': '',
-    # '': '',
-    # '': '',
     'constvoid*': 'Object',
     'void*': 'Object',
 }

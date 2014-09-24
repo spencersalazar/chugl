@@ -101,6 +101,8 @@ else
 	ranlib $@
 endif
 
+OpenGL/chugl_opengl.o: chugl.h
+
 $(C_OBJECTS): %.o: %.c
 	$(CC) $(FLAGS) -c -o $@ $<
 

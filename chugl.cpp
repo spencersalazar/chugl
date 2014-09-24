@@ -57,6 +57,22 @@ chugl::~chugl()
 {
 }
 
+void chugl::cleanupArrayData()
+{
+    for(int i = 0; i < m_cleanupData.size(); i++)
+        delete m_cleanupData[i];
+    m_cleanupData.clear();
+}
+
+
+chugl_image::chugl_image()
+{
+    m_tex = 0;
+}
+
+chugl_image::~chugl_image()
+{
+}
 
 template<typename T>
 T rad2deg(T rad)
@@ -361,6 +377,52 @@ CK_DLL_MFUN(chugl_clear)
 }
 
 
+
+t_CKINT chuglImage_offset_data = 0;
+
+CK_DLL_CTOR(chuglImage_ctor)
+{
+    chugl_image *img = chugl_image::platformMake();
+    OBJ_MEMBER_INT(SELF, chuglImage_offset_data) = (t_CKINT) img;
+}
+
+CK_DLL_DTOR(chuglImage_dtor)
+{
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    if(img) delete img;
+    OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
+}
+
+CK_DLL_MFUN(chuglImage_load)
+{
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    RETURN->v_int = 0;
+    if(!img) return;
+    
+    Chuck_String *str = GET_NEXT_STRING(ARGS);
+    
+    RETURN->v_int = img->load(str->str);
+}
+
+CK_DLL_MFUN(chuglImage_unload)
+{
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    if(!img) return;
+    
+    img->unload();
+}
+
+CK_DLL_MFUN(chuglImage_tex)
+{
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    RETURN->v_int = 0;
+    if(!img) return;
+    
+    RETURN->v_int = img->tex();
+}
+
+
+
 // query function: chuck calls this when loading the Chugin
 // NOTE: developer will need to modify this function to
 // add additional functions to this Chugin
@@ -371,6 +433,24 @@ CK_DLL_QUERY( chugl )
     
     // add OpenGL
     OpenGL_query(QUERY);
+    
+    QUERY->begin_class(QUERY, "chuglImage", "Object");
+    
+    QUERY->add_ctor(QUERY, chuglImage_ctor);
+    QUERY->add_dtor(QUERY, chuglImage_dtor);
+    
+    chuglImage_offset_data = QUERY->add_mvar(QUERY, "int", "@chuglImage_data", FALSE);
+    
+    QUERY->add_mfun(QUERY, chuglImage_load, "int", "load");
+    QUERY->add_arg(QUERY, "string", "file");
+    
+    QUERY->add_mfun(QUERY, chuglImage_unload, "void", "unload");
+    
+    QUERY->add_mfun(QUERY, chuglImage_tex, "int", "tex");
+    
+    
+    QUERY->end_class(QUERY);
+    
     
     // begin the class definition
     // can change the second argument to extend a different ChucK class

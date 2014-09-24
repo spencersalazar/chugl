@@ -27,11 +27,55 @@
 #include "chuck_dl.h"
 #include "chuck_def.h"
 
+#ifdef __APPLE__
+#import <OpenGL/OpenGL.h>
+#import <OpenGL/gl.h>
+#else
+#include <gl/gl.h>
+#endif // __APPLE__
+
+#include <vector>
+
+using namespace std;
+
+
+/*-----------------------------------------------------------------------------
+ chugl_array_data_base
+ chugl_array_data
+
+ Used to store allocated vector data in between multiple calls to GL, e.g. for 
+ glVertexPointer, glTexCoordPointer, etc. Arrays stored in this way are deleted
+ every time the GL context is unlocked. 
+-----------------------------------------------------------------------------*/
+
+#include "boost/scoped_array.hpp"
+
+class chugl_array_data_base
+{
+public:
+    chugl_array_data_base() { }
+    virtual ~chugl_array_data_base() { }
+};
+
+template<typename T>
+class chugl_array_data : public chugl_array_data_base
+{
+public:
+    chugl_array_data(T *data = NULL) : m_data(data) { }
+    virtual ~chugl_array_data() { }
+    
+    void set(T *data) { m_data.reset(data); }
+    
+private:
+    boost::scoped_array<T> m_data;
+};
+
+
 class chugl
 {
 public:
     
-    static chugl *platformMake(); // defined by subclass
+    static chugl *platformMake(); // defined for subclass/platform
     
     chugl();
     virtual ~chugl();
@@ -48,12 +92,42 @@ public:
     t_CKFLOAT windowWidth() const { return m_windowWidth; }
     t_CKFLOAT windowHeight() const { return m_windowHeight; }
     
+    template<typename T>
+    void scheduleArrayForCleanup(T *data)
+    {
+        m_cleanupData.push_back(new chugl_array_data<T>(data));
+    }
+    
 protected:
+    void cleanupArrayData();
+    
     void (*m_Chuck_UI_Manager_start)();
     t_CKINT m_lock;
     t_CKBOOL m_good;
     t_CKFLOAT m_windowWidth, m_windowHeight;
+    
+    vector<chugl_array_data_base *> m_cleanupData;
 };
+
+
+class chugl_image
+{
+public:
+    static chugl_image *platformMake(); // defined for subclass/platform
+    
+    chugl_image();
+    virtual ~chugl_image();
+    
+    virtual t_CKBOOL load(const std::string &filepath) = 0;
+    virtual t_CKBOOL unload() = 0;
+    
+    GLuint tex() { return m_tex; }
+    
+protected:
+    
+    GLuint m_tex;
+};
+
 
 #endif // CHUGL_H
 

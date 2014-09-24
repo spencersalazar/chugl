@@ -27,6 +27,7 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 #import <OpenGL/OpenGL.h>
+#import <CoreGraphics/CoreGraphics.h>
 #import <dispatch/queue.h>
 
 // general includes
@@ -47,6 +48,19 @@ public:
     
 private:
     NSOpenGLContext *m_ctx;
+};
+
+
+class chugl_image_osx : public chugl_image
+{
+public:
+    chugl_image_osx();
+    virtual ~chugl_image_osx();
+
+    t_CKBOOL load(const std::string &filepath);
+    t_CKBOOL unload();
+
+    GLuint tex();
 };
 
 
@@ -171,6 +185,7 @@ void chugl_osx::unlock()
             {
                 //NSLog(@"unlock");
                 CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
+                cleanupArrayData();
             }
         }
     }
@@ -291,6 +306,100 @@ void chugl_osx::unlock()
 
 @end
 
+
+chugl_image *chugl_image::platformMake()
+{
+    return new chugl_image_osx;
+}
+
+chugl_image_osx::chugl_image_osx()
+{
+    
+}
+
+chugl_image_osx::~chugl_image_osx()
+{
+    unload();
+}
+
+bool has_extension(const std::string &filepath, const std::string &ext)
+{
+    return filepath.compare(filepath.size()-ext.size(), ext.size(), ext) == 0;
+}
+
+t_CKBOOL chugl_image_osx::load(const std::string &filepath)
+{
+    GLuint spriteTexture = 0;
+    CGImageRef spriteImage = NULL;
+    CGContextRef spriteContext = NULL;
+    CGDataProviderRef dataProvider = NULL;
+    GLubyte *spriteData = NULL;
+    size_t width, height;
+    
+    bool jpeg = false, png = false;
+    
+    if(has_extension(filepath, ".png")) png = true;
+    else if(has_extension(filepath, ".jpeg")) jpeg = true;
+    else if(has_extension(filepath, ".jpg")) jpeg = true;
+    
+    dataProvider = CGDataProviderCreateWithFilename(filepath.c_str());
+    
+    // Creates a Core Graphics image from an image file
+    if(dataProvider)
+    {
+        if(png)
+            spriteImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, true, kCGRenderingIntentDefault);
+        else if(jpeg)
+            spriteImage = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, true, kCGRenderingIntentDefault);
+    }
+    
+    // Texture dimensions must be a power of 2. If you write an application that allows users to supply an image,
+    // you'll want to add code that checks the dimensions and takes appropriate action if they are not a power of 2.
+    
+    if(spriteImage)
+    {
+        // Get the width and height of the image
+        width = CGImageGetWidth(spriteImage);
+        height = CGImageGetHeight(spriteImage);
+        // Allocated memory needed for the bitmap context
+        spriteData = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte));
+        // Uses the bitmap creation function provided by the Core Graphics framework. 
+        spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width * 4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+        // After you create the context, you can draw the sprite image to the context.
+        CGContextDrawImage(spriteContext, CGRectMake(0.0, 0.0, (CGFloat)width, (CGFloat)height), spriteImage);
+        // You don't need the context at this point, so you need to release it to avoid memory leaks.
+        CGContextRelease(spriteContext);
+
+        // Use OpenGL ES to generate a name for the texture.
+        glGenTextures(1, &spriteTexture);
+        // Bind the texture name. 
+        glBindTexture(GL_TEXTURE_2D, spriteTexture);
+        // Set the texture parameters to use a minifying filter and a linear filer (weighted average)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        // Specify a 2D texture image, providing the a pointer to the image data in memory
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+        // Release the image data
+        free(spriteData);
+    }
+    
+    m_tex = spriteTexture;    
+    
+    if(spriteImage != NULL) { CGImageRelease(spriteImage); spriteImage = NULL; }
+    if(dataProvider != NULL) { CGDataProviderRelease(dataProvider); dataProvider = NULL; }
+    
+    return m_tex != 0;
+}
+
+t_CKBOOL chugl_image_osx::unload()
+{
+    if(m_tex != 0)
+    {
+        glDeleteTextures(1, &m_tex);
+        m_tex = 0;
+    }
+    
+    return TRUE;
+}
 
 
 
