@@ -1,5 +1,4 @@
 // test OpenGL/chugl texture
-1::samp => now;
 
 512 => float WIDTH;
 512 => float HEIGHT;
