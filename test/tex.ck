@@ -1,4 +1,5 @@
 // test OpenGL/chugl texture
+1::samp => now;
 
 512 => float WIDTH;
 512 => float HEIGHT;
@@ -19,9 +20,6 @@ gfx.openWindow(WIDTH, HEIGHT);
  0.0, 1.0,
  1.0, 1.0]
 @=> float texcoord[];
-
-while(!gfx.good())
-    10::ms => now;
 
 chuglImage img;
 img.load(me.dir()+"hand.jpg");

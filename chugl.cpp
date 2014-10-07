@@ -51,9 +51,14 @@ chugl *chugl::mainChugl() { return s_mainChugl; }
 
 chugl::chugl()
 {
+    m_Chuck_UI_Manager_init = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_init");
+    if(m_Chuck_UI_Manager_init != NULL)
+        m_Chuck_UI_Manager_init();
+    
     m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
     if(m_Chuck_UI_Manager_start != NULL)
         m_Chuck_UI_Manager_start();
+    
     // else fuck it we'll do it live
     // TODO: check if in miniAudicle; otherwise log warning
     

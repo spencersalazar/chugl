@@ -94,7 +94,7 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
     m_windowWidth = width;
     m_windowHeight = height;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    void (^block)(void) = ^{
         CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:NSMakeRect(0, 0, width, height)
             styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
             backing:NSBackingStoreBuffered
@@ -114,7 +114,12 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         
         m_ctx = [glView openGLContext];
         m_good = TRUE;
-    });
+    };
+    
+    if(dispatch_get_current_queue() == dispatch_get_main_queue())
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
 }
 
 void chugl_osx::openFullscreen()
@@ -123,8 +128,7 @@ void chugl_osx::openFullscreen()
     m_windowWidth = mainDisplayRect.size.width;
     m_windowHeight = mainDisplayRect.size.height;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
+    void (^block)(void) = ^{
         CKOpenGLWindow *window = [[CKOpenGLWindow alloc] initWithContentRect:mainDisplayRect
             styleMask:NSBorderlessWindowMask
             backing:NSBackingStoreBuffered
@@ -143,7 +147,12 @@ void chugl_osx::openFullscreen()
         
         m_ctx = [glView openGLContext];
         m_good = TRUE;
-    });
+    };
+    
+    if(dispatch_get_current_queue() == dispatch_get_main_queue())
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
 }
 
 void chugl_osx::lock()

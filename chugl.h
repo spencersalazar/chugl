@@ -102,6 +102,7 @@ public:
 protected:
     void cleanupArrayData();
     
+    void (*m_Chuck_UI_Manager_init)();
     void (*m_Chuck_UI_Manager_start)();
     t_CKINT m_lock;
     t_CKBOOL m_good;
