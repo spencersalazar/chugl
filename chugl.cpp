@@ -22,7 +22,7 @@
 -----------------------------------------------------------------------------*/
 
 #include "chugl.h"
-#include "OpenGL/chuck_opengl.h"
+#include "chugl_opengl.h"
 
 #include "chuck_type.h"
 #include "chuck_instr.h"

@@ -50,6 +50,7 @@ chugin_template = """
 -----------------------------------------------------------------------------*/
 
 #include "chugl.h"
+#include "chugl_opengl.h"
 
 #include "chuck_dl.h"
 #include "chuck_def.h"

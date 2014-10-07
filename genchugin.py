@@ -42,8 +42,8 @@ timeit  = False
 validate= False
 # Default input / log files
 errFilename = None
-diagFilename = 'diag.txt'
-regFilename = 'gl.xml'
+diagFilename = 'OpenGL/diag.txt'
+regFilename = 'OpenGL/gl.xml'
 
 if __name__ == '__main__':
     i = 1

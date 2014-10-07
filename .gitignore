@@ -5,4 +5,4 @@ chugl.chug
 OpenGL/chugl_opengl.cpp
 OpenGL/diag.txt
 OpenGL/chugl_opengl.o
-OpenGL/ck.pyc
+*.pyc

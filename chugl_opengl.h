@@ -30,3 +30,4 @@ extern t_CKINT Chuck_OpenGL_offset_chugl;
 extern t_CKBOOL OpenGL_query(Chuck_DL_Query *QUERY);
 
 #endif // CHUCK_OPENGL_H
+
