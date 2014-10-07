@@ -12,3 +12,4 @@ LDFLAGS=-bundle -lstdc++ $(ARCHOPTS) $(addprefix -framework ,$(FRAMEWORKS)) -Obj
 
 LD=clang++
 CXX=clang++
+OBJCXX=clang++
