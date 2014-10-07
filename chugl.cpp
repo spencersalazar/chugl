@@ -40,6 +40,15 @@
 #include <math.h>
 
 
+/*----------------------------------------------------------------------------
+  class: chugl
+   desc: Primary high-level graphics interface for ChucK GL graphics. 
+-----------------------------------------------------------------------------*/
+
+chugl *chugl::s_mainChugl = NULL;
+
+chugl *chugl::mainChugl() { return s_mainChugl; }
+
 chugl::chugl()
 {
     m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
@@ -51,6 +60,9 @@ chugl::chugl()
     m_lock = 0;
     m_good = FALSE;
     m_windowWidth = m_windowHeight = 0;
+    
+    if(s_mainChugl == NULL)
+        s_mainChugl = this;
 }
 
 chugl::~chugl()
@@ -64,15 +76,6 @@ void chugl::cleanupArrayData()
     m_cleanupData.clear();
 }
 
-
-chugl_image::chugl_image()
-{
-    m_tex = 0;
-}
-
-chugl_image::~chugl_image()
-{
-}
 
 template<typename T>
 T rad2deg(T rad)
@@ -106,7 +109,7 @@ CK_DLL_CTOR(chugl_ctor)
 CK_DLL_DTOR(chugl_dtor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    if(chgl) delete chgl;
+    SAFE_DELETE(chgl);
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
 }
 
@@ -377,27 +380,61 @@ CK_DLL_MFUN(chugl_clear)
 }
 
 
+/*----------------------------------------------------------------------------
+  class: chuglImage
+   desc: ChucK GL image handling class
+-----------------------------------------------------------------------------*/
+
+chugl_image::chugl_image()
+{
+    m_tex = 0;
+}
+
+chugl_image::~chugl_image()
+{
+}
 
 t_CKINT chuglImage_offset_data = 0;
+t_CKINT chuglImage_offset_chugl = 0;
 
 CK_DLL_CTOR(chuglImage_ctor)
 {
-    chugl_image *img = chugl_image::platformMake();
+    chugl *chgl = chugl::mainChugl();
+    chugl_image *img = NULL;
+    
+    if(chgl && chgl->good())
+    {
+        chgl->lock();
+        
+        img = chugl_image::platformMake();
+        
+        chgl->unlock();
+    }
+    
     OBJ_MEMBER_INT(SELF, chuglImage_offset_data) = (t_CKINT) img;
+    OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl) = (t_CKINT) chgl;
 }
 
 CK_DLL_DTOR(chuglImage_dtor)
 {
     chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    if(img) delete img;
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    
+    if(chgl && chgl->good())
+    {
+        SAFE_DELETE(img);
+    }
+    // else just leak
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
 }
 
 CK_DLL_MFUN(chuglImage_load)
 {
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
     RETURN->v_int = 0;
-    if(!img) return;
+    
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
     
     Chuck_String *str = GET_NEXT_STRING(ARGS);
     
@@ -407,16 +444,19 @@ CK_DLL_MFUN(chuglImage_load)
 CK_DLL_MFUN(chuglImage_unload)
 {
     chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    if(!img) return;
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
     
     img->unload();
 }
 
 CK_DLL_MFUN(chuglImage_tex)
 {
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
     RETURN->v_int = 0;
-    if(!img) return;
+    
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
     
     RETURN->v_int = img->tex();
 }
@@ -440,6 +480,7 @@ CK_DLL_QUERY( chugl )
     QUERY->add_dtor(QUERY, chuglImage_dtor);
     
     chuglImage_offset_data = QUERY->add_mvar(QUERY, "int", "@chuglImage_data", FALSE);
+    chuglImage_offset_chugl = QUERY->add_mvar(QUERY, "int", "@chuglImage_chugl", FALSE);
     
     QUERY->add_mfun(QUERY, chuglImage_load, "int", "load");
     QUERY->add_arg(QUERY, "string", "file");

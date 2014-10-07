@@ -20,13 +20,11 @@ gfx.openWindow(WIDTH, HEIGHT);
  1.0, 1.0]
 @=> float texcoord[];
 
-chuglImage img;
-
 while(!gfx.good())
     10::ms => now;
-gfx.lock();
+
+chuglImage img;
 img.load(me.dir()+"hand.jpg");
-gfx.unlock();
 
 while(true)
 {

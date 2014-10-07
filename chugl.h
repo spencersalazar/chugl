@@ -76,6 +76,7 @@ class chugl
 public:
     
     static chugl *platformMake(); // defined for subclass/platform
+    static chugl *mainChugl();
     
     chugl();
     virtual ~chugl();
@@ -107,6 +108,9 @@ protected:
     t_CKFLOAT m_windowWidth, m_windowHeight;
     
     vector<chugl_array_data_base *> m_cleanupData;
+    
+private:
+    static chugl *s_mainChugl;
 };
 
 
