@@ -444,7 +444,11 @@ CK_DLL_MFUN(chuglImage_load)
     
     Chuck_String *str = GET_NEXT_STRING(ARGS);
     
+    chgl->lock();
+    
     RETURN->v_int = img->load(str->str);
+    
+    chgl->unlock();
 }
 
 CK_DLL_MFUN(chuglImage_unload)
@@ -453,7 +457,11 @@ CK_DLL_MFUN(chuglImage_unload)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
     if(!img || !chgl || !chgl->good()) return;
     
+    chgl->lock();
+    
     img->unload();
+    
+    chgl->unlock();
 }
 
 CK_DLL_MFUN(chuglImage_tex)
@@ -464,7 +472,11 @@ CK_DLL_MFUN(chuglImage_tex)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
     if(!img || !chgl || !chgl->good()) return;
     
+    chgl->lock();
+    
     RETURN->v_int = img->tex();
+    
+    chgl->unlock();
 }
 
 
@@ -649,7 +661,7 @@ CK_DLL_QUERY( chugl )
     
     QUERY->end_class(QUERY);
     
-        
+    
     /*** chugl ***/
     QUERY->begin_class(QUERY, "chugl", "Object");
     
@@ -742,6 +754,8 @@ CK_DLL_QUERY( chugl )
     QUERY->end_class(QUERY);
     
     
+    /*** curveExp ***/
+    
     QUERY->begin_class(QUERY, "curveExp", "curve");
     
     QUERY->add_ctor(QUERY, curveExp_ctor);
@@ -749,7 +763,7 @@ CK_DLL_QUERY( chugl )
     
     QUERY->end_class(QUERY);
     
-
+    
     // wasn't that a breeze?
     return TRUE;
 }
