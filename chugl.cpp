@@ -26,6 +26,7 @@
 
 #include "chuck_type.h"
 #include "chuck_instr.h"
+#include "chuck_vm.h"
 
 #ifdef __APPLE__
 #import <OpenGL/OpenGL.h>
@@ -467,6 +468,155 @@ CK_DLL_MFUN(chuglImage_tex)
 }
 
 
+/*----------------------------------------------------------------------------
+  class: curve
+   desc: ChucK GL animation curves
+-----------------------------------------------------------------------------*/
+
+class curve
+{
+public:
+    curve(t_CKFLOAT val, t_CKFLOAT t) :
+    m_val(val), m_target(val), m_last_t(t) { }
+    virtual ~curve() { }
+    
+    void interp(t_CKFLOAT t)
+    {
+        if(t > m_last_t)
+        {
+            internal_interp(t, t-m_last_t);
+            m_last_t = t;
+        }
+    }
+    
+    inline t_CKFLOAT getVal() { return m_val; }
+    inline void setVal(t_CKFLOAT val) { m_val = val; }
+    
+    inline t_CKFLOAT getTarget() { return m_target; }
+    inline void setTarget(t_CKFLOAT target) { m_target = target; }
+    
+protected:
+    
+    virtual void internal_interp(t_CKFLOAT t, t_CKFLOAT dt) = 0;
+    
+    t_CKFLOAT m_val, m_target;
+    t_CKDUR m_dur;
+    
+private:
+    t_CKFLOAT m_last_t;
+};
+
+class curveExp : public curve
+{
+public:
+    curveExp(t_CKFLOAT val, t_CKFLOAT t, t_CKFLOAT fs, t_CKFLOAT t40 = 1) :
+    curve(val, t), m_fs(fs)
+    {
+        this->setT40(t40);
+    }
+    
+    void setRate(t_CKFLOAT rate) { m_a1 = 1-rate; }
+    
+    void setT40(t_CKFLOAT t40)
+    {
+        t_CKFLOAT n40 = t40*m_fs;
+        m_a1 = pow(0.01, 1.0/n40);
+    }
+    
+protected:
+    virtual void internal_interp(t_CKFLOAT t, t_CKFLOAT dt)
+    {
+        t_CKFLOAT n = dt*m_fs;
+        t_CKFLOAT a1_n = pow(m_a1, n);
+        m_val = a1_n*m_val + (1-a1_n)*m_target;
+    }
+    
+    t_CKFLOAT m_fs, m_a1;
+};
+
+
+t_CKINT curve_offset_data = 0;
+
+CK_DLL_CTOR(curve_ctor)
+{
+    OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
+    
+    if(SELF->type_ref->name == "curve")
+    {
+        t_CKFLOAT fs = SHRED->vm_ref->srate();
+        t_CKFLOAT t = SHRED->vm_ref->shreduler()->now_system/fs;
+        
+        curve *c = new curveExp(0, t, fs);
+        OBJ_MEMBER_INT(SELF, curve_offset_data) = (t_CKINT) c;
+    }
+}
+
+CK_DLL_DTOR(curve_dtor)
+{
+    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+    SAFE_DELETE(c);
+    OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
+}
+
+CK_DLL_MFUN(curve_getTarget)
+{
+    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+        
+    RETURN->v_float = c->getTarget();
+}
+
+CK_DLL_MFUN(curve_setTarget)
+{
+    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+    
+    t_CKFLOAT target = GET_NEXT_FLOAT(ARGS);
+    
+    c->setTarget(target);
+    
+    RETURN->v_float = target;
+}
+
+CK_DLL_MFUN(curve_setVal)
+{
+    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+    
+    t_CKFLOAT val = GET_NEXT_FLOAT(ARGS);
+    
+    c->setVal(val);
+    
+    RETURN->v_float = val;
+}
+
+CK_DLL_MFUN(curve_getVal)
+{
+    t_CKFLOAT fs = SHRED->vm_ref->srate();
+    t_CKFLOAT t = SHRED->vm_ref->shreduler()->now_system/fs;
+    
+    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+    
+    c->interp(t);
+    
+    RETURN->v_float = c->getVal();
+}
+
+CK_DLL_CTOR(curveExp_ctor)
+{
+    t_CKFLOAT fs = SHRED->vm_ref->srate();
+    t_CKFLOAT t = SHRED->vm_ref->shreduler()->now_system/fs;
+    
+    curveExp *c = new curveExp(0, t, fs);
+    OBJ_MEMBER_INT(SELF, curve_offset_data) = (t_CKINT) c;
+}
+
+CK_DLL_DTOR(curveExp_dtor)
+{
+    curveExp *c = (curveExp *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+    SAFE_DELETE(c);
+    OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
+}
+
+
+
 
 // query function: chuck calls this when loading the Chugin
 // NOTE: developer will need to modify this function to
@@ -476,9 +626,12 @@ CK_DLL_QUERY( chugl )
     // hmm, don't change this...
     QUERY->setname(QUERY, "chugl");
     
-    // add OpenGL
+    
+    /*** OpenGL ***/
     OpenGL_query(QUERY);
     
+    
+    /*** chuglImage ***/
     QUERY->begin_class(QUERY, "chuglImage", "Object");
     
     QUERY->add_ctor(QUERY, chuglImage_ctor);
@@ -494,12 +647,10 @@ CK_DLL_QUERY( chugl )
     
     QUERY->add_mfun(QUERY, chuglImage_tex, "int", "tex");
     
-    
     QUERY->end_class(QUERY);
     
-    
-    // begin the class definition
-    // can change the second argument to extend a different ChucK class
+        
+    /*** chugl ***/
     QUERY->begin_class(QUERY, "chugl", "Object");
     
     QUERY->add_ctor(QUERY, chugl_ctor);
@@ -567,6 +718,37 @@ CK_DLL_QUERY( chugl )
     // end the class definition
     // IMPORTANT: this MUST be called!
     QUERY->end_class(QUERY);
+    
+    
+    /*** curve ***/
+    
+    QUERY->begin_class(QUERY, "curve", "Object");
+    
+    QUERY->add_ctor(QUERY, curve_ctor);
+    QUERY->add_dtor(QUERY, curve_dtor);
+    
+    curve_offset_data = QUERY->add_mvar(QUERY, "int", "@curve_data", FALSE);
+    
+    QUERY->add_mfun(QUERY, curve_getTarget, "float", "target");
+    
+    QUERY->add_mfun(QUERY, curve_setTarget, "float", "target");
+    QUERY->add_arg(QUERY, "float", "t");
+    
+    QUERY->add_mfun(QUERY, curve_setVal, "float", "val");
+    QUERY->add_arg(QUERY, "float", "v");
+    
+    QUERY->add_mfun(QUERY, curve_getVal, "float", "val");
+    
+    QUERY->end_class(QUERY);
+    
+    
+    QUERY->begin_class(QUERY, "curveExp", "curve");
+    
+    QUERY->add_ctor(QUERY, curveExp_ctor);
+    QUERY->add_dtor(QUERY, curveExp_dtor);
+    
+    QUERY->end_class(QUERY);
+    
 
     // wasn't that a breeze?
     return TRUE;
