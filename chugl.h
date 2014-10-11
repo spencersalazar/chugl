@@ -86,9 +86,12 @@ public:
     virtual void openWindow(t_CKFLOAT width, t_CKFLOAT height) = 0;
     virtual void openFullscreen() = 0;
     
-    virtual void lock() = 0;
-    virtual void unlock() = 0;
-    t_CKBOOL locked() const { return m_lock > 0; }
+    // virtual void lock() = 0;
+    // virtual void unlock() = 0;
+    // t_CKBOOL locked() const { return m_lock > 0; }
+    
+    void enter();
+    void exit();
     
     t_CKFLOAT windowWidth() const { return m_windowWidth; }
     t_CKFLOAT windowHeight() const { return m_windowHeight; }
@@ -102,9 +105,15 @@ public:
 protected:
     void cleanupArrayData();
     
+    virtual void platformEnter() = 0;
+    virtual void platformExit() = 0;
+    virtual t_CKBOOL isMainThread() = 0;
+    
     void (*m_Chuck_UI_Manager_init)();
     void (*m_Chuck_UI_Manager_start)();
     t_CKINT m_lock;
+    t_CKBOOL m_enter;
+    t_CKBOOL m_enterMainThread;
     t_CKBOOL m_good;
     t_CKFLOAT m_windowWidth, m_windowHeight;
     

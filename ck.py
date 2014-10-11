@@ -107,7 +107,9 @@ define_mfun_template = """
 CK_DLL_MFUN(Chuck_OpenGL_{mfun_name})
 {{
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 {mfun_getargs}
     {mfun_call_and_return}

@@ -101,7 +101,7 @@ else
 	ranlib $@
 endif
 
-OpenGL/chugl_opengl.o: chugl.h
+chugl_opengl.o: chugl.h
 
 $(C_OBJECTS): %.o: %.c
 	$(CC) $(FLAGS) -c -o $@ $<
@@ -112,7 +112,7 @@ $(CXX_OBJECTS): %.o: %.cpp $(CK_SRC_PATH)/chuck_dl.h
 $(OBJCXX_OBJECTS): %.o: %.mm $(CK_SRC_PATH)/chuck_dl.h
 	$(OBJCXX) $(FLAGS) -c -o $@ $<
 
-OpenGL/chugl_opengl.cpp: OpenGL/gl.xml ck.py genchugin.py
+chugl_opengl.cpp: OpenGL/gl.xml ck.py genchugin.py
 	PYTHONPATH="PYTHONPATH:OpenGL" python genchugin.py
 
 install: $(CHUG)
@@ -121,5 +121,5 @@ install: $(CHUG)
 	chmod 755 $(CHUGIN_PATH)/$(CHUG)
 
 clean: 
-	rm -rf $(OBJS) $(CHUG) Release Debug OpenGL/chugl_opengl.cpp
+	rm -rf $(OBJS) $(CHUG) Release Debug chugl_opengl.cpp
 

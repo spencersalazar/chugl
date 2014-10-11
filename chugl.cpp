@@ -42,6 +42,35 @@
 
 
 /*----------------------------------------------------------------------------
+  class: chuglHack
+   desc: ChucK GL hack ugen
+         Used to detect transition from code -> ugen processing in VM
+-----------------------------------------------------------------------------*/
+
+t_CKINT chuglHack_offset_chugl = 0;
+
+CK_DLL_CTOR(chuglHack_ctor)
+{
+    OBJ_MEMBER_INT(SELF, chuglHack_offset_chugl) = 0;
+}
+
+CK_DLL_DTOR(chuglHack_dtor)
+{
+    OBJ_MEMBER_INT(SELF, chuglHack_offset_chugl) = 0;
+}
+
+CK_DLL_TICK(chuglHack_tick)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglHack_offset_chugl);
+    
+    chgl->exit();
+    
+    *out = 0;
+    return TRUE;
+}
+
+
+/*----------------------------------------------------------------------------
   class: chugl
    desc: Primary high-level graphics interface for ChucK GL graphics. 
 -----------------------------------------------------------------------------*/
@@ -65,6 +94,7 @@ chugl::chugl()
     
     m_lock = 0;
     m_good = FALSE;
+    m_enter = FALSE;
     m_windowWidth = m_windowHeight = 0;
     
     if(s_mainChugl == NULL)
@@ -73,6 +103,60 @@ chugl::chugl()
 
 chugl::~chugl()
 {
+}
+
+void chugl::enter()
+{
+    if(!good())
+    {
+        EM_error3("chugl: warning! attempt to activate chugl when not fully initialized");
+        while(!good()) ;
+    }
+    
+    if(m_enterMainThread && !isMainThread())
+        m_enter = FALSE; // force re-entry
+    
+    if(!m_enter)
+    {
+        platformEnter();
+        
+        if(isMainThread()) m_enterMainThread = TRUE;
+        
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, windowWidth(), 0, windowHeight(), -0.1, 100);
+    
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+    
+        glEnable(GL_LINE_SMOOTH);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        m_enter = TRUE;
+    }
+}
+
+void chugl::exit()
+{
+    if(!good())
+    {
+        EM_error3("chugl: warning! attempt to deactivate chugl when not fully initialized");
+        while(!good()) ;
+    }
+    
+    if(m_enter)
+    {
+        if(m_enterMainThread)
+            platformEnter(); // re-enter on this thread
+        
+        glFlush();
+        
+        cleanupArrayData();
+        
+        platformExit();
+        
+        m_enter = FALSE;
+    }
 }
 
 void chugl::cleanupArrayData()
@@ -92,6 +176,7 @@ T rad2deg(T rad)
 
 t_CKINT chugl_offset_data = 0;
 t_CKINT chugl_offset_gl = 0;
+t_CKINT chugl_offset_hack = 0;
 
 
 CK_DLL_CTOR(chugl_ctor)
@@ -100,7 +185,9 @@ CK_DLL_CTOR(chugl_ctor)
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = (t_CKINT) chgl;
     
     Chuck_Env * env = Chuck_Env::instance();
-    a_Id_List list = new_id_list( "OpenGL", 0 ); // TODO: nested types
+    
+    // create OpenGL object
+    a_Id_List list = new_id_list( "OpenGL", 0 );
     
     Chuck_Type * type = type_engine_find_type( env, list );
     
@@ -110,6 +197,20 @@ CK_DLL_CTOR(chugl_ctor)
     
     OBJ_MEMBER_INT(gl, Chuck_OpenGL_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = gl;
+    
+    // create chuglHack object
+    a_Id_List hackList = new_id_list( "chuglHack", 0 );
+    
+    Chuck_Type * hackType = type_engine_find_type( env, hackList );
+    
+    delete_id_list( hackList );
+    
+    Chuck_UGen *hack = (Chuck_UGen *) instantiate_and_initialize_object( hackType, NULL );
+    
+    OBJ_MEMBER_INT(hack, chuglHack_offset_chugl) = (t_CKINT) chgl;
+    OBJ_MEMBER_INT(SELF, chugl_offset_hack) = (t_CKINT) hack;
+    
+    SHRED->vm_ref->m_bunghole->add(hack, FALSE);
 }
 
 CK_DLL_DTOR(chugl_dtor)
@@ -165,7 +266,7 @@ CK_DLL_MFUN(chugl_lock)
     t_CKBOOL good = chgl->good();
     if(!good) return;
     
-    chgl->lock();
+    // chgl->lock();
 }
 
 CK_DLL_MFUN(chugl_unlock)
@@ -173,7 +274,7 @@ CK_DLL_MFUN(chugl_unlock)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_beginDraw)
@@ -181,7 +282,7 @@ CK_DLL_MFUN(chugl_beginDraw)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -192,7 +293,7 @@ CK_DLL_MFUN(chugl_beginDraw)
     
     glEnable(GL_LINE_SMOOTH);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_endDraw)
@@ -200,11 +301,11 @@ CK_DLL_MFUN(chugl_endDraw)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glFlush();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_color3)
@@ -216,11 +317,11 @@ CK_DLL_MFUN(chugl_color3)
     t_CKFLOAT g = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT b = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glColor4f(r, g, b, 1.0);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_color4)
@@ -233,11 +334,11 @@ CK_DLL_MFUN(chugl_color4)
     t_CKFLOAT b = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT a = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glColor4f(r, g, b, a);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_translate2)
@@ -248,11 +349,11 @@ CK_DLL_MFUN(chugl_translate2)
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glTranslatef(x, y, 0);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_scale2)
@@ -263,11 +364,11 @@ CK_DLL_MFUN(chugl_scale2)
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glScalef(x, y, 1);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_rotateZ)
@@ -277,11 +378,11 @@ CK_DLL_MFUN(chugl_rotateZ)
     
     t_CKFLOAT z = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glRotatef(rad2deg(z), 0, 0, 1);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_pushMatrix)
@@ -289,11 +390,11 @@ CK_DLL_MFUN(chugl_pushMatrix)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glPushMatrix();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_popMatrix)
@@ -301,11 +402,11 @@ CK_DLL_MFUN(chugl_popMatrix)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glPopMatrix();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_rect)
@@ -318,7 +419,7 @@ CK_DLL_MFUN(chugl_rect)
     t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glBegin(GL_TRIANGLE_STRIP);
     glVertex3f(x, y, 0);
@@ -327,7 +428,7 @@ CK_DLL_MFUN(chugl_rect)
     glVertex3f(x+width, y+height, 0);
     glEnd();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_line)
@@ -340,14 +441,14 @@ CK_DLL_MFUN(chugl_line)
     t_CKFLOAT x2 = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT y2 = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glBegin(GL_LINES);
     glVertex3f(x1, y1, 0);
     glVertex3f(x2, y2, 0);
     glEnd();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_ellipse)
@@ -360,7 +461,7 @@ CK_DLL_MFUN(chugl_ellipse)
     t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glBegin(GL_TRIANGLE_STRIP);
     glVertex3f(x, y, 0);
@@ -369,7 +470,7 @@ CK_DLL_MFUN(chugl_ellipse)
     glVertex3f(x+width, y+height, 0);
     glEnd();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_clear)
@@ -377,12 +478,12 @@ CK_DLL_MFUN(chugl_clear)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 
@@ -410,11 +511,11 @@ CK_DLL_CTOR(chuglImage_ctor)
     
     if(chgl && chgl->good())
     {
-        chgl->lock();
+        chgl->enter(); // chgl->lock();
         
         img = chugl_image::platformMake();
         
-        chgl->unlock();
+        // chgl->unlock();
     }
     
     OBJ_MEMBER_INT(SELF, chuglImage_offset_data) = (t_CKINT) img;
@@ -444,11 +545,11 @@ CK_DLL_MFUN(chuglImage_load)
     
     Chuck_String *str = GET_NEXT_STRING(ARGS);
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     RETURN->v_int = img->load(str->str);
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chuglImage_unload)
@@ -457,11 +558,11 @@ CK_DLL_MFUN(chuglImage_unload)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
     if(!img || !chgl || !chgl->good()) return;
     
-    chgl->lock();
+    chgl->enter(); // chgl->lock();
     
     img->unload();
     
-    chgl->unlock();
+    // chgl->unlock();
 }
 
 CK_DLL_MFUN(chuglImage_tex)
@@ -472,11 +573,7 @@ CK_DLL_MFUN(chuglImage_tex)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
     if(!img || !chgl || !chgl->good()) return;
     
-    chgl->lock();
-    
     RETURN->v_int = img->tex();
-    
-    chgl->unlock();
 }
 
 
@@ -670,6 +767,7 @@ CK_DLL_QUERY( chugl )
     
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
     chugl_offset_gl = QUERY->add_mvar(QUERY, "OpenGL", "gl", FALSE);
+    chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
     
     QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
@@ -732,6 +830,20 @@ CK_DLL_QUERY( chugl )
     QUERY->end_class(QUERY);
     
     
+    /*** chuglHack ***/
+    
+    QUERY->begin_class(QUERY, "chuglHack", "UGen");
+    
+    chuglHack_offset_chugl = QUERY->add_mvar(QUERY, "int", "@chuglHack_chugl", FALSE);
+    
+    QUERY->add_ctor(QUERY, chuglHack_ctor);
+    QUERY->add_dtor(QUERY, chuglHack_dtor);
+    
+    QUERY->add_ugen_func(QUERY, chuglHack_tick, NULL, 0, 1);
+    
+    QUERY->end_class(QUERY);
+    
+    
     /*** curve ***/
     
     QUERY->begin_class(QUERY, "curve", "Object");
@@ -757,10 +869,10 @@ CK_DLL_QUERY( chugl )
     /*** curveExp ***/
     
     QUERY->begin_class(QUERY, "curveExp", "curve");
-    
+
     QUERY->add_ctor(QUERY, curveExp_ctor);
     QUERY->add_dtor(QUERY, curveExp_dtor);
-    
+
     QUERY->end_class(QUERY);
     
     

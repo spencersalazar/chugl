@@ -22,7 +22,7 @@
 -----------------------------------------------------------------------------*/
 
 #include "chugl.h"
-#include "OpenGL/chuck_opengl.h"
+#include "chugl_opengl.h"
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
@@ -43,11 +43,17 @@ public:
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);
     void openFullscreen();
     
-    void lock();
-    void unlock();
+    // void lock();
+    // void unlock();
+        
+protected:
+    virtual void platformEnter();
+    virtual void platformExit();
+    virtual t_CKBOOL isMainThread() { return dispatch_get_current_queue() == dispatch_get_main_queue(); }
     
 private:
     NSOpenGLContext *m_ctx;
+    
 };
 
 
@@ -116,7 +122,7 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         m_good = TRUE;
     };
     
-    if(dispatch_get_current_queue() == dispatch_get_main_queue())
+    if(isMainThread())
         block();
     else
         dispatch_sync(dispatch_get_main_queue(), block);
@@ -149,55 +155,80 @@ void chugl_osx::openFullscreen()
         m_good = TRUE;
     };
     
-    if(dispatch_get_current_queue() == dispatch_get_main_queue())
+    if(isMainThread())
         block();
     else
         dispatch_sync(dispatch_get_main_queue(), block);
 }
 
-void chugl_osx::lock()
+// void chugl_osx::lock()
+// {
+//     //NSLog(@"chugl_osx::lock");
+//     assert(m_lock >= 0);
+//
+//     if(good())
+//     {
+//         if(m_lock > 0)
+//         {
+//             // already locked
+//             //NSLog(@"lock++");
+//             m_lock++;
+//         }
+//         else
+//         {
+//             //NSLog(@"lock");
+//             CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
+//             [m_ctx makeCurrentContext];
+//             m_lock = 1;
+//         }
+//     }
+// }
+//
+// void chugl_osx::unlock()
+// {
+//     //NSLog(@"chugl_osx::unlock");
+//     assert(m_lock >= 0);
+//
+//     if(good())
+//     {
+//         if(m_lock > 0)
+//         {
+//             m_lock--;
+//             //NSLog(@"lock--");
+//
+//             if(m_lock == 0)
+//             {
+//                 //NSLog(@"unlock");
+//                 CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
+//                 cleanupArrayData();
+//             }
+//         }
+//     }
+// }
+
+void chugl_osx::platformEnter()
 {
-    //NSLog(@"chugl_osx::lock");
-    assert(m_lock >= 0);
-    
-    if(good())
+    if(m_enterMainThread && !isMainThread())
     {
-        if(m_lock > 0)
-        {
-            // already locked
-            //NSLog(@"lock++");
-            m_lock++;
-        }
-        else
-        {
-            //NSLog(@"lock");
-            CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
-            [m_ctx makeCurrentContext];
-            m_lock = 1;
-        }
-    }        
+        // exit on main thread
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            glFlush();
+            
+            platformExit();
+            
+            m_enterMainThread = FALSE;
+        });
+        
+    }
+        
+    CGLLockContext((CGLContextObj)[m_ctx CGLContextObj]);
+    [m_ctx makeCurrentContext];
 }
 
-void chugl_osx::unlock()
+void chugl_osx::platformExit()
 {
-    //NSLog(@"chugl_osx::unlock");
-    assert(m_lock >= 0);
-    
-    if(good())
-    {
-        if(m_lock > 0)
-        {
-            m_lock--;
-            //NSLog(@"lock--");
-            
-            if(m_lock == 0)
-            {
-                //NSLog(@"unlock");
-                CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
-                cleanupArrayData();
-            }
-        }
-    }
+    // NSLog(@"platform_exit");
+    CGLUnlockContext((CGLContextObj)[m_ctx CGLContextObj]);
 }
 
 

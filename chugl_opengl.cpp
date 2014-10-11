@@ -53,7 +53,9 @@ CK_DLL_CTOR(Chuck_OpenGL_ctor)
 CK_DLL_MFUN(Chuck_OpenGL_CullFace)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -64,7 +66,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CullFace)
 CK_DLL_MFUN(Chuck_OpenGL_FrontFace)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -75,7 +79,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FrontFace)
 CK_DLL_MFUN(Chuck_OpenGL_Hint)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
@@ -87,7 +93,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Hint)
 CK_DLL_MFUN(Chuck_OpenGL_LineWidth)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_width = GET_NEXT_FLOAT(ARGS);
 
@@ -98,7 +106,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LineWidth)
 CK_DLL_MFUN(Chuck_OpenGL_PointSize)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_size = GET_NEXT_FLOAT(ARGS);
 
@@ -109,7 +119,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PointSize)
 CK_DLL_MFUN(Chuck_OpenGL_PolygonMode)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
@@ -121,7 +133,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PolygonMode)
 CK_DLL_MFUN(Chuck_OpenGL_Scissor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -135,7 +149,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Scissor)
 CK_DLL_MFUN(Chuck_OpenGL_TexParameterf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -148,7 +164,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexParameterf)
 CK_DLL_MFUN(Chuck_OpenGL_TexParameterfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -164,7 +182,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexParameterfv)
 CK_DLL_MFUN(Chuck_OpenGL_TexParameteri)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -177,7 +197,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexParameteri)
 CK_DLL_MFUN(Chuck_OpenGL_TexParameteriv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -193,7 +215,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexParameteriv)
 CK_DLL_MFUN(Chuck_OpenGL_TexImage1D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -228,7 +252,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexImage1D)
 CK_DLL_MFUN(Chuck_OpenGL_TexImage2D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -264,7 +290,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexImage2D)
 CK_DLL_MFUN(Chuck_OpenGL_DrawBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_buf = GET_NEXT_INT(ARGS);
 
@@ -275,7 +303,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DrawBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_Clear)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mask = GET_NEXT_INT(ARGS);
 
@@ -286,7 +316,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Clear)
 CK_DLL_MFUN(Chuck_OpenGL_ClearColor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -300,7 +332,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClearColor)
 CK_DLL_MFUN(Chuck_OpenGL_ClearStencil)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
 
@@ -311,7 +345,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClearStencil)
 CK_DLL_MFUN(Chuck_OpenGL_ClearDepth)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_depth = GET_NEXT_FLOAT(ARGS);
 
@@ -322,7 +358,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClearDepth)
 CK_DLL_MFUN(Chuck_OpenGL_StencilMask)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mask = GET_NEXT_INT(ARGS);
 
@@ -333,7 +371,9 @@ CK_DLL_MFUN(Chuck_OpenGL_StencilMask)
 CK_DLL_MFUN(Chuck_OpenGL_ColorMask)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -347,7 +387,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ColorMask)
 CK_DLL_MFUN(Chuck_OpenGL_DepthMask)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_flag = GET_NEXT_INT(ARGS);
 
@@ -358,7 +400,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DepthMask)
 CK_DLL_MFUN(Chuck_OpenGL_Disable)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_cap = GET_NEXT_INT(ARGS);
 
@@ -369,7 +413,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Disable)
 CK_DLL_MFUN(Chuck_OpenGL_Enable)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_cap = GET_NEXT_INT(ARGS);
 
@@ -380,7 +426,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Enable)
 CK_DLL_MFUN(Chuck_OpenGL_Finish)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glFinish();
@@ -390,7 +438,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Finish)
 CK_DLL_MFUN(Chuck_OpenGL_Flush)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glFlush();
@@ -400,7 +450,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Flush)
 CK_DLL_MFUN(Chuck_OpenGL_BlendFunc)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_sfactor = GET_NEXT_INT(ARGS);
     t_CKINT arg_dfactor = GET_NEXT_INT(ARGS);
@@ -412,7 +464,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BlendFunc)
 CK_DLL_MFUN(Chuck_OpenGL_LogicOp)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_opcode = GET_NEXT_INT(ARGS);
 
@@ -423,7 +477,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LogicOp)
 CK_DLL_MFUN(Chuck_OpenGL_StencilFunc)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_func = GET_NEXT_INT(ARGS);
     t_CKINT arg_ref = GET_NEXT_INT(ARGS);
@@ -436,7 +492,9 @@ CK_DLL_MFUN(Chuck_OpenGL_StencilFunc)
 CK_DLL_MFUN(Chuck_OpenGL_StencilOp)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_fail = GET_NEXT_INT(ARGS);
     t_CKINT arg_zfail = GET_NEXT_INT(ARGS);
@@ -449,7 +507,9 @@ CK_DLL_MFUN(Chuck_OpenGL_StencilOp)
 CK_DLL_MFUN(Chuck_OpenGL_DepthFunc)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_func = GET_NEXT_INT(ARGS);
 
@@ -460,7 +520,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DepthFunc)
 CK_DLL_MFUN(Chuck_OpenGL_PixelStoref)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_param = GET_NEXT_FLOAT(ARGS);
@@ -472,7 +534,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelStoref)
 CK_DLL_MFUN(Chuck_OpenGL_PixelStorei)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKINT arg_param = GET_NEXT_INT(ARGS);
@@ -484,7 +548,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelStorei)
 CK_DLL_MFUN(Chuck_OpenGL_ReadBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_src = GET_NEXT_INT(ARGS);
 
@@ -495,7 +561,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ReadBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_ReadPixels)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -529,7 +597,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ReadPixels)
 CK_DLL_MFUN(Chuck_OpenGL_GetBooleanv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_data_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -544,7 +614,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetBooleanv)
 CK_DLL_MFUN(Chuck_OpenGL_GetDoublev)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_data_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -559,7 +631,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetDoublev)
 CK_DLL_MFUN(Chuck_OpenGL_GetError)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     RETURN->v_int = glGetError();
@@ -569,7 +643,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetError)
 CK_DLL_MFUN(Chuck_OpenGL_GetFloatv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_data_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -584,7 +660,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetFloatv)
 CK_DLL_MFUN(Chuck_OpenGL_GetIntegerv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_data_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -599,7 +677,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetIntegerv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexImage)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -631,7 +711,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexImage)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexParameterfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -647,7 +729,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexParameterfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexParameteriv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -663,7 +747,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexParameteriv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexLevelParameterfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -680,7 +766,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexLevelParameterfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexLevelParameteriv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -697,7 +785,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexLevelParameteriv)
 CK_DLL_MFUN(Chuck_OpenGL_IsEnabled)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_cap = GET_NEXT_INT(ARGS);
 
@@ -708,7 +798,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsEnabled)
 CK_DLL_MFUN(Chuck_OpenGL_DepthRange)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_near = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_far = GET_NEXT_FLOAT(ARGS);
@@ -720,7 +812,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DepthRange)
 CK_DLL_MFUN(Chuck_OpenGL_Viewport)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -734,7 +828,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Viewport)
 CK_DLL_MFUN(Chuck_OpenGL_NewList)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_list = GET_NEXT_INT(ARGS);
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
@@ -746,7 +842,9 @@ CK_DLL_MFUN(Chuck_OpenGL_NewList)
 CK_DLL_MFUN(Chuck_OpenGL_EndList)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glEndList();
@@ -756,7 +854,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EndList)
 CK_DLL_MFUN(Chuck_OpenGL_CallList)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_list = GET_NEXT_INT(ARGS);
 
@@ -767,7 +867,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CallList)
 CK_DLL_MFUN(Chuck_OpenGL_CallLists)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
@@ -797,7 +899,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CallLists)
 CK_DLL_MFUN(Chuck_OpenGL_DeleteLists)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_list = GET_NEXT_INT(ARGS);
     t_CKINT arg_range = GET_NEXT_INT(ARGS);
@@ -809,7 +913,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DeleteLists)
 CK_DLL_MFUN(Chuck_OpenGL_GenLists)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_range = GET_NEXT_INT(ARGS);
 
@@ -820,7 +926,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GenLists)
 CK_DLL_MFUN(Chuck_OpenGL_ListBase)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_base = GET_NEXT_INT(ARGS);
 
@@ -831,7 +939,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ListBase)
 CK_DLL_MFUN(Chuck_OpenGL_Begin)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -842,7 +952,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Begin)
 CK_DLL_MFUN(Chuck_OpenGL_Bitmap)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_width = GET_NEXT_INT(ARGS);
     t_CKINT arg_height = GET_NEXT_INT(ARGS);
@@ -862,7 +974,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Bitmap)
 CK_DLL_MFUN(Chuck_OpenGL_Color3b)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -875,7 +989,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3b)
 CK_DLL_MFUN(Chuck_OpenGL_Color3bv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLbyte *arg_v = new GLbyte[arg_v_arr->size()];
@@ -889,7 +1005,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3bv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -902,7 +1020,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3d)
 CK_DLL_MFUN(Chuck_OpenGL_Color3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -916,7 +1036,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3dv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -929,7 +1051,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3f)
 CK_DLL_MFUN(Chuck_OpenGL_Color3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -943,7 +1067,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3fv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -956,7 +1082,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3i)
 CK_DLL_MFUN(Chuck_OpenGL_Color3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -970,7 +1098,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3iv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -983,7 +1113,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3s)
 CK_DLL_MFUN(Chuck_OpenGL_Color3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -997,7 +1129,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3sv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3ub)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1010,7 +1144,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3ub)
 CK_DLL_MFUN(Chuck_OpenGL_Color3ubv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLubyte *arg_v = new GLubyte[arg_v_arr->size()];
@@ -1024,7 +1160,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3ubv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3ui)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1037,7 +1175,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3ui)
 CK_DLL_MFUN(Chuck_OpenGL_Color3uiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLuint *arg_v = new GLuint[arg_v_arr->size()];
@@ -1051,7 +1191,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3uiv)
 CK_DLL_MFUN(Chuck_OpenGL_Color3us)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1064,7 +1206,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3us)
 CK_DLL_MFUN(Chuck_OpenGL_Color3usv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLushort *arg_v = new GLushort[arg_v_arr->size()];
@@ -1078,7 +1222,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color3usv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4b)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1092,7 +1238,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4b)
 CK_DLL_MFUN(Chuck_OpenGL_Color4bv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLbyte *arg_v = new GLbyte[arg_v_arr->size()];
@@ -1106,7 +1254,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4bv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -1120,7 +1270,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4d)
 CK_DLL_MFUN(Chuck_OpenGL_Color4dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -1134,7 +1286,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4dv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -1148,7 +1302,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4f)
 CK_DLL_MFUN(Chuck_OpenGL_Color4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -1162,7 +1318,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4fv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1176,7 +1334,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4i)
 CK_DLL_MFUN(Chuck_OpenGL_Color4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -1190,7 +1350,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4iv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1204,7 +1366,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4s)
 CK_DLL_MFUN(Chuck_OpenGL_Color4sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -1218,7 +1382,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4sv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4ub)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1232,7 +1398,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4ub)
 CK_DLL_MFUN(Chuck_OpenGL_Color4ubv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLubyte *arg_v = new GLubyte[arg_v_arr->size()];
@@ -1246,7 +1414,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4ubv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4ui)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1260,7 +1430,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4ui)
 CK_DLL_MFUN(Chuck_OpenGL_Color4uiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLuint *arg_v = new GLuint[arg_v_arr->size()];
@@ -1274,7 +1446,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4uiv)
 CK_DLL_MFUN(Chuck_OpenGL_Color4us)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -1288,7 +1462,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4us)
 CK_DLL_MFUN(Chuck_OpenGL_Color4usv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLushort *arg_v = new GLushort[arg_v_arr->size()];
@@ -1302,7 +1478,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Color4usv)
 CK_DLL_MFUN(Chuck_OpenGL_EdgeFlag)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_flag = GET_NEXT_INT(ARGS);
 
@@ -1313,7 +1491,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EdgeFlag)
 CK_DLL_MFUN(Chuck_OpenGL_EdgeFlagv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_flag_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLboolean *arg_flag = new GLboolean[arg_flag_arr->size()];
@@ -1327,7 +1507,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EdgeFlagv)
 CK_DLL_MFUN(Chuck_OpenGL_End)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glEnd();
@@ -1337,7 +1519,9 @@ CK_DLL_MFUN(Chuck_OpenGL_End)
 CK_DLL_MFUN(Chuck_OpenGL_Indexd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_c = GET_NEXT_FLOAT(ARGS);
 
@@ -1348,7 +1532,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexd)
 CK_DLL_MFUN(Chuck_OpenGL_Indexdv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_c_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_c = new GLdouble[arg_c_arr->size()];
@@ -1362,7 +1548,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexdv)
 CK_DLL_MFUN(Chuck_OpenGL_Indexf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_c = GET_NEXT_FLOAT(ARGS);
 
@@ -1373,7 +1561,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexf)
 CK_DLL_MFUN(Chuck_OpenGL_Indexfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_c_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_c = new GLfloat[arg_c_arr->size()];
@@ -1387,7 +1577,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexfv)
 CK_DLL_MFUN(Chuck_OpenGL_Indexi)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_c = GET_NEXT_INT(ARGS);
 
@@ -1398,7 +1590,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexi)
 CK_DLL_MFUN(Chuck_OpenGL_Indexiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_c_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_c = new GLint[arg_c_arr->size()];
@@ -1412,7 +1606,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexiv)
 CK_DLL_MFUN(Chuck_OpenGL_Indexs)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_c = GET_NEXT_INT(ARGS);
 
@@ -1423,7 +1619,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexs)
 CK_DLL_MFUN(Chuck_OpenGL_Indexsv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_c_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_c = new GLshort[arg_c_arr->size()];
@@ -1437,7 +1635,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexsv)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3b)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_nx = GET_NEXT_INT(ARGS);
     t_CKINT arg_ny = GET_NEXT_INT(ARGS);
@@ -1450,7 +1650,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3b)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3bv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLbyte *arg_v = new GLbyte[arg_v_arr->size()];
@@ -1464,7 +1666,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3bv)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_nx = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_ny = GET_NEXT_FLOAT(ARGS);
@@ -1477,7 +1681,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3d)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -1491,7 +1697,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3dv)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_nx = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_ny = GET_NEXT_FLOAT(ARGS);
@@ -1504,7 +1712,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3f)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -1518,7 +1728,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3fv)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_nx = GET_NEXT_INT(ARGS);
     t_CKINT arg_ny = GET_NEXT_INT(ARGS);
@@ -1531,7 +1743,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3i)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -1545,7 +1759,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3iv)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_nx = GET_NEXT_INT(ARGS);
     t_CKINT arg_ny = GET_NEXT_INT(ARGS);
@@ -1558,7 +1774,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3s)
 CK_DLL_MFUN(Chuck_OpenGL_Normal3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -1572,7 +1790,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Normal3sv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -1584,7 +1804,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2d)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -1598,7 +1820,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2dv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -1610,7 +1834,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2f)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -1624,7 +1850,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2fv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -1636,7 +1864,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2i)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -1650,7 +1880,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2iv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -1662,7 +1894,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2s)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos2sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -1676,7 +1910,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos2sv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -1689,7 +1925,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3d)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -1703,7 +1941,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3dv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -1716,7 +1956,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3f)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -1730,7 +1972,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3fv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -1743,7 +1987,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3i)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -1757,7 +2003,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3iv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -1770,7 +2018,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3s)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -1784,7 +2034,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos3sv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -1798,7 +2050,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4d)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -1812,7 +2066,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4dv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -1826,7 +2082,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4f)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -1840,7 +2098,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4fv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -1854,7 +2114,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4i)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -1868,7 +2130,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4iv)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -1882,7 +2146,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4s)
 CK_DLL_MFUN(Chuck_OpenGL_RasterPos4sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -1896,7 +2162,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RasterPos4sv)
 CK_DLL_MFUN(Chuck_OpenGL_Rectd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x1 = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y1 = GET_NEXT_FLOAT(ARGS);
@@ -1910,7 +2178,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rectd)
 CK_DLL_MFUN(Chuck_OpenGL_Rectdv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v1_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v1 = new GLdouble[arg_v1_arr->size()];
@@ -1928,7 +2198,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rectdv)
 CK_DLL_MFUN(Chuck_OpenGL_Rectf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x1 = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y1 = GET_NEXT_FLOAT(ARGS);
@@ -1942,7 +2214,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rectf)
 CK_DLL_MFUN(Chuck_OpenGL_Rectfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v1_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v1 = new GLfloat[arg_v1_arr->size()];
@@ -1960,7 +2234,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rectfv)
 CK_DLL_MFUN(Chuck_OpenGL_Recti)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x1 = GET_NEXT_INT(ARGS);
     t_CKINT arg_y1 = GET_NEXT_INT(ARGS);
@@ -1974,7 +2250,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Recti)
 CK_DLL_MFUN(Chuck_OpenGL_Rectiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v1_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v1 = new GLint[arg_v1_arr->size()];
@@ -1992,7 +2270,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rectiv)
 CK_DLL_MFUN(Chuck_OpenGL_Rects)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x1 = GET_NEXT_INT(ARGS);
     t_CKINT arg_y1 = GET_NEXT_INT(ARGS);
@@ -2006,7 +2286,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rects)
 CK_DLL_MFUN(Chuck_OpenGL_Rectsv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v1_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v1 = new GLshort[arg_v1_arr->size()];
@@ -2024,7 +2306,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rectsv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
 
@@ -2035,7 +2319,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1d)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2049,7 +2335,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1dv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
 
@@ -2060,7 +2348,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1f)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2074,7 +2364,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1fv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
 
@@ -2085,7 +2377,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1i)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2099,7 +2393,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1iv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
 
@@ -2110,7 +2406,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1s)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord1sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2124,7 +2422,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord1sv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_t = GET_NEXT_FLOAT(ARGS);
@@ -2136,7 +2436,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2d)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2150,7 +2452,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2dv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_t = GET_NEXT_FLOAT(ARGS);
@@ -2162,7 +2466,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2f)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2176,7 +2482,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2fv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
     t_CKINT arg_t = GET_NEXT_INT(ARGS);
@@ -2188,7 +2496,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2i)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2202,7 +2512,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2iv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
     t_CKINT arg_t = GET_NEXT_INT(ARGS);
@@ -2214,7 +2526,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2s)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord2sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2228,7 +2542,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord2sv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_t = GET_NEXT_FLOAT(ARGS);
@@ -2241,7 +2557,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3d)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2255,7 +2573,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3dv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_t = GET_NEXT_FLOAT(ARGS);
@@ -2268,7 +2588,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3f)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2282,7 +2604,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3fv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
     t_CKINT arg_t = GET_NEXT_INT(ARGS);
@@ -2295,7 +2619,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3i)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2309,7 +2635,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3iv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
     t_CKINT arg_t = GET_NEXT_INT(ARGS);
@@ -2322,7 +2650,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3s)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2336,7 +2666,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord3sv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_t = GET_NEXT_FLOAT(ARGS);
@@ -2350,7 +2682,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4d)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2364,7 +2698,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4dv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_t = GET_NEXT_FLOAT(ARGS);
@@ -2378,7 +2714,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4f)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2392,7 +2730,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4fv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
     t_CKINT arg_t = GET_NEXT_INT(ARGS);
@@ -2406,7 +2746,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4i)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2420,7 +2762,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4iv)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
     t_CKINT arg_t = GET_NEXT_INT(ARGS);
@@ -2434,7 +2778,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4s)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoord4sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2448,7 +2794,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoord4sv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -2460,7 +2808,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2d)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2474,7 +2824,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2dv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -2486,7 +2838,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2f)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2500,7 +2854,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2fv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -2512,7 +2868,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2i)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2526,7 +2884,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2iv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -2538,7 +2898,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2s)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex2sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2552,7 +2914,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex2sv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -2565,7 +2929,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3d)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2579,7 +2945,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3dv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -2592,7 +2960,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3f)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2606,7 +2976,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3fv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -2619,7 +2991,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3i)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2633,7 +3007,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3iv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -2646,7 +3022,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3s)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2660,7 +3038,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex3sv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -2674,7 +3054,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4d)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -2688,7 +3070,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4dv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -2702,7 +3086,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4f)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -2716,7 +3102,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4fv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -2730,7 +3118,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4i)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -2744,7 +3134,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4iv)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -2758,7 +3150,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4s)
 CK_DLL_MFUN(Chuck_OpenGL_Vertex4sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -2772,7 +3166,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Vertex4sv)
 CK_DLL_MFUN(Chuck_OpenGL_ClipPlane)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_plane = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_equation_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -2787,7 +3183,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClipPlane)
 CK_DLL_MFUN(Chuck_OpenGL_ColorMaterial)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
@@ -2799,7 +3197,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ColorMaterial)
 CK_DLL_MFUN(Chuck_OpenGL_Fogf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_param = GET_NEXT_FLOAT(ARGS);
@@ -2811,7 +3211,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Fogf)
 CK_DLL_MFUN(Chuck_OpenGL_Fogfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_params_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -2826,7 +3228,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Fogfv)
 CK_DLL_MFUN(Chuck_OpenGL_Fogi)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKINT arg_param = GET_NEXT_INT(ARGS);
@@ -2838,7 +3242,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Fogi)
 CK_DLL_MFUN(Chuck_OpenGL_Fogiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_params_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -2853,7 +3259,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Fogiv)
 CK_DLL_MFUN(Chuck_OpenGL_Lightf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_light = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -2866,7 +3274,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Lightf)
 CK_DLL_MFUN(Chuck_OpenGL_Lightfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_light = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -2882,7 +3292,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Lightfv)
 CK_DLL_MFUN(Chuck_OpenGL_Lighti)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_light = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -2895,7 +3307,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Lighti)
 CK_DLL_MFUN(Chuck_OpenGL_Lightiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_light = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -2911,7 +3325,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Lightiv)
 CK_DLL_MFUN(Chuck_OpenGL_LightModelf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_param = GET_NEXT_FLOAT(ARGS);
@@ -2923,7 +3339,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LightModelf)
 CK_DLL_MFUN(Chuck_OpenGL_LightModelfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_params_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -2938,7 +3356,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LightModelfv)
 CK_DLL_MFUN(Chuck_OpenGL_LightModeli)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKINT arg_param = GET_NEXT_INT(ARGS);
@@ -2950,7 +3370,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LightModeli)
 CK_DLL_MFUN(Chuck_OpenGL_LightModeliv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_params_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -2965,7 +3387,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LightModeliv)
 CK_DLL_MFUN(Chuck_OpenGL_LineStipple)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_factor = GET_NEXT_INT(ARGS);
     t_CKINT arg_pattern = GET_NEXT_INT(ARGS);
@@ -2977,7 +3401,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LineStipple)
 CK_DLL_MFUN(Chuck_OpenGL_Materialf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -2990,7 +3416,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Materialf)
 CK_DLL_MFUN(Chuck_OpenGL_Materialfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3006,7 +3434,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Materialfv)
 CK_DLL_MFUN(Chuck_OpenGL_Materiali)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3019,7 +3449,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Materiali)
 CK_DLL_MFUN(Chuck_OpenGL_Materialiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3035,7 +3467,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Materialiv)
 CK_DLL_MFUN(Chuck_OpenGL_PolygonStipple)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_mask_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLubyte *arg_mask = new GLubyte[arg_mask_arr->size()];
@@ -3049,7 +3483,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PolygonStipple)
 CK_DLL_MFUN(Chuck_OpenGL_ShadeModel)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -3060,7 +3496,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ShadeModel)
 CK_DLL_MFUN(Chuck_OpenGL_TexEnvf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3073,7 +3511,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexEnvf)
 CK_DLL_MFUN(Chuck_OpenGL_TexEnvfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3089,7 +3529,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexEnvfv)
 CK_DLL_MFUN(Chuck_OpenGL_TexEnvi)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3102,7 +3544,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexEnvi)
 CK_DLL_MFUN(Chuck_OpenGL_TexEnviv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3118,7 +3562,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexEnviv)
 CK_DLL_MFUN(Chuck_OpenGL_TexGend)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3131,7 +3577,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexGend)
 CK_DLL_MFUN(Chuck_OpenGL_TexGendv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3147,7 +3595,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexGendv)
 CK_DLL_MFUN(Chuck_OpenGL_TexGenf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3160,7 +3610,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexGenf)
 CK_DLL_MFUN(Chuck_OpenGL_TexGenfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3176,7 +3628,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexGenfv)
 CK_DLL_MFUN(Chuck_OpenGL_TexGeni)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3189,7 +3643,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexGeni)
 CK_DLL_MFUN(Chuck_OpenGL_TexGeniv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3205,7 +3661,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexGeniv)
 CK_DLL_MFUN(Chuck_OpenGL_FeedbackBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
@@ -3221,7 +3679,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FeedbackBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_SelectBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_buffer_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -3236,7 +3696,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SelectBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_RenderMode)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -3247,7 +3709,9 @@ CK_DLL_MFUN(Chuck_OpenGL_RenderMode)
 CK_DLL_MFUN(Chuck_OpenGL_InitNames)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glInitNames();
@@ -3257,7 +3721,9 @@ CK_DLL_MFUN(Chuck_OpenGL_InitNames)
 CK_DLL_MFUN(Chuck_OpenGL_LoadName)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_name = GET_NEXT_INT(ARGS);
 
@@ -3268,7 +3734,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LoadName)
 CK_DLL_MFUN(Chuck_OpenGL_PassThrough)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_token = GET_NEXT_FLOAT(ARGS);
 
@@ -3279,7 +3747,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PassThrough)
 CK_DLL_MFUN(Chuck_OpenGL_PopName)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glPopName();
@@ -3289,7 +3759,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PopName)
 CK_DLL_MFUN(Chuck_OpenGL_PushName)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_name = GET_NEXT_INT(ARGS);
 
@@ -3300,7 +3772,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PushName)
 CK_DLL_MFUN(Chuck_OpenGL_ClearAccum)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -3314,7 +3788,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClearAccum)
 CK_DLL_MFUN(Chuck_OpenGL_ClearIndex)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_c = GET_NEXT_FLOAT(ARGS);
 
@@ -3325,7 +3801,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClearIndex)
 CK_DLL_MFUN(Chuck_OpenGL_IndexMask)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mask = GET_NEXT_INT(ARGS);
 
@@ -3336,7 +3814,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IndexMask)
 CK_DLL_MFUN(Chuck_OpenGL_Accum)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_op = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_value = GET_NEXT_FLOAT(ARGS);
@@ -3348,7 +3828,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Accum)
 CK_DLL_MFUN(Chuck_OpenGL_PopAttrib)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glPopAttrib();
@@ -3358,7 +3840,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PopAttrib)
 CK_DLL_MFUN(Chuck_OpenGL_PushAttrib)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mask = GET_NEXT_INT(ARGS);
 
@@ -3369,7 +3853,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PushAttrib)
 CK_DLL_MFUN(Chuck_OpenGL_Map1d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3388,7 +3874,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Map1d)
 CK_DLL_MFUN(Chuck_OpenGL_Map1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3407,7 +3895,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Map1f)
 CK_DLL_MFUN(Chuck_OpenGL_Map2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3430,7 +3920,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Map2d)
 CK_DLL_MFUN(Chuck_OpenGL_Map2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3453,7 +3945,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Map2f)
 CK_DLL_MFUN(Chuck_OpenGL_MapGrid1d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_un = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3466,7 +3960,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MapGrid1d)
 CK_DLL_MFUN(Chuck_OpenGL_MapGrid1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_un = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3479,7 +3975,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MapGrid1f)
 CK_DLL_MFUN(Chuck_OpenGL_MapGrid2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_un = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3495,7 +3993,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MapGrid2d)
 CK_DLL_MFUN(Chuck_OpenGL_MapGrid2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_un = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_u1 = GET_NEXT_FLOAT(ARGS);
@@ -3511,7 +4011,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MapGrid2f)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_u = GET_NEXT_FLOAT(ARGS);
 
@@ -3522,7 +4024,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1d)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_u_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_u = new GLdouble[arg_u_arr->size()];
@@ -3536,7 +4040,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1dv)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_u = GET_NEXT_FLOAT(ARGS);
 
@@ -3547,7 +4053,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1f)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_u_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_u = new GLfloat[arg_u_arr->size()];
@@ -3561,7 +4069,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord1fv)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_u = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_v = GET_NEXT_FLOAT(ARGS);
@@ -3573,7 +4083,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2d)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_u_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_u = new GLdouble[arg_u_arr->size()];
@@ -3587,7 +4099,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2dv)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_u = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_v = GET_NEXT_FLOAT(ARGS);
@@ -3599,7 +4113,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2f)
 CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_u_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_u = new GLfloat[arg_u_arr->size()];
@@ -3613,7 +4129,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalCoord2fv)
 CK_DLL_MFUN(Chuck_OpenGL_EvalMesh1)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
     t_CKINT arg_i1 = GET_NEXT_INT(ARGS);
@@ -3626,7 +4144,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalMesh1)
 CK_DLL_MFUN(Chuck_OpenGL_EvalPoint1)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_i = GET_NEXT_INT(ARGS);
 
@@ -3637,7 +4157,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalPoint1)
 CK_DLL_MFUN(Chuck_OpenGL_EvalMesh2)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
     t_CKINT arg_i1 = GET_NEXT_INT(ARGS);
@@ -3652,7 +4174,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalMesh2)
 CK_DLL_MFUN(Chuck_OpenGL_EvalPoint2)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_i = GET_NEXT_INT(ARGS);
     t_CKINT arg_j = GET_NEXT_INT(ARGS);
@@ -3664,7 +4188,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EvalPoint2)
 CK_DLL_MFUN(Chuck_OpenGL_AlphaFunc)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_func = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_ref = GET_NEXT_FLOAT(ARGS);
@@ -3676,7 +4202,9 @@ CK_DLL_MFUN(Chuck_OpenGL_AlphaFunc)
 CK_DLL_MFUN(Chuck_OpenGL_PixelZoom)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_xfactor = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_yfactor = GET_NEXT_FLOAT(ARGS);
@@ -3688,7 +4216,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelZoom)
 CK_DLL_MFUN(Chuck_OpenGL_PixelTransferf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_param = GET_NEXT_FLOAT(ARGS);
@@ -3700,7 +4230,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelTransferf)
 CK_DLL_MFUN(Chuck_OpenGL_PixelTransferi)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKINT arg_param = GET_NEXT_INT(ARGS);
@@ -3712,7 +4244,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelTransferi)
 CK_DLL_MFUN(Chuck_OpenGL_PixelMapfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_map = GET_NEXT_INT(ARGS);
     t_CKINT arg_mapsize = GET_NEXT_INT(ARGS);
@@ -3728,7 +4262,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelMapfv)
 CK_DLL_MFUN(Chuck_OpenGL_PixelMapuiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_map = GET_NEXT_INT(ARGS);
     t_CKINT arg_mapsize = GET_NEXT_INT(ARGS);
@@ -3744,7 +4280,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelMapuiv)
 CK_DLL_MFUN(Chuck_OpenGL_PixelMapusv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_map = GET_NEXT_INT(ARGS);
     t_CKINT arg_mapsize = GET_NEXT_INT(ARGS);
@@ -3760,7 +4298,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PixelMapusv)
 CK_DLL_MFUN(Chuck_OpenGL_CopyPixels)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -3775,7 +4315,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CopyPixels)
 CK_DLL_MFUN(Chuck_OpenGL_DrawPixels)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_width = GET_NEXT_INT(ARGS);
     t_CKINT arg_height = GET_NEXT_INT(ARGS);
@@ -3807,7 +4349,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DrawPixels)
 CK_DLL_MFUN(Chuck_OpenGL_GetClipPlane)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_plane = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_equation_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -3822,7 +4366,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetClipPlane)
 CK_DLL_MFUN(Chuck_OpenGL_GetLightfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_light = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3838,7 +4384,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetLightfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetLightiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_light = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3854,7 +4402,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetLightiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetMapdv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_query = GET_NEXT_INT(ARGS);
@@ -3870,7 +4420,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetMapdv)
 CK_DLL_MFUN(Chuck_OpenGL_GetMapfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_query = GET_NEXT_INT(ARGS);
@@ -3886,7 +4438,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetMapfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetMapiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_query = GET_NEXT_INT(ARGS);
@@ -3902,7 +4456,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetMapiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetMaterialfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3918,7 +4474,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetMaterialfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetMaterialiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -3934,7 +4492,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetMaterialiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetPixelMapfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_map = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_values_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -3949,7 +4509,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetPixelMapfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetPixelMapuiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_map = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_values_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -3964,7 +4526,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetPixelMapuiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetPixelMapusv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_map = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_values_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -3979,7 +4543,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetPixelMapusv)
 CK_DLL_MFUN(Chuck_OpenGL_GetPolygonStipple)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_mask_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLubyte *arg_mask = new GLubyte[arg_mask_arr->size()];
@@ -3993,7 +4559,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetPolygonStipple)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexEnvfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -4009,7 +4577,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexEnvfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexEnviv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -4025,7 +4595,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexEnviv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexGendv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -4041,7 +4613,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexGendv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexGenfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -4057,7 +4631,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexGenfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetTexGeniv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_coord = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -4073,7 +4649,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetTexGeniv)
 CK_DLL_MFUN(Chuck_OpenGL_IsList)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_list = GET_NEXT_INT(ARGS);
 
@@ -4084,7 +4662,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsList)
 CK_DLL_MFUN(Chuck_OpenGL_Frustum)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_left = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_right = GET_NEXT_FLOAT(ARGS);
@@ -4100,7 +4680,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Frustum)
 CK_DLL_MFUN(Chuck_OpenGL_LoadIdentity)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glLoadIdentity();
@@ -4110,7 +4692,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LoadIdentity)
 CK_DLL_MFUN(Chuck_OpenGL_LoadMatrixf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_m = new GLfloat[arg_m_arr->size()];
@@ -4124,7 +4708,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LoadMatrixf)
 CK_DLL_MFUN(Chuck_OpenGL_LoadMatrixd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_m = new GLdouble[arg_m_arr->size()];
@@ -4138,7 +4724,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LoadMatrixd)
 CK_DLL_MFUN(Chuck_OpenGL_MatrixMode)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -4149,7 +4737,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MatrixMode)
 CK_DLL_MFUN(Chuck_OpenGL_MultMatrixf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_m = new GLfloat[arg_m_arr->size()];
@@ -4163,7 +4753,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultMatrixf)
 CK_DLL_MFUN(Chuck_OpenGL_MultMatrixd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_m = new GLdouble[arg_m_arr->size()];
@@ -4177,7 +4769,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultMatrixd)
 CK_DLL_MFUN(Chuck_OpenGL_Ortho)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_left = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_right = GET_NEXT_FLOAT(ARGS);
@@ -4193,7 +4787,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Ortho)
 CK_DLL_MFUN(Chuck_OpenGL_PopMatrix)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glPopMatrix();
@@ -4203,7 +4799,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PopMatrix)
 CK_DLL_MFUN(Chuck_OpenGL_PushMatrix)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glPushMatrix();
@@ -4213,7 +4811,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PushMatrix)
 CK_DLL_MFUN(Chuck_OpenGL_Rotated)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_angle = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -4227,7 +4827,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rotated)
 CK_DLL_MFUN(Chuck_OpenGL_Rotatef)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_angle = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -4241,7 +4843,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Rotatef)
 CK_DLL_MFUN(Chuck_OpenGL_Scaled)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -4254,7 +4858,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Scaled)
 CK_DLL_MFUN(Chuck_OpenGL_Scalef)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -4267,7 +4873,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Scalef)
 CK_DLL_MFUN(Chuck_OpenGL_Translated)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -4280,7 +4888,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Translated)
 CK_DLL_MFUN(Chuck_OpenGL_Translatef)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -4821,7 +5431,9 @@ static const t_CKINT Chuck_OpenGL_LIGHT7 = GL_LIGHT7;
 CK_DLL_MFUN(Chuck_OpenGL_DrawArrays)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
     t_CKINT arg_first = GET_NEXT_INT(ARGS);
@@ -4834,7 +5446,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DrawArrays)
 CK_DLL_MFUN(Chuck_OpenGL_DrawElements)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -4865,7 +5479,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DrawElements)
 CK_DLL_MFUN(Chuck_OpenGL_PolygonOffset)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_factor = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_units = GET_NEXT_FLOAT(ARGS);
@@ -4877,7 +5493,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PolygonOffset)
 CK_DLL_MFUN(Chuck_OpenGL_CopyTexImage1D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -4894,7 +5512,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CopyTexImage1D)
 CK_DLL_MFUN(Chuck_OpenGL_CopyTexImage2D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -4912,7 +5532,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CopyTexImage2D)
 CK_DLL_MFUN(Chuck_OpenGL_CopyTexSubImage1D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -4928,7 +5550,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CopyTexSubImage1D)
 CK_DLL_MFUN(Chuck_OpenGL_CopyTexSubImage2D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -4946,7 +5570,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CopyTexSubImage2D)
 CK_DLL_MFUN(Chuck_OpenGL_TexSubImage1D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -4980,7 +5606,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexSubImage1D)
 CK_DLL_MFUN(Chuck_OpenGL_TexSubImage2D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5016,7 +5644,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexSubImage2D)
 CK_DLL_MFUN(Chuck_OpenGL_BindTexture)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_texture = GET_NEXT_INT(ARGS);
@@ -5028,7 +5658,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BindTexture)
 CK_DLL_MFUN(Chuck_OpenGL_DeleteTextures)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_textures_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -5043,7 +5675,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DeleteTextures)
 CK_DLL_MFUN(Chuck_OpenGL_GenTextures)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_textures_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -5058,7 +5692,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GenTextures)
 CK_DLL_MFUN(Chuck_OpenGL_IsTexture)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_texture = GET_NEXT_INT(ARGS);
 
@@ -5069,7 +5705,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsTexture)
 CK_DLL_MFUN(Chuck_OpenGL_ArrayElement)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_i = GET_NEXT_INT(ARGS);
 
@@ -5080,7 +5718,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ArrayElement)
 CK_DLL_MFUN(Chuck_OpenGL_ColorPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
@@ -5111,7 +5751,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ColorPointer)
 CK_DLL_MFUN(Chuck_OpenGL_DisableClientState)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_array = GET_NEXT_INT(ARGS);
 
@@ -5122,7 +5764,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DisableClientState)
 CK_DLL_MFUN(Chuck_OpenGL_EdgeFlagPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_stride = GET_NEXT_INT(ARGS);
     Chuck_Array *_arg_pointer_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
@@ -5151,7 +5795,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EdgeFlagPointer)
 CK_DLL_MFUN(Chuck_OpenGL_EnableClientState)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_array = GET_NEXT_INT(ARGS);
 
@@ -5162,7 +5808,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EnableClientState)
 CK_DLL_MFUN(Chuck_OpenGL_IndexPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
     t_CKINT arg_stride = GET_NEXT_INT(ARGS);
@@ -5192,7 +5840,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IndexPointer)
 CK_DLL_MFUN(Chuck_OpenGL_InterleavedArrays)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_format = GET_NEXT_INT(ARGS);
     t_CKINT arg_stride = GET_NEXT_INT(ARGS);
@@ -5222,7 +5872,9 @@ CK_DLL_MFUN(Chuck_OpenGL_InterleavedArrays)
 CK_DLL_MFUN(Chuck_OpenGL_NormalPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
     t_CKINT arg_stride = GET_NEXT_INT(ARGS);
@@ -5252,7 +5904,9 @@ CK_DLL_MFUN(Chuck_OpenGL_NormalPointer)
 CK_DLL_MFUN(Chuck_OpenGL_TexCoordPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
@@ -5283,7 +5937,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexCoordPointer)
 CK_DLL_MFUN(Chuck_OpenGL_VertexPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
@@ -5314,7 +5970,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexPointer)
 CK_DLL_MFUN(Chuck_OpenGL_AreTexturesResident)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_textures_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -5333,7 +5991,9 @@ CK_DLL_MFUN(Chuck_OpenGL_AreTexturesResident)
 CK_DLL_MFUN(Chuck_OpenGL_PrioritizeTextures)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_textures_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -5352,7 +6012,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PrioritizeTextures)
 CK_DLL_MFUN(Chuck_OpenGL_Indexub)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_c = GET_NEXT_INT(ARGS);
 
@@ -5363,7 +6025,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexub)
 CK_DLL_MFUN(Chuck_OpenGL_Indexubv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_c_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLubyte *arg_c = new GLubyte[arg_c_arr->size()];
@@ -5377,7 +6041,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Indexubv)
 CK_DLL_MFUN(Chuck_OpenGL_PopClientAttrib)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     glPopClientAttrib();
@@ -5387,7 +6053,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PopClientAttrib)
 CK_DLL_MFUN(Chuck_OpenGL_PushClientAttrib)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mask = GET_NEXT_INT(ARGS);
 
@@ -5439,7 +6107,9 @@ static const t_CKINT Chuck_OpenGL_ALIASED_POINT_SIZE_RANGE = GL_ALIASED_POINT_SI
 CK_DLL_MFUN(Chuck_OpenGL_DrawRangeElements)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
     t_CKINT arg_start = GET_NEXT_INT(ARGS);
@@ -5472,7 +6142,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DrawRangeElements)
 CK_DLL_MFUN(Chuck_OpenGL_TexImage3D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5509,7 +6181,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexImage3D)
 CK_DLL_MFUN(Chuck_OpenGL_TexSubImage3D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5547,7 +6221,9 @@ CK_DLL_MFUN(Chuck_OpenGL_TexSubImage3D)
 CK_DLL_MFUN(Chuck_OpenGL_CopyTexSubImage3D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5662,7 +6338,9 @@ static const t_CKINT Chuck_OpenGL_DOT3_RGBA = GL_DOT3_RGBA;
 CK_DLL_MFUN(Chuck_OpenGL_ActiveTexture)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_texture = GET_NEXT_INT(ARGS);
 
@@ -5673,7 +6351,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ActiveTexture)
 CK_DLL_MFUN(Chuck_OpenGL_SampleCoverage)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_value = GET_NEXT_FLOAT(ARGS);
     t_CKINT arg_invert = GET_NEXT_INT(ARGS);
@@ -5685,7 +6365,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SampleCoverage)
 CK_DLL_MFUN(Chuck_OpenGL_CompressedTexImage3D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5721,7 +6403,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompressedTexImage3D)
 CK_DLL_MFUN(Chuck_OpenGL_CompressedTexImage2D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5756,7 +6440,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompressedTexImage2D)
 CK_DLL_MFUN(Chuck_OpenGL_CompressedTexImage1D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5790,7 +6476,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompressedTexImage1D)
 CK_DLL_MFUN(Chuck_OpenGL_CompressedTexSubImage3D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5828,7 +6516,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompressedTexSubImage3D)
 CK_DLL_MFUN(Chuck_OpenGL_CompressedTexSubImage2D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5864,7 +6554,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompressedTexSubImage2D)
 CK_DLL_MFUN(Chuck_OpenGL_CompressedTexSubImage1D)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5898,7 +6590,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompressedTexSubImage1D)
 CK_DLL_MFUN(Chuck_OpenGL_GetCompressedTexImage)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_level = GET_NEXT_INT(ARGS);
@@ -5928,7 +6622,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetCompressedTexImage)
 CK_DLL_MFUN(Chuck_OpenGL_ClientActiveTexture)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_texture = GET_NEXT_INT(ARGS);
 
@@ -5939,7 +6635,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ClientActiveTexture)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -5951,7 +6649,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1d)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -5966,7 +6666,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1dv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -5978,7 +6680,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1f)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -5993,7 +6697,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1fv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6005,7 +6711,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1i)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6020,7 +6728,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1iv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6032,7 +6742,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1s)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6047,7 +6759,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord1sv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -6060,7 +6774,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2d)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6075,7 +6791,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2dv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -6088,7 +6806,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2f)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6103,7 +6823,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2fv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6116,7 +6838,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2i)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6131,7 +6855,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2iv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6144,7 +6870,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2s)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6159,7 +6887,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord2sv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -6173,7 +6903,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3d)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6188,7 +6920,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3dv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -6202,7 +6936,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3f)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6217,7 +6953,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3fv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6231,7 +6969,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3i)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6246,7 +6986,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3iv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6260,7 +7002,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3s)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6275,7 +7019,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord3sv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -6290,7 +7036,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4d)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6305,7 +7053,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4dv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_s = GET_NEXT_FLOAT(ARGS);
@@ -6320,7 +7070,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4f)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6335,7 +7087,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4fv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6350,7 +7104,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4i)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6365,7 +7121,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4iv)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_s = GET_NEXT_INT(ARGS);
@@ -6380,7 +7138,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4s)
 CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6395,7 +7155,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiTexCoord4sv)
 CK_DLL_MFUN(Chuck_OpenGL_LoadTransposeMatrixf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_m = new GLfloat[arg_m_arr->size()];
@@ -6409,7 +7171,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LoadTransposeMatrixf)
 CK_DLL_MFUN(Chuck_OpenGL_LoadTransposeMatrixd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_m = new GLdouble[arg_m_arr->size()];
@@ -6423,7 +7187,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LoadTransposeMatrixd)
 CK_DLL_MFUN(Chuck_OpenGL_MultTransposeMatrixf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_m = new GLfloat[arg_m_arr->size()];
@@ -6437,7 +7203,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultTransposeMatrixf)
 CK_DLL_MFUN(Chuck_OpenGL_MultTransposeMatrixd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_m_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_m = new GLdouble[arg_m_arr->size()];
@@ -6490,7 +7258,9 @@ static const t_CKINT Chuck_OpenGL_COMPARE_R_TO_TEXTURE = GL_COMPARE_R_TO_TEXTURE
 CK_DLL_MFUN(Chuck_OpenGL_BlendFuncSeparate)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_sfactorRGB = GET_NEXT_INT(ARGS);
     t_CKINT arg_dfactorRGB = GET_NEXT_INT(ARGS);
@@ -6504,7 +7274,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BlendFuncSeparate)
 CK_DLL_MFUN(Chuck_OpenGL_MultiDrawArrays)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_first_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6524,7 +7296,9 @@ CK_DLL_MFUN(Chuck_OpenGL_MultiDrawArrays)
 CK_DLL_MFUN(Chuck_OpenGL_PointParameterf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_param = GET_NEXT_FLOAT(ARGS);
@@ -6536,7 +7310,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PointParameterf)
 CK_DLL_MFUN(Chuck_OpenGL_PointParameterfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_params_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -6551,7 +7327,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PointParameterfv)
 CK_DLL_MFUN(Chuck_OpenGL_PointParameteri)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     t_CKINT arg_param = GET_NEXT_INT(ARGS);
@@ -6563,7 +7341,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PointParameteri)
 CK_DLL_MFUN(Chuck_OpenGL_PointParameteriv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_params_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -6578,7 +7358,9 @@ CK_DLL_MFUN(Chuck_OpenGL_PointParameteriv)
 CK_DLL_MFUN(Chuck_OpenGL_FogCoordf)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_coord = GET_NEXT_FLOAT(ARGS);
 
@@ -6589,7 +7371,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FogCoordf)
 CK_DLL_MFUN(Chuck_OpenGL_FogCoordfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_coord_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_coord = new GLfloat[arg_coord_arr->size()];
@@ -6603,7 +7387,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FogCoordfv)
 CK_DLL_MFUN(Chuck_OpenGL_FogCoordd)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_coord = GET_NEXT_FLOAT(ARGS);
 
@@ -6614,7 +7400,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FogCoordd)
 CK_DLL_MFUN(Chuck_OpenGL_FogCoorddv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_coord_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_coord = new GLdouble[arg_coord_arr->size()];
@@ -6628,7 +7416,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FogCoorddv)
 CK_DLL_MFUN(Chuck_OpenGL_FogCoordPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
     t_CKINT arg_stride = GET_NEXT_INT(ARGS);
@@ -6658,7 +7448,9 @@ CK_DLL_MFUN(Chuck_OpenGL_FogCoordPointer)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3b)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -6671,7 +7463,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3b)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3bv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLbyte *arg_v = new GLbyte[arg_v_arr->size()];
@@ -6685,7 +7479,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3bv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -6698,7 +7494,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3d)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -6712,7 +7510,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3dv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -6725,7 +7525,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3f)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -6739,7 +7541,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3fv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -6752,7 +7556,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3i)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -6766,7 +7572,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3iv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -6779,7 +7587,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3s)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -6793,7 +7603,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3sv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3ub)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -6806,7 +7618,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3ub)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3ubv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLubyte *arg_v = new GLubyte[arg_v_arr->size()];
@@ -6820,7 +7634,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3ubv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3ui)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -6833,7 +7649,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3ui)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3uiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLuint *arg_v = new GLuint[arg_v_arr->size()];
@@ -6847,7 +7665,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3uiv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3us)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_red = GET_NEXT_INT(ARGS);
     t_CKINT arg_green = GET_NEXT_INT(ARGS);
@@ -6860,7 +7680,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3us)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3usv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLushort *arg_v = new GLushort[arg_v_arr->size()];
@@ -6874,7 +7696,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColor3usv)
 CK_DLL_MFUN(Chuck_OpenGL_SecondaryColorPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
@@ -6905,7 +7729,9 @@ CK_DLL_MFUN(Chuck_OpenGL_SecondaryColorPointer)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -6917,7 +7743,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2d)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -6931,7 +7759,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2dv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -6943,7 +7773,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2f)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -6957,7 +7789,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2fv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -6969,7 +7803,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2i)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -6983,7 +7819,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2iv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -6995,7 +7833,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2s)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos2sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -7009,7 +7849,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos2sv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -7022,7 +7864,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3d)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLdouble *arg_v = new GLdouble[arg_v_arr->size()];
@@ -7036,7 +7880,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3dv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_y = GET_NEXT_FLOAT(ARGS);
@@ -7049,7 +7895,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3f)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     GLfloat *arg_v = new GLfloat[arg_v_arr->size()];
@@ -7063,7 +7911,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3fv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -7076,7 +7926,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3i)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLint *arg_v = new GLint[arg_v_arr->size()];
@@ -7090,7 +7942,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3iv)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
     t_CKINT arg_y = GET_NEXT_INT(ARGS);
@@ -7103,7 +7957,9 @@ CK_DLL_MFUN(Chuck_OpenGL_WindowPos3s)
 CK_DLL_MFUN(Chuck_OpenGL_WindowPos3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     GLshort *arg_v = new GLshort[arg_v_arr->size()];
@@ -7126,7 +7982,9 @@ static const t_CKINT Chuck_OpenGL_ONE_MINUS_CONSTANT_ALPHA = GL_ONE_MINUS_CONSTA
 CK_DLL_MFUN(Chuck_OpenGL_BlendColor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKFLOAT arg_red = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT arg_green = GET_NEXT_FLOAT(ARGS);
@@ -7140,7 +7998,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BlendColor)
 CK_DLL_MFUN(Chuck_OpenGL_BlendEquation)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_mode = GET_NEXT_INT(ARGS);
 
@@ -7201,7 +8061,9 @@ static const t_CKINT Chuck_OpenGL_SRC2_ALPHA = GL_SRC2_ALPHA;
 CK_DLL_MFUN(Chuck_OpenGL_GenQueries)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_ids_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7216,7 +8078,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GenQueries)
 CK_DLL_MFUN(Chuck_OpenGL_DeleteQueries)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_ids_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7231,7 +8095,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DeleteQueries)
 CK_DLL_MFUN(Chuck_OpenGL_IsQuery)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_id = GET_NEXT_INT(ARGS);
 
@@ -7242,7 +8108,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsQuery)
 CK_DLL_MFUN(Chuck_OpenGL_BeginQuery)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_id = GET_NEXT_INT(ARGS);
@@ -7254,7 +8122,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BeginQuery)
 CK_DLL_MFUN(Chuck_OpenGL_EndQuery)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
 
@@ -7265,7 +8135,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EndQuery)
 CK_DLL_MFUN(Chuck_OpenGL_GetQueryiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7281,7 +8153,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetQueryiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetQueryObjectiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_id = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7297,7 +8171,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetQueryObjectiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetQueryObjectuiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_id = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7313,7 +8189,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetQueryObjectuiv)
 CK_DLL_MFUN(Chuck_OpenGL_BindBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_buffer = GET_NEXT_INT(ARGS);
@@ -7325,7 +8203,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BindBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_DeleteBuffers)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_buffers_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7340,7 +8220,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DeleteBuffers)
 CK_DLL_MFUN(Chuck_OpenGL_GenBuffers)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_buffers_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7355,7 +8237,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GenBuffers)
 CK_DLL_MFUN(Chuck_OpenGL_IsBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_buffer = GET_NEXT_INT(ARGS);
 
@@ -7366,7 +8250,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_UnmapBuffer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
 
@@ -7377,7 +8263,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UnmapBuffer)
 CK_DLL_MFUN(Chuck_OpenGL_GetBufferParameteriv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_target = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7477,7 +8365,9 @@ static const t_CKINT Chuck_OpenGL_MAX_TEXTURE_COORDS = GL_MAX_TEXTURE_COORDS;
 CK_DLL_MFUN(Chuck_OpenGL_BlendEquationSeparate)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_modeRGB = GET_NEXT_INT(ARGS);
     t_CKINT arg_modeAlpha = GET_NEXT_INT(ARGS);
@@ -7489,7 +8379,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BlendEquationSeparate)
 CK_DLL_MFUN(Chuck_OpenGL_DrawBuffers)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_n = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_bufs_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7504,7 +8396,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DrawBuffers)
 CK_DLL_MFUN(Chuck_OpenGL_StencilOpSeparate)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_sfail = GET_NEXT_INT(ARGS);
@@ -7518,7 +8412,9 @@ CK_DLL_MFUN(Chuck_OpenGL_StencilOpSeparate)
 CK_DLL_MFUN(Chuck_OpenGL_StencilFuncSeparate)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_func = GET_NEXT_INT(ARGS);
@@ -7532,7 +8428,9 @@ CK_DLL_MFUN(Chuck_OpenGL_StencilFuncSeparate)
 CK_DLL_MFUN(Chuck_OpenGL_StencilMaskSeparate)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_face = GET_NEXT_INT(ARGS);
     t_CKINT arg_mask = GET_NEXT_INT(ARGS);
@@ -7544,7 +8442,9 @@ CK_DLL_MFUN(Chuck_OpenGL_StencilMaskSeparate)
 CK_DLL_MFUN(Chuck_OpenGL_AttachShader)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
@@ -7556,7 +8456,9 @@ CK_DLL_MFUN(Chuck_OpenGL_AttachShader)
 CK_DLL_MFUN(Chuck_OpenGL_BindAttribLocation)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
@@ -7572,7 +8474,9 @@ CK_DLL_MFUN(Chuck_OpenGL_BindAttribLocation)
 CK_DLL_MFUN(Chuck_OpenGL_CompileShader)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
 
@@ -7583,7 +8487,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CompileShader)
 CK_DLL_MFUN(Chuck_OpenGL_CreateProgram)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
 
     RETURN->v_int = glCreateProgram();
@@ -7593,7 +8499,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CreateProgram)
 CK_DLL_MFUN(Chuck_OpenGL_CreateShader)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_type = GET_NEXT_INT(ARGS);
 
@@ -7604,7 +8512,9 @@ CK_DLL_MFUN(Chuck_OpenGL_CreateShader)
 CK_DLL_MFUN(Chuck_OpenGL_DeleteProgram)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
 
@@ -7615,7 +8525,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DeleteProgram)
 CK_DLL_MFUN(Chuck_OpenGL_DeleteShader)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
 
@@ -7626,7 +8538,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DeleteShader)
 CK_DLL_MFUN(Chuck_OpenGL_DetachShader)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
@@ -7638,7 +8552,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DetachShader)
 CK_DLL_MFUN(Chuck_OpenGL_DisableVertexAttribArray)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
 
@@ -7649,7 +8565,9 @@ CK_DLL_MFUN(Chuck_OpenGL_DisableVertexAttribArray)
 CK_DLL_MFUN(Chuck_OpenGL_EnableVertexAttribArray)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
 
@@ -7660,7 +8578,9 @@ CK_DLL_MFUN(Chuck_OpenGL_EnableVertexAttribArray)
 CK_DLL_MFUN(Chuck_OpenGL_GetActiveAttrib)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
@@ -7689,7 +8609,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetActiveAttrib)
 CK_DLL_MFUN(Chuck_OpenGL_GetActiveUniform)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
@@ -7718,7 +8640,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetActiveUniform)
 CK_DLL_MFUN(Chuck_OpenGL_GetAttachedShaders)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_maxCount = GET_NEXT_INT(ARGS);
@@ -7738,7 +8662,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetAttachedShaders)
 CK_DLL_MFUN(Chuck_OpenGL_GetAttribLocation)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_name_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7753,7 +8679,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetAttribLocation)
 CK_DLL_MFUN(Chuck_OpenGL_GetProgramiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7769,7 +8697,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetProgramiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetProgramInfoLog)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_bufSize = GET_NEXT_INT(ARGS);
@@ -7789,7 +8719,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetProgramInfoLog)
 CK_DLL_MFUN(Chuck_OpenGL_GetShaderiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7805,7 +8737,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetShaderiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetShaderInfoLog)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
     t_CKINT arg_bufSize = GET_NEXT_INT(ARGS);
@@ -7825,7 +8759,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetShaderInfoLog)
 CK_DLL_MFUN(Chuck_OpenGL_GetShaderSource)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
     t_CKINT arg_bufSize = GET_NEXT_INT(ARGS);
@@ -7845,7 +8781,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetShaderSource)
 CK_DLL_MFUN(Chuck_OpenGL_GetUniformLocation)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_name_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -7860,7 +8798,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetUniformLocation)
 CK_DLL_MFUN(Chuck_OpenGL_GetUniformfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
@@ -7876,7 +8816,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetUniformfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetUniformiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
@@ -7892,7 +8834,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetUniformiv)
 CK_DLL_MFUN(Chuck_OpenGL_GetVertexAttribdv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7908,7 +8852,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetVertexAttribdv)
 CK_DLL_MFUN(Chuck_OpenGL_GetVertexAttribfv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7924,7 +8870,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetVertexAttribfv)
 CK_DLL_MFUN(Chuck_OpenGL_GetVertexAttribiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_pname = GET_NEXT_INT(ARGS);
@@ -7940,7 +8888,9 @@ CK_DLL_MFUN(Chuck_OpenGL_GetVertexAttribiv)
 CK_DLL_MFUN(Chuck_OpenGL_IsProgram)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
 
@@ -7951,7 +8901,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsProgram)
 CK_DLL_MFUN(Chuck_OpenGL_IsShader)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_shader = GET_NEXT_INT(ARGS);
 
@@ -7962,7 +8914,9 @@ CK_DLL_MFUN(Chuck_OpenGL_IsShader)
 CK_DLL_MFUN(Chuck_OpenGL_LinkProgram)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
 
@@ -7973,7 +8927,9 @@ CK_DLL_MFUN(Chuck_OpenGL_LinkProgram)
 CK_DLL_MFUN(Chuck_OpenGL_UseProgram)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
 
@@ -7984,7 +8940,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UseProgram)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_v0 = GET_NEXT_FLOAT(ARGS);
@@ -7996,7 +8954,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform1f)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_v0 = GET_NEXT_FLOAT(ARGS);
@@ -8009,7 +8969,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform2f)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_v0 = GET_NEXT_FLOAT(ARGS);
@@ -8023,7 +8985,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform3f)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_v0 = GET_NEXT_FLOAT(ARGS);
@@ -8038,7 +9002,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform4f)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform1i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_v0 = GET_NEXT_INT(ARGS);
@@ -8050,7 +9016,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform1i)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform2i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_v0 = GET_NEXT_INT(ARGS);
@@ -8063,7 +9031,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform2i)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform3i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_v0 = GET_NEXT_INT(ARGS);
@@ -8077,7 +9047,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform3i)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform4i)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_v0 = GET_NEXT_INT(ARGS);
@@ -8092,7 +9064,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform4i)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform1fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8108,7 +9082,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform1fv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8124,7 +9100,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform2fv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8140,7 +9118,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform3fv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8156,7 +9136,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform4fv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform1iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8172,7 +9154,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform1iv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform2iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8188,7 +9172,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform2iv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform3iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8204,7 +9190,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform3iv)
 CK_DLL_MFUN(Chuck_OpenGL_Uniform4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8220,7 +9208,9 @@ CK_DLL_MFUN(Chuck_OpenGL_Uniform4iv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8237,7 +9227,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix2fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8254,7 +9246,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix3fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8271,7 +9265,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix4fv)
 CK_DLL_MFUN(Chuck_OpenGL_ValidateProgram)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_program = GET_NEXT_INT(ARGS);
 
@@ -8282,7 +9278,9 @@ CK_DLL_MFUN(Chuck_OpenGL_ValidateProgram)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8294,7 +9292,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1d)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8309,7 +9309,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1dv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8321,7 +9323,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1f)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8336,7 +9340,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1fv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
@@ -8348,7 +9354,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1s)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8363,7 +9371,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib1sv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8376,7 +9386,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2d)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8391,7 +9403,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2dv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8404,7 +9418,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2f)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8419,7 +9435,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2fv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
@@ -8432,7 +9450,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2s)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8447,7 +9467,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib2sv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8461,7 +9483,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3d)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8476,7 +9500,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3dv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8490,7 +9516,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3f)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8505,7 +9533,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3fv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
@@ -8519,7 +9549,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3s)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8534,7 +9566,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib3sv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nbv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8549,7 +9583,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nbv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Niv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8564,7 +9600,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Niv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nsv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8579,7 +9617,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nsv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nub)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
@@ -8594,7 +9634,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nub)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nubv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8609,7 +9651,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nubv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nuiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8624,7 +9668,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nuiv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nusv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8639,7 +9685,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4Nusv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4bv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8654,7 +9702,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4bv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4d)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8669,7 +9719,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4d)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4dv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8684,7 +9736,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4dv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4f)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKFLOAT arg_x = GET_NEXT_FLOAT(ARGS);
@@ -8699,7 +9753,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4f)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array8 *arg_v_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
@@ -8714,7 +9770,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4fv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4iv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8729,7 +9787,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4iv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4s)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_x = GET_NEXT_INT(ARGS);
@@ -8744,7 +9804,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4s)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4sv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8759,7 +9821,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4sv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4ubv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8774,7 +9838,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4ubv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4uiv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8789,7 +9855,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4uiv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4usv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     Chuck_Array4 *arg_v_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
@@ -8804,7 +9872,9 @@ CK_DLL_MFUN(Chuck_OpenGL_VertexAttrib4usv)
 CK_DLL_MFUN(Chuck_OpenGL_VertexAttribPointer)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_index = GET_NEXT_INT(ARGS);
     t_CKINT arg_size = GET_NEXT_INT(ARGS);
@@ -8860,7 +9930,9 @@ static const t_CKINT Chuck_OpenGL_COMPRESSED_SLUMINANCE_ALPHA = GL_COMPRESSED_SL
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix2x3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8877,7 +9949,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix2x3fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix3x2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8894,7 +9968,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix3x2fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix2x4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8911,7 +9987,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix2x4fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix4x2fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8928,7 +10006,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix4x2fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix3x4fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
@@ -8945,7 +10025,9 @@ CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix3x4fv)
 CK_DLL_MFUN(Chuck_OpenGL_UniformMatrix4x3fv)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, Chuck_OpenGL_offset_chugl);
-    if(chgl == NULL || !chgl->good() || !chgl->locked()) return;
+    if(chgl == NULL || !chgl->good()) return;
+    
+    chgl->enter();
     
     t_CKINT arg_location = GET_NEXT_INT(ARGS);
     t_CKINT arg_count = GET_NEXT_INT(ARGS);
