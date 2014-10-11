@@ -25,8 +25,6 @@ img.load(me.dir()+"hand.jpg");
 
 while(true)
 {
-    gfx.lock();
-    gfx.beginDraw();
     gfx.clear();
     
     //gl.Color4fv([1.0, 0.0, 0.0, 1.0]);
@@ -46,9 +44,6 @@ while(true)
     gl.DisableClientState(gl.COLOR_ARRAY);
     
     gl.DrawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    
-    gfx.endDraw();
-    gfx.unlock();
     
     (1.0/60.0)::second => now;
 }

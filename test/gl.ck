@@ -9,8 +9,6 @@ gfx.openWindow(WIDTH, HEIGHT);
 
 while(true)
 {
-    gfx.lock();
-    gfx.beginDraw();
     gfx.clear();
     
     gl.Color3f(1, 0, 0);
@@ -23,9 +21,6 @@ while(true)
     gl.Vertex3f( 50,  50, 0);
     gl.Vertex3f( 50, -50, 0);
     gl.End();
-    
-    gfx.endDraw();
-    gfx.unlock();
     
     (1.0/60.0)::second => now;
 }

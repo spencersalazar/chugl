@@ -19,9 +19,6 @@ while(true)
     // get contents
     fft.spectrum(spec);
 
-    gfx.lock();
-    gfx.beginDraw();
-    
     gfx.clear();
         
     gl.Translatef(WIDTH/2, HEIGHT/4, 0);
@@ -55,9 +52,6 @@ while(true)
         
         gl.PopMatrix();
     }
-    
-    gfx.endDraw();
-    gfx.unlock();
     
     (1.0/60.0)::second => now;
 }

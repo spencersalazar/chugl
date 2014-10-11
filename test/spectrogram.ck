@@ -19,9 +19,6 @@ while(true)
     // get contents
     fft.spectrum(spec);
 
-    gfx.lock();
-    gfx.beginDraw();
-    
     gfx.clear();
     
     gfx.color(0.9, 0.45, 0.1, 1.0);
@@ -32,9 +29,6 @@ while(true)
         gfx.line(0, 0, 0, (110+dbAmp)*7);
         gfx.translate(WIDTH/spec.size(), 0);
     }
-    
-    gfx.endDraw();
-    gfx.unlock();
     
     (1.0/30)::second => now;
 }

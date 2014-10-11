@@ -260,54 +260,6 @@ CK_DLL_MFUN(chugl_height)
     RETURN->v_float = chgl->windowHeight();
 }
 
-CK_DLL_MFUN(chugl_lock)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    t_CKBOOL good = chgl->good();
-    if(!good) return;
-    
-    // chgl->lock();
-}
-
-CK_DLL_MFUN(chugl_unlock)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    if(!chgl->good()) return;
-    
-    // chgl->unlock();
-}
-
-CK_DLL_MFUN(chugl_beginDraw)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    if(!chgl->good()) return;
-    
-    chgl->enter(); // chgl->lock();
-    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, chgl->windowWidth(), 0, chgl->windowHeight(), -0.1, 100);
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    
-    glEnable(GL_LINE_SMOOTH);
-    
-    // chgl->unlock();
-}
-
-CK_DLL_MFUN(chugl_endDraw)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    if(!chgl->good()) return;
-    
-    chgl->enter(); // chgl->lock();
-    
-    glFlush();
-    
-    // chgl->unlock();
-}
-
 CK_DLL_MFUN(chugl_color3)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -779,12 +731,6 @@ CK_DLL_QUERY( chugl )
     QUERY->add_mfun(QUERY, chugl_height, "float", "height");
     
     QUERY->add_mfun(QUERY, chugl_good, "int", "good");
-    
-    QUERY->add_mfun(QUERY, chugl_lock, "void", "lock");
-    QUERY->add_mfun(QUERY, chugl_unlock, "void", "unlock");    
-    
-    QUERY->add_mfun(QUERY, chugl_beginDraw, "void", "beginDraw");
-    QUERY->add_mfun(QUERY, chugl_endDraw, "void", "endDraw");
     
     QUERY->add_mfun(QUERY, chugl_clear, "void", "clear");
     

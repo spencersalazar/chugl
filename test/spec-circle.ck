@@ -18,9 +18,6 @@ while(true)
     // get contents
     fft.spectrum(spec);
 
-    gfx.lock();
-    gfx.beginDraw();
-    
     gfx.clear();
     
     gfx.color(0.9, 0.2, 0.1, 1.0);
@@ -50,9 +47,6 @@ while(true)
         
         gfx.popMatrix();
     }
-    
-    gfx.endDraw();
-    gfx.unlock();
     
     (1.0/60.0)::second => now;
 }

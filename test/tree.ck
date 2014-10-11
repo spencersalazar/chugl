@@ -44,17 +44,12 @@ spork ~ tree(WIDTH/2, 0, 1, 0, 0, 0);
 
 while(true)
 {
-    gfx.lock();
-    gfx.beginDraw();
     gfx.clear();
     
     prob*0.01 +=> prob;
     
     doDraw.broadcast();
     me.yield();
-    
-    gfx.endDraw();
-    gfx.unlock();
     
     (1.0/60.0)::second => now;
 }
