@@ -66,7 +66,7 @@ fun void flare()
         gl.BlendFunc(gl.SRC_ALPHA, gl.ONE);
         
         gl.Color4f(1.0, 0.0, 0.0, c.val()*0.83);
-        
+        gl.DisableClientState(gl.COLOR_ARRAY);
         
         gl.Translatef(x, y, 0.0);
         gl.Rotatef(phase+now/second*180, 0, 0, 1);
@@ -78,8 +78,6 @@ fun void flare()
         gl.BindTexture(gl.TEXTURE_2D, img.tex());
         gl.TexCoordPointer(2, gl.DOUBLE, 0, texcoord);
         gl.EnableClientState(gl.TEXTURE_COORD_ARRAY);
-        
-        gl.DisableClientState(gl.COLOR_ARRAY);
         
         gl.DrawArrays(gl.TRIANGLE_STRIP, 0, 4);
         

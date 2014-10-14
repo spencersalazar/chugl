@@ -33,12 +33,12 @@ while(true)
     gl.Translatef(WIDTH/2, HEIGHT/2, 0.0);
     gl.Rotatef(now/second*180, 0, 0, 1);
     
-    gl.VertexPointer(2, gl.FLOAT, 0, geo);
+    gl.VertexPointer(2, gl.DOUBLE, 0, geo);
     gl.EnableClientState(gl.VERTEX_ARRAY);
     
     gl.Enable(gl.TEXTURE_2D);
     gl.BindTexture(gl.TEXTURE_2D, img.tex());
-    gl.TexCoordPointer(2, gl.FLOAT, 0, texcoord);
+    gl.TexCoordPointer(2, gl.DOUBLE, 0, texcoord);
     gl.EnableClientState(gl.TEXTURE_COORD_ARRAY);
     
     gl.DisableClientState(gl.COLOR_ARRAY);

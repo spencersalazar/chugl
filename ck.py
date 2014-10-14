@@ -124,10 +124,17 @@ int_array1_type = """    Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) GET_NEXT
     chgl->scheduleDataForCleanup({arg_var});
     copy_ckarray4_to_array({arg_var}, {arg_var}_arr);
 """
+### TODO: fix for 32 bit (only correct for 64 bit)
 float_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
     chgl->scheduleDataForCleanup({arg_var});
     copy_ckarray8_to_array({arg_var}, {arg_var}_arr);
+"""
+### TODO: fix for 32 bit (only correct for 64 bit)
+double_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
+    {arg_var}_arr->add_ref();
+    chgl->scheduleArrayForCleanup({arg_var}_arr);
+    {arr_type} *{arg_var} = &({arg_var}_arr->m_vector.front());
 """
 # void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
 #     void *{arg_var};
@@ -149,7 +156,7 @@ float_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_NE
 #     }}}}
 # """
 
-### TODO: fix for 32 bit (only works with 64 bit)
+### TODO: fix for 32 bit (only correct for 64 bit)
 void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
     void *{arg_var};
     if(_{arg_var}_arr->m_array_type == &t_int)
@@ -204,8 +211,8 @@ define_get_arg_type = {
     'constGLshort*': int_array1_type.format(arr_type='GLshort', arg_var='{arg_var}'),
     'GLshort*': int_array1_type.format(arr_type='GLshort', arg_var='{arg_var}'),
     
-    'constGLdouble*': float_array1_type.format(arr_type='GLdouble', arg_var='{arg_var}'),
-    'GLdouble*': float_array1_type.format(arr_type='GLdouble', arg_var='{arg_var}'),
+    'constGLdouble*': double_array1_type.format(arr_type='GLdouble', arg_var='{arg_var}'),
+    'GLdouble*': double_array1_type.format(arr_type='GLdouble', arg_var='{arg_var}'),
     'constGLfloat*': float_array1_type.format(arr_type='GLfloat', arg_var='{arg_var}'),
     'GLfloat*': float_array1_type.format(arr_type='GLfloat', arg_var='{arg_var}'),
     
