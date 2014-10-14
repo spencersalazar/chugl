@@ -2,7 +2,6 @@
 .DS_Store
 chugl.chug
 *.o
-OpenGL/chugl_opengl.cpp
+chugl_opengl.cpp
 OpenGL/diag.txt
-OpenGL/chugl_opengl.o
 *.pyc
