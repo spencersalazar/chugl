@@ -34,7 +34,7 @@
 #include <gl/gl.h>
 #endif // __APPLE__
 
-#include <vector>
+#include <list>
 
 using namespace std;
 
@@ -97,10 +97,16 @@ public:
     t_CKFLOAT windowHeight() const { return m_windowHeight; }
     
     template<typename T>
-    void scheduleArrayForCleanup(T *data)
+    void scheduleDataForCleanup(T *data)
     {
         m_cleanupData.push_back(new chugl_array_data<T>(data));
     }
+    
+    void scheduleArrayForCleanup(Chuck_Array *array)
+    {
+        m_cleanupArray.push_back(array);
+    }
+    
     
 protected:
     void cleanupArrayData();
@@ -117,7 +123,8 @@ protected:
     t_CKBOOL m_good;
     t_CKFLOAT m_windowWidth, m_windowHeight;
     
-    vector<chugl_array_data_base *> m_cleanupData;
+    list<chugl_array_data_base *> m_cleanupData;
+    list<Chuck_Array *> m_cleanupArray;
     
 private:
     static chugl *s_mainChugl;

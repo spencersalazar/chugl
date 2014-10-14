@@ -162,9 +162,12 @@ void chugl::exit()
 
 void chugl::cleanupArrayData()
 {
-    for(int i = 0; i < m_cleanupData.size(); i++)
-        delete m_cleanupData[i];
+    for(list<chugl_array_data_base *>::iterator i = m_cleanupData.begin(); i != m_cleanupData.end(); i++)
+        delete *i;
     m_cleanupData.clear();
+    for(list<Chuck_Array *>::iterator i = m_cleanupArray.begin(); i != m_cleanupArray.end(); i++)
+        (*i)->release();
+    m_cleanupArray.clear();
 }
 
 

@@ -121,5 +121,5 @@ install: $(CHUG)
 	chmod 755 $(CHUGIN_PATH)/$(CHUG)
 
 clean: 
-	rm -rf $(OBJS) $(CHUG) Release Debug chugl_opengl.cpp
+	rm -rf $(OBJS) $(CHUG) *.o Release Debug chugl_opengl.cpp
 

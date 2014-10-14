@@ -121,31 +121,51 @@ int_arg_type = '    t_CKINT {arg_var} = GET_NEXT_INT(ARGS);\n'
 float_arg_type = '    t_CKFLOAT {arg_var} = GET_NEXT_FLOAT(ARGS);\n'
 int_array1_type = """    Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) GET_NEXT_OBJECT(ARGS);
     {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
-    chgl->scheduleArrayForCleanup({arg_var});
+    chgl->scheduleDataForCleanup({arg_var});
     copy_ckarray4_to_array({arg_var}, {arg_var}_arr);
 """
 float_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_NEXT_OBJECT(ARGS);
     {arr_type} *{arg_var} = new {arr_type}[{arg_var}_arr->size()];
-    chgl->scheduleArrayForCleanup({arg_var});
+    chgl->scheduleDataForCleanup({arg_var});
     copy_ckarray8_to_array({arg_var}, {arg_var}_arr);
 """
+# void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
+#     void *{arg_var};
+#     if(_{arg_var}_arr->m_array_type == &t_int)
+#     {{{{
+#         Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
+#         GLubyte *{arg_var}_v = new GLubyte[{arg_var}_arr->size()];
+#         chgl->scheduleArrayForCleanup({arg_var}_v);
+#         copy_ckarray4_to_array({arg_var}_v, {arg_var}_arr);
+#         {arg_var} = (void *) {arg_var}_v;
+#     }}}}
+#     else if(_{arg_var}_arr->m_array_type == &t_float)
+#     {{{{
+#         Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) _{arg_var}_arr;
+#         GLfloat *{arg_var}_v = new GLfloat[{arg_var}_arr->size()];
+#         chgl->scheduleArrayForCleanup({arg_var}_v);
+#         copy_ckarray8_to_array({arg_var}_v, {arg_var}_arr);
+#         {arg_var} = (void *) {arg_var}_v;
+#     }}}}
+# """
+
+### TODO: fix for 32 bit (only works with 64 bit)
 void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
     void *{arg_var};
     if(_{arg_var}_arr->m_array_type == &t_int)
     {{{{
         Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
         GLubyte *{arg_var}_v = new GLubyte[{arg_var}_arr->size()];
-        chgl->scheduleArrayForCleanup({arg_var}_v);
+        chgl->scheduleDataForCleanup({arg_var}_v);
         copy_ckarray4_to_array({arg_var}_v, {arg_var}_arr);
         {arg_var} = (void *) {arg_var}_v;
     }}}}
     else if(_{arg_var}_arr->m_array_type == &t_float)
     {{{{
-        Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) _{arg_var}_arr;
-        GLfloat *{arg_var}_v = new GLfloat[{arg_var}_arr->size()];
-        chgl->scheduleArrayForCleanup({arg_var}_v);
-        copy_ckarray8_to_array({arg_var}_v, {arg_var}_arr);
-        {arg_var} = (void *) {arg_var}_v;
+        Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
+        {arg_var}_arr->add_ref();
+        chgl->scheduleArrayForCleanup({arg_var}_arr);
+        {arg_var} = (void *) &({arg_var}_arr->m_vector.front());
     }}}}
 """
 
