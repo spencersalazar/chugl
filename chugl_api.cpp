@@ -24,6 +24,8 @@
 #include "chugl_api.h"
 #include "chugl.h"
 
+#include "util_opengl.h"
+
 #include <math.h>
 
 
@@ -192,12 +194,21 @@ CK_DLL_MFUN(chugl_ellipse)
     
     chgl->enter(); // chgl->lock();
     
-    glBegin(GL_TRIANGLE_STRIP);
-    glVertex3f(x, y, 0);
-    glVertex3f(x+width, y, 0);
-    glVertex3f(x, y+height, 0);
-    glVertex3f(x+width, y+height, 0);
-    glEnd();
+    int nGeo = 48;
+    GLfloat geo[nGeo*2];
+    gen2d_ellipse_fan(geo, nGeo, x, y, width/2, height/2);
+    
+    glVertexPointer(2, GL_FLOAT, 0, geo);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    
+    glDrawArrays(GL_TRIANGLE_FAN, 0, nGeo);
+    
+    // glBegin(GL_TRIANGLE_STRIP);
+    // glVertex3f(x, y, 0);
+    // glVertex3f(x+width, y, 0);
+    // glVertex3f(x, y+height, 0);
+    // glVertex3f(x+width, y+height, 0);
+    // glEnd();
     
     // chgl->unlock();
 }

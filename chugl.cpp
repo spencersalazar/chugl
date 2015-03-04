@@ -584,6 +584,12 @@ CK_DLL_QUERY( chugl )
     QUERY->add_arg(QUERY, "float", "width");
     QUERY->add_arg(QUERY, "float", "height");
     
+    QUERY->add_mfun(QUERY, chugl_ellipse, "void", "ellipse");
+    QUERY->add_arg(QUERY, "float", "x");
+    QUERY->add_arg(QUERY, "float", "y");
+    QUERY->add_arg(QUERY, "float", "width");
+    QUERY->add_arg(QUERY, "float", "height");
+    
     QUERY->add_mfun(QUERY, chugl_line, "void", "line");
     QUERY->add_arg(QUERY, "float", "x1");
     QUERY->add_arg(QUERY, "float", "y1");
