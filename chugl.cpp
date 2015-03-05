@@ -578,6 +578,17 @@ CK_DLL_QUERY( chugl )
     QUERY->add_arg(QUERY, "float", "g");
     QUERY->add_arg(QUERY, "float", "b");
     
+    QUERY->add_mfun(QUERY, chugl_hsv4, "void", "hsv");
+    QUERY->add_arg(QUERY, "float", "h");
+    QUERY->add_arg(QUERY, "float", "s");
+    QUERY->add_arg(QUERY, "float", "v");
+    QUERY->add_arg(QUERY, "float", "a");
+    
+    QUERY->add_mfun(QUERY, chugl_hsv3, "void", "hsv");
+    QUERY->add_arg(QUERY, "float", "h");
+    QUERY->add_arg(QUERY, "float", "s");
+    QUERY->add_arg(QUERY, "float", "v");
+    
     QUERY->add_mfun(QUERY, chugl_rect, "void", "rect");
     QUERY->add_arg(QUERY, "float", "x");
     QUERY->add_arg(QUERY, "float", "y");

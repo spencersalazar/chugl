@@ -24,6 +24,8 @@
 #ifndef UTIL_OPENGL
 #define UTIL_OPENGL
 
+#include "chuck_def.h"
+
 #ifdef __APPLE__
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
@@ -32,5 +34,6 @@
 #endif // __APPLE__
 
 void gen2d_ellipse_fan(GLfloat *buf, GLint nVertex, float x, float y, float xRadius, float yRadius);
+void HSVtoRGB( t_CKFLOAT *r, t_CKFLOAT *g, t_CKFLOAT *b, t_CKFLOAT h, t_CKFLOAT s, t_CKFLOAT v );
 
 #endif // UTIL_OPENGL

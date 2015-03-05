@@ -30,6 +30,8 @@
 
 CK_DLL_MFUN(chugl_color3);
 CK_DLL_MFUN(chugl_color4);
+CK_DLL_MFUN(chugl_hsv3);
+CK_DLL_MFUN(chugl_hsv4);
 CK_DLL_MFUN(chugl_translate2);
 CK_DLL_MFUN(chugl_scale2);
 CK_DLL_MFUN(chugl_rotateZ);

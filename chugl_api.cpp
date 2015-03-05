@@ -72,6 +72,43 @@ CK_DLL_MFUN(chugl_color4)
     // chgl->unlock();
 }
 
+CK_DLL_MFUN(chugl_hsv3)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
+    
+    t_CKFLOAT h = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT s = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT v = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->enter(); // chgl->lock();
+    
+    t_CKFLOAT r, g, b;
+    HSVtoRGB(&r, &g, &b, h*360, s, v);
+    glColor4f(r, g, b, 1.0);
+    
+    // chgl->unlock();
+}
+
+CK_DLL_MFUN(chugl_hsv4)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
+    
+    t_CKFLOAT h = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT s = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT v = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT a = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->enter(); // chgl->lock();
+    
+    t_CKFLOAT r, g, b;
+    HSVtoRGB(&r, &g, &b, h*360, s, v);
+    glColor4f(r, g, b, a);
+    
+    // chgl->unlock();
+}
+
 CK_DLL_MFUN(chugl_translate2)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -202,13 +239,6 @@ CK_DLL_MFUN(chugl_ellipse)
     glEnableClientState(GL_VERTEX_ARRAY);
     
     glDrawArrays(GL_TRIANGLE_FAN, 0, nGeo);
-    
-    // glBegin(GL_TRIANGLE_STRIP);
-    // glVertex3f(x, y, 0);
-    // glVertex3f(x+width, y, 0);
-    // glVertex3f(x, y+height, 0);
-    // glVertex3f(x+width, y+height, 0);
-    // glEnd();
     
     // chgl->unlock();
 }
