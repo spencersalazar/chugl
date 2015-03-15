@@ -36,6 +36,8 @@ fun void flare()
     Std.rand2f(0, WIDTH) => float x;
     Std.rand2f(0, HEIGHT) => float y;
     Std.rand2f(0, 180) => float phase;
+    Std.rand2f(0, 1) => float h;
+    Std.rand2f(0.7, 0.9) => float s;
     
     curveExp c;
     0 => c.val;
@@ -65,7 +67,8 @@ fun void flare()
         //gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         gl.BlendFunc(gl.SRC_ALPHA, gl.ONE);
         
-        gl.Color4f(1.0, 0.0, 0.0, c.val()*0.83);
+        gfx.hsv(h, s, 1.0, c.val()*0.83);
+        //gl.Color4f(1.0, 0.0, 0.0, c.val()*0.83);
         gl.DisableClientState(gl.COLOR_ARRAY);
         
         gl.Translatef(x, y, 0.0);
