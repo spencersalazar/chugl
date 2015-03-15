@@ -43,7 +43,7 @@ gfx.openWindow(WIDTH, HEIGHT);
 
 [ 1.0, 1.0, 1.0, 1.0 ] @=> float spec[];
 [ 100.0 ] @=> float shiny[];
-[0.0, 1, 0.0, 0] @=> float lightPos[];
+[1.0, 0, 0.0, 0] @=> float lightPos[];
 
 while(true)
 {
@@ -74,10 +74,11 @@ while(true)
     //gl.Enable(gl.CULL_FACE);
     
     gl.Translatef(WIDTH/2, HEIGHT/2, 0.0);
-    
-    gl.Rotatef(-25, 1, 0, 0);
-    //gl.Rotatef(now/second*180, 0, 0, 1);
-    gl.Rotatef(-25, 0, 1, 0);
+    gl.Lightfv(gl.LIGHT0, gl.POSITION, lightPos);
+        
+    gl.Rotatef(25, 1, 0, 0);
+    gl.Rotatef(now/second*180, 0, 1, 0);
+    //gl.Rotatef(-25, 0, 1, 0);
     
     gl.Color4dv([0.5, 0.5, 0.5, 1.0]);
     gl.DisableClientState(gl.COLOR_ARRAY);
@@ -86,8 +87,6 @@ while(true)
     gl.Materialfv(gl.FRONT, gl.SPECULAR, spec);
     gl.Materiali(gl.FRONT, gl.SHININESS, 100);
     
-    gl.Lightfv(gl.LIGHT0, gl.POSITION, lightPos);
-
     gl.VertexPointer(3, gl.DOUBLE, 0, geo);
     gl.EnableClientState(gl.VERTEX_ARRAY);
     
@@ -95,10 +94,7 @@ while(true)
     gl.EnableClientState(gl.NORMAL_ARRAY);
     //gl.DisableClientState(gl.NORMAL_ARRAY);
     
-    for(int i; i < 6; i++)
-    {
-        gl.DrawArrays(gl.QUADS, i*4, 4);
-    }
+    gl.DrawArrays(gl.QUADS, 0, 24);
     
     (1.0/60.0)::second => now;
 }

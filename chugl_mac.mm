@@ -109,7 +109,15 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         [window center];
         [window setExcludedFromWindowsMenu:NO];
         
-        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        NSOpenGLPixelFormatAttribute attr[] = {
+            NSOpenGLPFADepthSize, 32,
+            NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
+            0
+        };
+        
+        NSOpenGLPixelFormat *pixformat = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attr] autorelease];
+        
+        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds] pixelFormat:pixformat];
         [glView setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
         [[window contentView] addSubview:glView];
         window.openGLView = glView;
@@ -142,7 +150,15 @@ void chugl_osx::openFullscreen()
         [window setTitle:@"chugl"];
         [window setExcludedFromWindowsMenu:NO];
         
-        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds]];
+        NSOpenGLPixelFormatAttribute attr[] = {
+            NSOpenGLPFADepthSize, 32,
+            NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
+            0
+        };
+        
+        NSOpenGLPixelFormat *pixformat = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attr] autorelease];
+        
+        CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds] pixelFormat:pixformat];
         [glView setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
         [[window contentView] addSubview:glView];
         window.openGLView = glView;
