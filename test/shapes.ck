@@ -49,8 +49,6 @@ fun void shape()
             
             gfx.popMatrix();
             
-            
-            
             (1.0/60.0)::second => now;
             (1.0/60.0)*speed +=> rot;
         }
