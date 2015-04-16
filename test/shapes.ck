@@ -20,7 +20,7 @@ fun void shape()
     
     while(true)
     {
-        Math.random2(0, 2) => int shape;
+        Math.random2(0, 3) => int shape;
         Math.random2f(50,250) => float width;
         Math.random2f(50,250) => float height;
         Math.random2f(0,1) => float hue;
@@ -44,6 +44,8 @@ fun void shape()
                 gfx.ellipse(0, 0, width/2, height/2);
             else if(shape == 2)
                 gfx.line(-width/2, -height/2, width, height);
+            else if(shape == 3)
+                gfx.triangle(-width/2, -height/2, width/2, -height/2, 0, height/2);
             
             gfx.popMatrix();
             

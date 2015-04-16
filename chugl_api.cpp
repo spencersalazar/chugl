@@ -199,6 +199,27 @@ CK_DLL_MFUN(chugl_rect)
     // chgl->unlock();
 }
 
+CK_DLL_MFUN(chugl_triangle)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    if(!chgl->good()) return;
+    
+    t_CKFLOAT ax = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT ay = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT bx = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT by = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT cx = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT cy = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->enter(); // chgl->lock();
+    
+    glBegin(GL_TRIANGLES);
+    glVertex3f(ax, ay, 0);
+    glVertex3f(bx, by, 0);
+    glVertex3f(cx, cy, 0);
+    glEnd();
+}
+
 CK_DLL_MFUN(chugl_line)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);

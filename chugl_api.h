@@ -37,6 +37,7 @@ CK_DLL_MFUN(chugl_scale2);
 CK_DLL_MFUN(chugl_rotateZ);
 CK_DLL_MFUN(chugl_pushMatrix);
 CK_DLL_MFUN(chugl_popMatrix);
+CK_DLL_MFUN(chugl_triangle);
 CK_DLL_MFUN(chugl_rect);
 CK_DLL_MFUN(chugl_line);
 CK_DLL_MFUN(chugl_ellipse);
