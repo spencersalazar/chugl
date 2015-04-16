@@ -10,6 +10,7 @@ Currently in heavy development/alpha status. Mac OS X Only.
 ## How to install
 
 First install Xcode or Command-line build tools. Then install lxml, a Python library. E.g. 
+
     $ sudo pip install lxml
 
 Clone the master branch of chugl.  
