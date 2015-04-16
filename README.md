@@ -7,9 +7,11 @@ See http://chuck.stanford.edu/extend/ for more info about chugins and http://chu
 
 Currently in heavy development/alpha status. Mac OS X Only. 
 
-## How to install
+## How to build/install
 
-First install Xcode or Command-line build tools. Then install lxml, a Python library. E.g. 
+Currently chugl needs to be built from source to use it. 
+First install Xcode or Command-line build tools.
+Then install lxml, a Python library. E.g. 
 
     $ sudo pip install lxml
 
