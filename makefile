@@ -8,7 +8,7 @@ CXX_MODULES=chugl.cpp chugl_opengl.cpp chugl_api.cpp util_opengl.cpp
 OBJCXX_MODULES=
 
 # where the chuck headers are
-CK_SRC_PATH?=../chuck/src/
+CK_SRC_PATH?=chuck/src/
 
 
 # ---------------------------------------------------------------------------- #
