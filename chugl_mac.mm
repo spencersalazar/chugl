@@ -112,6 +112,9 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         NSOpenGLPixelFormatAttribute attr[] = {
             NSOpenGLPFADepthSize, 32,
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
+            NSOpenGLPFAMultisample,
+            NSOpenGLPFASampleBuffers, (NSOpenGLPixelFormatAttribute)1,
+            NSOpenGLPFASamples, (NSOpenGLPixelFormatAttribute)4,
             0
         };
         

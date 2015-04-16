@@ -126,11 +126,13 @@ void chugl::enter()
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0, windowWidth(), 0, windowHeight(), -0.1, 100);
-    
+        
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-    
+        
         glEnable(GL_LINE_SMOOTH);
+        glEnable(GL_MULTISAMPLE);
+        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         m_enter = TRUE;
