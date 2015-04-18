@@ -497,7 +497,16 @@ CK_DLL_DTOR(curveExp_dtor)
     OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
 }
 
-
+CK_DLL_MFUN(curveExp_setT40)
+{
+    curveExp *c = (curveExp *) OBJ_MEMBER_INT(SELF, curve_offset_data);
+    
+    t_CKFLOAT t40 = GET_NEXT_FLOAT(ARGS);
+    
+    c->setT40(t40);
+    
+    RETURN->v_float = t40;
+}
 
 
 // query function: chuck calls this when loading the Chugin
@@ -655,6 +664,9 @@ CK_DLL_QUERY( chugl )
 
     QUERY->add_ctor(QUERY, curveExp_ctor);
     QUERY->add_dtor(QUERY, curveExp_dtor);
+    
+    QUERY->add_mfun(QUERY, curveExp_setT40, "void", "t40");
+    QUERY->add_arg(QUERY, "float", "t40");
 
     QUERY->end_class(QUERY);
     
