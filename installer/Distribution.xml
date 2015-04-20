@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+    
+    <pkg-ref id="edu.stanford.chuck.chugl"/>
+    
+    <title>ChuGL</title>
+    <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
+    <allowed-os-versions><os-version min="10.5"/></allowed-os-versions>
+    <options customize="allow" require-scripts="false"/>
+    <choices-outline>
+        <line choice="edu.stanford.chuck.chugl"/>
+    </choices-outline>
+    
+    <choice id="edu.stanford.chuck.chugl" title="ChuGL" description="chugl is a chugin that adds advanced graphic capabilities to the ChucK music programming language. chugl supports both a high-level graphics API in addition to standard OpenGL programming methods. See http://chuck.stanford.edu/extend/ for more info about chugins and http://chuck.stanford.edu/ to learn more about ChucK.
+
+Currently in heavy development/alpha status. Mac OS X Only.">
+        <pkg-ref id="edu.stanford.chuck.chugl"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.chugl" version="0" onConclusion="none">chugl.chug.pkg</pkg-ref>
+    
+</installer-gui-script>
