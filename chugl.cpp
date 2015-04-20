@@ -524,6 +524,7 @@ CK_DLL_QUERY( chugl )
     
     /*** chuglImage ***/
     QUERY->begin_class(QUERY, "chuglImage", "Object");
+    QUERY->doc_class(QUERY, "chuglImage handles loading image files into graphics memory as a texture. ");
     
     QUERY->add_ctor(QUERY, chuglImage_ctor);
     QUERY->add_dtor(QUERY, chuglImage_dtor);
@@ -533,89 +534,113 @@ CK_DLL_QUERY( chugl )
     
     QUERY->add_mfun(QUERY, chuglImage_load, "int", "load");
     QUERY->add_arg(QUERY, "string", "file");
+    QUERY->doc_func(QUERY, "Load the specified file path from disk into texture memory. ");
     
     QUERY->add_mfun(QUERY, chuglImage_unload, "void", "unload");
+    QUERY->doc_func(QUERY, "Unload the texture. ");
     
     QUERY->add_mfun(QUERY, chuglImage_tex, "int", "tex");
+    QUERY->doc_func(QUERY, "Get the OpenGL texture name (e.g. for use with gl.BindTexture). Returns 0 if no texture has been loaded.");
     
     QUERY->end_class(QUERY);
     
     
     /*** chugl ***/
     QUERY->begin_class(QUERY, "chugl", "Object");
+    QUERY->doc_class(QUERY, "The chugl class is the primary interface between ChucK code and the ChuGL graphics system. ");
     
     QUERY->add_ctor(QUERY, chugl_ctor);
     QUERY->add_dtor(QUERY, chugl_dtor);
     
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
     chugl_offset_gl = QUERY->add_mvar(QUERY, "OpenGL", "gl", FALSE);
+    QUERY->doc_var(QUERY, "An OpenGL object, for making direct OpenGL calls to the graphics state represented by this instance.");
     chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
     
     QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
     QUERY->add_arg(QUERY, "float", "height");
+    QUERY->doc_func(QUERY, "Open a window for drawing with specified width and height. ");
     
     QUERY->add_mfun(QUERY, chugl_fullscreen, "void", "fullscreen");
+    QUERY->doc_func(QUERY, "Open a fullscreen window for drawing. ");
     
     QUERY->add_mfun(QUERY, chugl_width, "float", "width");
+    QUERY->doc_func(QUERY, "Width of the window, or screen if a fullscreen window is being used. ");
     QUERY->add_mfun(QUERY, chugl_height, "float", "height");
+    QUERY->doc_func(QUERY, "Height of the window, or screen if a fullscreen window is being used. ");
     
     QUERY->add_mfun(QUERY, chugl_good, "int", "good");
+    QUERY->doc_func(QUERY, "Returns true if the window or screen is ready to be drawn to, and the underlying OpenGL context is ready. ");
     
     QUERY->add_mfun(QUERY, chugl_clear, "void", "clear");
+    QUERY->doc_func(QUERY, "Clear the screen.");
     
     QUERY->add_mfun(QUERY, chugl_pushMatrix, "void", "pushMatrix");
+    QUERY->doc_func(QUERY, "Push the current transform matrix.");
     QUERY->add_mfun(QUERY, chugl_popMatrix, "void", "popMatrix");
+    QUERY->doc_func(QUERY, "Pop the current transform matrix.");
     
     QUERY->add_mfun(QUERY, chugl_rotateZ, "void", "rotate");
-    QUERY->add_arg(QUERY, "float", "z");
+    QUERY->add_arg(QUERY, "float", "angle");
+    QUERY->doc_func(QUERY, "Rotate by the specified angle (in radians) around the z-axis (e..g 2-D rotation). ");
     
     QUERY->add_mfun(QUERY, chugl_translate2, "void", "translate");
     QUERY->add_arg(QUERY, "float", "x");
     QUERY->add_arg(QUERY, "float", "y");
+    QUERY->doc_func(QUERY, "Translate in 2-D by the specified x and y directions. ");
     
     QUERY->add_mfun(QUERY, chugl_scale2, "void", "scale");
     QUERY->add_arg(QUERY, "float", "x");
     QUERY->add_arg(QUERY, "float", "y");
+    QUERY->doc_func(QUERY, "Scale in 2-D by the specified factors in x and y. ");
     
     QUERY->add_mfun(QUERY, chugl_color4, "void", "color");
     QUERY->add_arg(QUERY, "float", "r");
     QUERY->add_arg(QUERY, "float", "g");
     QUERY->add_arg(QUERY, "float", "b");
     QUERY->add_arg(QUERY, "float", "a");
+    QUERY->doc_func(QUERY, "Set the current drawing color to the specified RGBA color. ");
     
     QUERY->add_mfun(QUERY, chugl_color3, "void", "color");
     QUERY->add_arg(QUERY, "float", "r");
     QUERY->add_arg(QUERY, "float", "g");
     QUERY->add_arg(QUERY, "float", "b");
+    QUERY->doc_func(QUERY, "Set the current drawing color to the specified RGB color. ");
     
     QUERY->add_mfun(QUERY, chugl_hsv4, "void", "hsv");
     QUERY->add_arg(QUERY, "float", "h");
     QUERY->add_arg(QUERY, "float", "s");
     QUERY->add_arg(QUERY, "float", "v");
     QUERY->add_arg(QUERY, "float", "a");
+    QUERY->doc_func(QUERY, "Set the current drawing color to the specified HSVA color. ");
     
     QUERY->add_mfun(QUERY, chugl_hsv3, "void", "hsv");
     QUERY->add_arg(QUERY, "float", "h");
     QUERY->add_arg(QUERY, "float", "s");
     QUERY->add_arg(QUERY, "float", "v");
+    QUERY->doc_func(QUERY, "Set the current drawing color to the specified HSV color. ");
     
     QUERY->add_mfun(QUERY, chugl_rect, "void", "rect");
     QUERY->add_arg(QUERY, "float", "x");     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width"); QUERY->add_arg(QUERY, "float", "height");
+    QUERY->doc_func(QUERY, "Draw a rectangle centered at (x,y) with specified width and height. The current transform matrix and color properties will be used when drawing the rectangle. ");
     
     QUERY->add_mfun(QUERY, chugl_triangle, "void", "triangle");
     QUERY->add_arg(QUERY, "float", "ax"); QUERY->add_arg(QUERY, "float", "ay");
     QUERY->add_arg(QUERY, "float", "bx"); QUERY->add_arg(QUERY, "float", "by");
     QUERY->add_arg(QUERY, "float", "cx"); QUERY->add_arg(QUERY, "float", "cy");
+    QUERY->doc_func(QUERY, "Draw a triangle described by the specified vertices. The current transform matrix and color properties will be used when drawing the triangle. ");
     
     QUERY->add_mfun(QUERY, chugl_ellipse, "void", "ellipse");
     QUERY->add_arg(QUERY, "float", "x");     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width"); QUERY->add_arg(QUERY, "float", "height");
+    QUERY->doc_func(QUERY, "Draw an ellipse centered at (x,y) with specified width and height. The current transform matrix and color properties will be used when drawing the ellipse. ");
     
     QUERY->add_mfun(QUERY, chugl_line, "void", "line");
     QUERY->add_arg(QUERY, "float", "x1"); QUERY->add_arg(QUERY, "float", "y1");
     QUERY->add_arg(QUERY, "float", "x2"); QUERY->add_arg(QUERY, "float", "y2");
+    QUERY->doc_func(QUERY, "Draw a line between (x1,y1) and (x2,y2). The current transform matrix and color properties will be used when drawing the line. ");
     
     // end the class definition
     // IMPORTANT: this MUST be called!
