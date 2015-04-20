@@ -6,3 +6,4 @@ chugl_opengl.cpp
 OpenGL/diag.txt
 *.pyc
 installer/*.pkg
+installer/*.chug

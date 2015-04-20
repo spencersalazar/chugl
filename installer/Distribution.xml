@@ -2,6 +2,7 @@
 <installer-gui-script minSpecVersion="1">
     
     <pkg-ref id="edu.stanford.chuck.chugl"/>
+    <pkg-ref id="edu.stanford.chuck.maui"/>
     
     <title>ChuGL</title>
     <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
@@ -9,6 +10,7 @@
     <options customize="allow" require-scripts="false"/>
     <choices-outline>
         <line choice="edu.stanford.chuck.chugl"/>
+        <line choice="edu.stanford.chuck.maui"/>
     </choices-outline>
     
     <choice id="edu.stanford.chuck.chugl" title="ChuGL" description="chugl is a chugin that adds advanced graphic capabilities to the ChucK music programming language. chugl supports both a high-level graphics API in addition to standard OpenGL programming methods. See http://chuck.stanford.edu/extend/ for more info about chugins and http://chuck.stanford.edu/ to learn more about ChucK.
@@ -17,5 +19,10 @@ Currently in heavy development/alpha status. Mac OS X Only.">
         <pkg-ref id="edu.stanford.chuck.chugl"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.chugl" version="0" onConclusion="none">chugl.chug.pkg</pkg-ref>
+    
+    <choice id="edu.stanford.chuck.maui" title="MAUI" description="miniAudicle User Interface, for command-line ChucK." start_selected="false">
+        <pkg-ref id="edu.stanford.chuck.maui"/>
+    </choice>
+    <pkg-ref id="edu.stanford.chuck.maui" version="0" onConclusion="none">maui.chug.pkg</pkg-ref>
     
 </installer-gui-script>

@@ -3,7 +3,7 @@ CHUGL_SRC_ROOT=../
 
 PKG_VERSION=$(shell date '+%Y%m%d')-$(shell git rev-parse --short --verify HEAD)
 
-CHUGIN_NAMES=chugl
+CHUGIN_NAMES=chugl MAUI
 CHUGINS=$(addsuffix .chug,$(CHUGIN_NAMES))
 CHUGINS_ORIGINAL=$(foreach CHUG,$(CHUGIN_NAMES),$(CHUGL_SRC_ROOT)/$(CHUG).chug)
 
