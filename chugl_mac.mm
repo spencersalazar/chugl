@@ -417,18 +417,20 @@ t_CKBOOL chugl_image_osx::load(const std::string &filepath)
     
     if(spriteImage)
     {
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         // Get the width and height of the image
         width = CGImageGetWidth(spriteImage);
         height = CGImageGetHeight(spriteImage);
         // Allocated memory needed for the bitmap context
         spriteData = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte));
         // Uses the bitmap creation function provided by the Core Graphics framework. 
-        spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width * 4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+        spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast);
         // After you create the context, you can draw the sprite image to the context.
         CGContextDrawImage(spriteContext, CGRectMake(0.0, 0.0, (CGFloat)width, (CGFloat)height), spriteImage);
         // You don't need the context at this point, so you need to release it to avoid memory leaks.
         CGContextRelease(spriteContext);
-
+        CGColorSpaceRelease(colorSpace);
+        
         // Use OpenGL ES to generate a name for the texture.
         glGenTextures(1, &spriteTexture);
         // Bind the texture name. 
