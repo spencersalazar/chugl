@@ -665,7 +665,7 @@ CK_DLL_QUERY( chugl )
     QUERY->add_mfun(QUERY, chugl_rect, "void", "rect");
     QUERY->add_arg(QUERY, "float", "x");     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width"); QUERY->add_arg(QUERY, "float", "height");
-    QUERY->doc_func(QUERY, "Draw a rectangle with bottom-left corner at (x,y) with specified width and height. The current transform matrix and color properties will be used when drawing the rectangle. ");
+    QUERY->doc_func(QUERY, "Draw a rectangle with bottom-left corner at (x,y) and specified width and height. The current transform matrix and color properties will be used when drawing the rectangle. ");
     
     QUERY->add_mfun(QUERY, chugl_triangle, "void", "triangle");
     QUERY->add_arg(QUERY, "float", "ax"); QUERY->add_arg(QUERY, "float", "ay");
@@ -676,7 +676,7 @@ CK_DLL_QUERY( chugl )
     QUERY->add_mfun(QUERY, chugl_ellipse, "void", "ellipse");
     QUERY->add_arg(QUERY, "float", "x");     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width"); QUERY->add_arg(QUERY, "float", "height");
-    QUERY->doc_func(QUERY, "Draw an ellipse centered at (x,y) with specified width and height. The current transform matrix and color properties will be used when drawing the ellipse. ");
+    QUERY->doc_func(QUERY, "Draw an ellipse bottom-left corner at (x,y) and specified width and height. The current transform matrix and color properties will be used when drawing the ellipse. ");
     
     QUERY->add_mfun(QUERY, chugl_line, "void", "line");
     QUERY->add_arg(QUERY, "float", "x1"); QUERY->add_arg(QUERY, "float", "y1");
