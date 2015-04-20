@@ -349,6 +349,42 @@ CK_DLL_MFUN(chuglImage_tex)
     RETURN->v_int = img->tex();
 }
 
+CK_DLL_MFUN(chuglImage_draw)
+{
+    RETURN->v_int = 0;
+    
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
+    
+    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->enter(); // chgl->lock();
+    
+    glActiveTexture(GL_TEXTURE0);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, img->tex());
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glBegin(GL_TRIANGLE_STRIP);
+    glTexCoord2f(0,0);
+    glVertex3f(x, y, 0);
+    glTexCoord2f(1,0);
+    glVertex3f(x+width, y, 0);
+    glTexCoord2f(0,1);
+    glVertex3f(x, y+height, 0);
+    glTexCoord2f(1,1);
+    glVertex3f(x+width, y+height, 0);
+    glEnd();
+    
+    img->tex();
+}
+
 
 /*----------------------------------------------------------------------------
   class: curve
@@ -542,6 +578,11 @@ CK_DLL_QUERY( chugl )
     QUERY->add_mfun(QUERY, chuglImage_tex, "int", "tex");
     QUERY->doc_func(QUERY, "Get the OpenGL texture name (e.g. for use with gl.BindTexture). Returns 0 if no texture has been loaded.");
     
+    QUERY->add_mfun(QUERY, chuglImage_draw, "void", "draw");
+    QUERY->add_arg(QUERY, "float", "x");     QUERY->add_arg(QUERY, "float", "y");
+    QUERY->add_arg(QUERY, "float", "width"); QUERY->add_arg(QUERY, "float", "height");
+    QUERY->doc_func(QUERY, "Draw the image into the rectangle specified by the given bottom-left corner position (x,y) and width and height.");
+    
     QUERY->end_class(QUERY);
     
     
@@ -624,7 +665,7 @@ CK_DLL_QUERY( chugl )
     QUERY->add_mfun(QUERY, chugl_rect, "void", "rect");
     QUERY->add_arg(QUERY, "float", "x");     QUERY->add_arg(QUERY, "float", "y");
     QUERY->add_arg(QUERY, "float", "width"); QUERY->add_arg(QUERY, "float", "height");
-    QUERY->doc_func(QUERY, "Draw a rectangle centered at (x,y) with specified width and height. The current transform matrix and color properties will be used when drawing the rectangle. ");
+    QUERY->doc_func(QUERY, "Draw a rectangle with bottom-left corner at (x,y) with specified width and height. The current transform matrix and color properties will be used when drawing the rectangle. ");
     
     QUERY->add_mfun(QUERY, chugl_triangle, "void", "triangle");
     QUERY->add_arg(QUERY, "float", "ax"); QUERY->add_arg(QUERY, "float", "ay");
