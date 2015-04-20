@@ -133,6 +133,9 @@ void chugl::enter()
         glEnable(GL_LINE_SMOOTH);
         glEnable(GL_MULTISAMPLE);
         
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         m_enter = TRUE;
@@ -367,9 +370,6 @@ CK_DLL_MFUN(chuglImage_draw)
     glActiveTexture(GL_TEXTURE0);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, img->tex());
-    
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     glBegin(GL_TRIANGLE_STRIP);
     glTexCoord2f(0,0);
