@@ -9,7 +9,11 @@ Currently in heavy development/alpha status. Mac OS X Only.
 
 ## How to build/install
 
-Currently chugl needs to be built from source to use it. 
+Latest binary package available here:  
+https://ccrma.stanford.edu/~spencer/chuck/chugl-20150420-9530623.pkg
+
+Or build from source:
+
 First install Xcode or Command-line build tools.
 Then install lxml, a Python library. E.g. 
 
