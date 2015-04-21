@@ -38,8 +38,8 @@ void gen2d_ellipse_fan(GLfloat *buf, GLint nVertex, float x, float y, float xRad
     for(int i = 1; i < nVertex; i++)
     {
         float fraction = ((float)(i-1))/(nVertex-2);
-        v2d_x(buf, i) = xRadius*cos(fraction*two_pi);
-        v2d_y(buf, i) = yRadius*sin(fraction*two_pi);
+        v2d_x(buf, i) = x+xRadius*cos(fraction*two_pi);
+        v2d_y(buf, i) = y+yRadius*sin(fraction*two_pi);
     }
 }
 
