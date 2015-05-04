@@ -159,7 +159,7 @@ double_array1_type = """    Chuck_Array8 *{arg_var}_arr = (Chuck_Array8 *) GET_N
 ### TODO: fix for 32 bit (only correct for 64 bit)
 void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT_OBJECT(ARGS);
     void *{arg_var};
-    if(_{arg_var}_arr->m_array_type == &t_int)
+    if(_{arg_var}_arr->data_type_kind() == CHUCK_ARRAY4_DATAKIND)
     {{{{
         Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
         GLubyte *{arg_var}_v = new GLubyte[{arg_var}_arr->size()];
@@ -167,12 +167,16 @@ void_array1_type = """    Chuck_Array *_{arg_var}_arr = (Chuck_Array *) GET_NEXT
         copy_ckarray4_to_array({arg_var}_v, {arg_var}_arr);
         {arg_var} = (void *) {arg_var}_v;
     }}}}
-    else if(_{arg_var}_arr->m_array_type == &t_float)
+    else if(_{arg_var}_arr->data_type_kind() == CHUCK_ARRAY8_DATAKIND)
     {{{{
         Chuck_Array4 *{arg_var}_arr = (Chuck_Array4 *) _{arg_var}_arr;
         {arg_var}_arr->add_ref();
         chgl->scheduleArrayForCleanup({arg_var}_arr);
         {arg_var} = (void *) &({arg_var}_arr->m_vector.front());
+    }}}}
+    else
+    {{{{
+        assert(0);
     }}}}
 """
 
