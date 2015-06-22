@@ -26,6 +26,10 @@
 
 #include "util_opengl.h"
 
+#include "chuck_type.h"
+#include "chuck_instr.h"
+#include "chuck_vm.h"
+
 #include <math.h>
 
 
@@ -38,6 +42,46 @@ T rad2deg(T rad)
 
 extern t_CKINT chugl_offset_data;
 
+
+// example of getter/setter
+CK_DLL_MFUN(chugl_openWindow)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->openWindow(x, y);
+}
+
+// example of getter/setter
+CK_DLL_MFUN(chugl_fullscreen)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    chgl->openFullscreen();
+}
+
+CK_DLL_MFUN(chugl_width)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_float = chgl->windowWidth();
+}
+
+CK_DLL_MFUN(chugl_good)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_int = chgl->good();
+}
+
+CK_DLL_MFUN(chugl_height)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_float = chgl->windowHeight();
+}
 
 CK_DLL_MFUN(chugl_color3)
 {
@@ -276,4 +320,128 @@ CK_DLL_MFUN(chugl_clear)
     
     // chgl->unlock();
 }
+
+
+/*----------------------------------------------------------------------------
+  class: chuglImage
+   desc: ChucK GL image handling class
+-----------------------------------------------------------------------------*/
+
+chugl_image::chugl_image()
+{
+    m_tex = 0;
+}
+
+chugl_image::~chugl_image()
+{
+}
+
+t_CKINT chuglImage_offset_data = 0;
+t_CKINT chuglImage_offset_chugl = 0;
+
+CK_DLL_CTOR(chuglImage_ctor)
+{
+    chugl *chgl = chugl::mainChugl();
+    chugl_image *img = NULL;
+    
+    if(chgl && chgl->good())
+    {
+        chgl->enter(); // chgl->lock();
+        
+        img = chugl_image::platformMake();
+        
+        // chgl->unlock();
+    }
+    
+    OBJ_MEMBER_INT(SELF, chuglImage_offset_data) = (t_CKINT) img;
+    OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl) = (t_CKINT) chgl;
+}
+
+CK_DLL_DTOR(chuglImage_dtor)
+{
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    
+    if(chgl && chgl->good())
+    {
+        SAFE_DELETE(img);
+    }
+    // else just leak
+    OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
+}
+
+CK_DLL_MFUN(chuglImage_load)
+{
+    RETURN->v_int = 0;
+    
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
+    
+    Chuck_String *str = GET_NEXT_STRING(ARGS);
+    
+    chgl->enter(); // chgl->lock();
+    
+    RETURN->v_int = img->load(str->str);
+    
+    // chgl->unlock();
+}
+
+CK_DLL_MFUN(chuglImage_unload)
+{
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
+    
+    chgl->enter(); // chgl->lock();
+    
+    img->unload();
+    
+    // chgl->unlock();
+}
+
+CK_DLL_MFUN(chuglImage_tex)
+{
+    RETURN->v_int = 0;
+    
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
+    
+    RETURN->v_int = img->tex();
+}
+
+CK_DLL_MFUN(chuglImage_draw)
+{
+    RETURN->v_int = 0;
+    
+    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
+    if(!img || !chgl || !chgl->good()) return;
+    
+    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
+    t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
+    
+    chgl->enter(); // chgl->lock();
+    
+    glActiveTexture(GL_TEXTURE0);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, img->tex());
+    
+    glBegin(GL_TRIANGLE_STRIP);
+    glTexCoord2f(0,0);
+    glVertex3f(x, y, 0);
+    glTexCoord2f(1,0);
+    glVertex3f(x+width, y, 0);
+    glTexCoord2f(0,1);
+    glVertex3f(x, y+height, 0);
+    glTexCoord2f(1,1);
+    glVertex3f(x+width, y+height, 0);
+    glEnd();
+    
+    img->tex();
+}
+
 
