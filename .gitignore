@@ -7,3 +7,7 @@ OpenGL/diag.txt
 *.pyc
 installer/*.pkg
 installer/*.chug
+
+chugl.xcodeproj/project.xcworkspace/
+chugl.xcodeproj/xcuserdata/
+
