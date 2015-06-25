@@ -28,6 +28,22 @@
 #include "chuck_dl.h"
 #include "chuck_def.h"
 
+
+class ixPointer
+{
+public:
+    ixPointer(Chuck_Object *obj);
+    
+    void move(float x, float y);
+    void stateChange(int state);
+    
+    int state();
+    
+private:
+    Chuck_Object * const m_obj;
+};
+
+
 CK_DLL_CTOR(Pointer_ctor);
 CK_DLL_DTOR(Pointer_dtor);
 

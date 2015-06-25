@@ -33,8 +33,10 @@
 CK_DLL_MFUN(chugl_openWindow);
 CK_DLL_MFUN(chugl_fullscreen);
 CK_DLL_MFUN(chugl_width);
-CK_DLL_MFUN(chugl_good);
 CK_DLL_MFUN(chugl_height);
+CK_DLL_MFUN(chugl_hideCursor);
+CK_DLL_MFUN(chugl_showCursor);
+CK_DLL_MFUN(chugl_good);
 CK_DLL_MFUN(chugl_color3);
 CK_DLL_MFUN(chugl_color4);
 CK_DLL_MFUN(chugl_hsv3);

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "091B7B491B385D7400412635"
-               BuildableName = "libchugl.dylib"
+               BuildableName = "chugl.chug"
                BlueprintName = "chugl"
                ReferencedContainer = "container:chugl.xcodeproj">
             </BuildableReference>
@@ -47,14 +47,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "091B7B491B385D7400412635"
-            BuildableName = "libchugl.dylib"
+            BuildableName = "chugl.chug"
             BlueprintName = "chugl"
             ReferencedContainer = "container:chugl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/spectrogram.ck"
+            argument = "$(PROJECT_DIR)/test/ix/ix.ck"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-v5"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -75,7 +79,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "091B7B491B385D7400412635"
-            BuildableName = "libchugl.dylib"
+            BuildableName = "chugl.chug"
             BlueprintName = "chugl"
             ReferencedContainer = "container:chugl.xcodeproj">
          </BuildableReference>

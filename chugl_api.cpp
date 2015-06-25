@@ -83,6 +83,18 @@ CK_DLL_MFUN(chugl_height)
     RETURN->v_float = chgl->windowHeight();
 }
 
+CK_DLL_MFUN(chugl_hideCursor)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chgl->hideCursor();
+}
+
+CK_DLL_MFUN(chugl_showCursor)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chgl->showCursor();
+}
+
 CK_DLL_MFUN(chugl_color3)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);

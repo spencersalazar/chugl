@@ -83,7 +83,8 @@ chugl *chugl::s_mainChugl = NULL;
 
 chugl *chugl::mainChugl() { return s_mainChugl; }
 
-chugl::chugl()
+chugl::chugl() :
+m_pointer(NULL)
 {
     m_Chuck_UI_Manager_init = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_init");
     if(m_Chuck_UI_Manager_init != NULL)
@@ -178,6 +179,18 @@ void chugl::cleanupArrayData()
     m_cleanupArray.clear();
 }
 
+void chugl::setPointer(ixPointer *pointer)
+{
+    // can only be set once
+    assert(m_pointer == NULL);
+    m_pointer = pointer;
+}
+
+ixPointer *chugl::pointer()
+{
+    return m_pointer;
+}
+
 
 t_CKINT chugl_offset_data = 0;
 t_CKINT chugl_offset_gl = 0;
@@ -192,7 +205,7 @@ CK_DLL_CTOR(chugl_ctor)
     
     Chuck_Env * env = Chuck_Env::instance();
     
-    // create OpenGL object
+    /* create OpenGL object */
     a_Id_List list = new_id_list( "OpenGL", 0 );
     Chuck_Type * type = type_engine_find_type( env, list );    
     delete_id_list( list );
@@ -202,7 +215,7 @@ CK_DLL_CTOR(chugl_ctor)
     OBJ_MEMBER_INT(gl, Chuck_OpenGL_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = gl;
     
-    // create chuglHack object
+    /* create chuglHack object */
     a_Id_List hackList = new_id_list( "chuglHack", 0 );
     
     Chuck_Type * hackType = type_engine_find_type( env, hackList );
@@ -214,14 +227,17 @@ CK_DLL_CTOR(chugl_ctor)
     
     SHRED->vm_ref->m_bunghole->add(hack, FALSE);
 	
-    // create pointer object
+    /* create pointer object */
     a_Id_List ptrList = new_id_list( "Pointer", 0 );
     Chuck_Type * ptrType = type_engine_find_type( env, ptrList );    
     delete_id_list( ptrList );
     
     Chuck_Object * pointer = instantiate_and_initialize_object( ptrType, NULL );
+    // TODO: why do i have to call ctor directly?
+    Pointer_ctor(pointer, NULL, SHRED, API);
     
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_pointer) = pointer;
+    chgl->setPointer(new ixPointer(pointer));
 }
 
 CK_DLL_DTOR(chugl_dtor)
@@ -283,7 +299,10 @@ CK_DLL_QUERY( chugl )
     // Pointer_offset_data = QUERY->add_mvar(QUERY, "int", "@Pointer_data", FALSE);
     Pointer_offset_x = QUERY->add_mvar(QUERY, "float", "x", FALSE);
     Pointer_offset_y = QUERY->add_mvar(QUERY, "float", "y", FALSE);
-	Pointer_offset_state = QUERY->add_mvar(QUERY, "int", "state", FALSE);
+    Pointer_offset_state = QUERY->add_mvar(QUERY, "int", "state", FALSE);
+    
+    Pointer_offset_move = QUERY->add_mvar(QUERY, "Event", "move", FALSE);
+    Pointer_offset_stateChange = QUERY->add_mvar(QUERY, "Event", "stateChange", FALSE);
 
     QUERY->end_class(QUERY);
     
@@ -296,9 +315,12 @@ CK_DLL_QUERY( chugl )
     QUERY->add_dtor(QUERY, chugl_dtor);
     
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
+    chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
+    
     chugl_offset_gl = QUERY->add_mvar(QUERY, "OpenGL", "gl", FALSE);
     QUERY->doc_var(QUERY, "An OpenGL object, for making direct OpenGL calls to the graphics state represented by this instance.");
-    chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
+    
+    chugl_offset_pointer = QUERY->add_mvar(QUERY, "Pointer", "pointer", FALSE);
     
     QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
@@ -315,6 +337,9 @@ CK_DLL_QUERY( chugl )
     
     QUERY->add_mfun(QUERY, chugl_good, "int", "good");
     QUERY->doc_func(QUERY, "Returns true if the window or screen is ready to be drawn to, and the underlying OpenGL context is ready. ");
+    
+    QUERY->add_mfun(QUERY, chugl_hideCursor, "void", "hideCursor");
+    QUERY->add_mfun(QUERY, chugl_showCursor, "void", "showCursor");
     
     QUERY->add_mfun(QUERY, chugl_clear, "void", "clear");
     QUERY->doc_func(QUERY, "Clear the screen.");
