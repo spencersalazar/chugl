@@ -22,12 +22,12 @@ all: $(INSTALLER)
 
 upload: $(INSTALLER)
 	scp $(INSTALLER) ccrma-gate.stanford.edu:Library/Web/chuck
-	@echo "uploaded to URL: "
-	@echo "https://ccrma.stanford.edu/~spencer/chuck/$(INSTALLER)"
+	@echo "\033[32;1muploaded to URL: \033[0m"
+	@echo "\033[32;1mhttps://ccrma.stanford.edu/~spencer/chuck/$(INSTALLER)\033[0m"
 
 $(INSTALLER): $(PKGS) $(CHUGINS) Distribution.xml
 	@echo "Creating installer"
-	@echo "    chugl path:" $(realpath $(CHUGL_SRC_ROOT))
+	@echo "\033[32;1m    chugl path:" $(realpath $(CHUGL_SRC_ROOT)) "\033[0m"
 	productbuild --distribution Distribution.xml --version $(PKG_VERSION) --package-path . --sign "$(CERT)" --resources resources $@
 
 $(CHUGIN_PKGS): %.pkg: %
