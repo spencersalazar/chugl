@@ -10,7 +10,7 @@ Currently in heavy development/alpha status. Mac OS X Only.
 ## How to build/install
 
 Latest binary package available here:  
-https://ccrma.stanford.edu/~spencer/chuck/chugl-20150420-9530623.pkg
+https://ccrma.stanford.edu/~spencer/chuck/chugl-20150815-154636f.pkg
 
 Or build from source:
 
