@@ -82,17 +82,25 @@ chugl *chugl::mainChugl() { return s_mainChugl; }
 
 chugl::chugl()
 {
-    m_Chuck_UI_Manager_init = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_init");
-    if(m_Chuck_UI_Manager_init != NULL)
-        m_Chuck_UI_Manager_init();
+    // first check if we are in miniAudicle
+    const char **MA_VERSION = (const char **) dlsym(RTLD_DEFAULT, "MA_VERSION");
+    if(MA_VERSION == NULL)
+    {
+        // find standalone UI hooks for MAUI.chug
+        m_Chuck_UI_Manager_init = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_init");
+        if(m_Chuck_UI_Manager_init != NULL)
+            m_Chuck_UI_Manager_init();
     
-    m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
-    if(m_Chuck_UI_Manager_start != NULL)
-        m_Chuck_UI_Manager_start();
-    
-    // else fuck it we'll do it live
-    // TODO: check if in miniAudicle; otherwise log warning
-    
+        m_Chuck_UI_Manager_start = (void (*)()) dlsym(RTLD_DEFAULT, "Chuck_UI_Manager_start");
+        if(m_Chuck_UI_Manager_start != NULL)
+            m_Chuck_UI_Manager_start();
+
+        if(m_Chuck_UI_Manager_init == NULL || m_Chuck_UI_Manager_start == NULL)
+        {
+            EM_error3("chugl: erorr: unable to find MAUI");
+        }
+    }
+
     m_lock = 0;
     m_good = FALSE;
     m_enter = FALSE;
