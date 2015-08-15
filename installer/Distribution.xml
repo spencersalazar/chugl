@@ -20,7 +20,7 @@ Currently in heavy development/alpha status. Mac OS X Only.">
     </choice>
     <pkg-ref id="edu.stanford.chuck.chugl" version="0" onConclusion="none">chugl.chug.pkg</pkg-ref>
     
-    <choice id="edu.stanford.chuck.maui" title="MAUI" description="miniAudicle User Interface, for command-line ChucK." start_selected="false">
+    <choice id="edu.stanford.chuck.maui" title="MAUI" description="miniAudicle User Interface, for command-line ChucK.">
         <pkg-ref id="edu.stanford.chuck.maui"/>
     </choice>
     <pkg-ref id="edu.stanford.chuck.maui" version="0" onConclusion="none">maui.chug.pkg</pkg-ref>
