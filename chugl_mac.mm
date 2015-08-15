@@ -373,6 +373,8 @@ void chugl_osx::platformExit()
 
 @implementation CKOpenGLView
 
+@synthesize chugl = _chugl;
+
 - (BOOL)acceptsFirstResponder
 {
     return YES;
