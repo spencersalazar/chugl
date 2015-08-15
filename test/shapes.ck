@@ -21,6 +21,8 @@ fun void shape()
     while(true)
     {
         Math.random2(0, 3) => int shape;
+        Math.random2f(WIDTH*0.25, WIDTH*0.75) => float x;
+        Math.random2f(HEIGHT*0.25, HEIGHT*0.75) => float y;
         Math.random2f(50,250) => float width;
         Math.random2f(50,250) => float height;
         Math.random2f(0,1) => float hue;
@@ -34,8 +36,8 @@ fun void shape()
         {
             gfx.pushMatrix();
             
-            gfx.hsv(hue, sat, 0.9, 0.5);
-            gfx.translate(WIDTH/2, HEIGHT/2);
+            gfx.hsv(hue, sat, 0.9, 0.7);
+            gfx.translate(x, y);
             gfx.rotate(rot*2*pi);
             
             if(shape == 0)
@@ -45,7 +47,7 @@ fun void shape()
             else if(shape == 2)
                 gfx.line(-width/2, -height/2, width, height);
             else if(shape == 3)
-                gfx.triangle(-width/2, -height/2, width/2, -height/2, 0, height/2);
+                gfx.triangle(-width/2, height/2, width/2, height/2, 0, -height/2);
             
             gfx.popMatrix();
             
