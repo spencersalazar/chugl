@@ -24,7 +24,7 @@ fun void shape()
         Math.random2f(50,250) => float width;
         Math.random2f(50,250) => float height;
         Math.random2f(0,1) => float hue;
-        Math.random2f(0.25, 0.75) => float sat;
+        Math.random2f(0.5, 0.8) => float sat;
         Math.random2f(0.1,0.5) => float speed;
         if(maybe) -speed => speed;
 
@@ -34,7 +34,7 @@ fun void shape()
         {
             gfx.pushMatrix();
             
-            gfx.hsv(hue, sat, 0.75, 0.5);
+            gfx.hsv(hue, sat, 0.9, 0.5);
             gfx.translate(WIDTH/2, HEIGHT/2);
             gfx.rotate(rot*2*pi);
             
