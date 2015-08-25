@@ -28,7 +28,8 @@ fun void streamer()
     WIDTH*Math.pow(2, Math.random2f(-2, 1)) => float length;
     
     Math.random2f(-(DIAGONAL-WIDTH)-WIDTH/3, -(DIAGONAL-WIDTH)) => float pos;
-    Math.random2f(3, 17)*5 => float v;
+    //Math.random2f(3, 17)*5 => float v;
+    5*Math.pow(3, Math.random2f(0,2.5)) => float v;
     
     while(pos-length <= DIAGONAL)
     {
@@ -100,7 +101,7 @@ spork ~ background();
 
 while(true)
 {
-    Math.random2(0,4)*20 => int num;
+    Math.random2(0,4)*4 => int num;
     for(0 => int i; i < num; i++)
         spork ~ streamer();
     
