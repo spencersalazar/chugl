@@ -85,6 +85,11 @@ public:
 @end
 
 @interface CKOpenGLView : NSOpenGLView
+{
+    chugl *_chugl;
+}
+
+@property (nonatomic) chugl *chugl;
 
 @end
 
