@@ -23,7 +23,10 @@
 
 #include "chugl.h"
 #include "chugl_opengl.h"
+
 #include "chugl_api.h"
+#include "chugl_ix.h"
+#include "chugl_motion.h"
 
 #include "chuck_type.h"
 #include "chuck_instr.h"
@@ -80,7 +83,8 @@ chugl *chugl::s_mainChugl = NULL;
 
 chugl *chugl::mainChugl() { return s_mainChugl; }
 
-chugl::chugl()
+chugl::chugl() :
+m_pointer(NULL)
 {
     // first check if we are in miniAudicle
     const char **MA_VERSION = (const char **) dlsym(RTLD_DEFAULT, "MA_VERSION");
@@ -183,10 +187,23 @@ void chugl::cleanupArrayData()
     m_cleanupArray.clear();
 }
 
+void chugl::setPointer(ixPointer *pointer)
+{
+    // can only be set once
+    assert(m_pointer == NULL);
+    m_pointer = pointer;
+}
+
+ixPointer *chugl::pointer()
+{
+    return m_pointer;
+}
+
 
 t_CKINT chugl_offset_data = 0;
 t_CKINT chugl_offset_gl = 0;
 t_CKINT chugl_offset_hack = 0;
+t_CKINT chugl_offset_pointer = 0;
 
 
 CK_DLL_CTOR(chugl_ctor)
@@ -196,11 +213,9 @@ CK_DLL_CTOR(chugl_ctor)
     
     Chuck_Env * env = Chuck_Env::instance();
     
-    // create OpenGL object
+    /* create OpenGL object */
     a_Id_List list = new_id_list( "OpenGL", 0 );
-    
-    Chuck_Type * type = type_engine_find_type( env, list );
-    
+    Chuck_Type * type = type_engine_find_type( env, list );    
     delete_id_list( list );
     
     Chuck_Object * gl = instantiate_and_initialize_object( type, NULL );
@@ -208,19 +223,29 @@ CK_DLL_CTOR(chugl_ctor)
     OBJ_MEMBER_INT(gl, Chuck_OpenGL_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = gl;
     
-    // create chuglHack object
+    /* create chuglHack object */
     a_Id_List hackList = new_id_list( "chuglHack", 0 );
     
     Chuck_Type * hackType = type_engine_find_type( env, hackList );
-    
     delete_id_list( hackList );
-    
     Chuck_UGen *hack = (Chuck_UGen *) instantiate_and_initialize_object( hackType, NULL );
     
     OBJ_MEMBER_INT(hack, chuglHack_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_INT(SELF, chugl_offset_hack) = (t_CKINT) hack;
     
     SHRED->vm_ref->m_bunghole->add(hack, FALSE);
+	
+    /* create pointer object */
+    a_Id_List ptrList = new_id_list( "Pointer", 0 );
+    Chuck_Type * ptrType = type_engine_find_type( env, ptrList );    
+    delete_id_list( ptrList );
+    
+    Chuck_Object * pointer = instantiate_and_initialize_object( ptrType, NULL );
+    // TODO: why do i have to call ctor directly?
+    Pointer_ctor(pointer, NULL, SHRED, API);
+    
+    OBJ_MEMBER_OBJECT(SELF, chugl_offset_pointer) = pointer;
+    chgl->setPointer(new ixPointer(pointer));
 }
 
 CK_DLL_DTOR(chugl_dtor)
@@ -228,328 +253,6 @@ CK_DLL_DTOR(chugl_dtor)
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     SAFE_DELETE(chgl);
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
-}
-
-// example of getter/setter
-CK_DLL_MFUN(chugl_openWindow)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    
-    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
-    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
-    
-    chgl->openWindow(x, y);
-}
-
-// example of getter/setter
-CK_DLL_MFUN(chugl_fullscreen)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    
-    chgl->openFullscreen();
-}
-
-CK_DLL_MFUN(chugl_width)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    
-    RETURN->v_float = chgl->windowWidth();
-}
-
-CK_DLL_MFUN(chugl_good)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    
-    RETURN->v_int = chgl->good();
-}
-
-CK_DLL_MFUN(chugl_height)
-{
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
-    
-    RETURN->v_float = chgl->windowHeight();
-}
-
-
-/*----------------------------------------------------------------------------
-  class: chuglImage
-   desc: ChucK GL image handling class
------------------------------------------------------------------------------*/
-
-chugl_image::chugl_image()
-{
-    m_tex = 0;
-}
-
-chugl_image::~chugl_image()
-{
-}
-
-t_CKINT chuglImage_offset_data = 0;
-t_CKINT chuglImage_offset_chugl = 0;
-
-CK_DLL_CTOR(chuglImage_ctor)
-{
-    chugl *chgl = chugl::mainChugl();
-    chugl_image *img = NULL;
-    
-    if(chgl && chgl->good())
-    {
-        chgl->enter(); // chgl->lock();
-        
-        img = chugl_image::platformMake();
-        
-        // chgl->unlock();
-    }
-    
-    OBJ_MEMBER_INT(SELF, chuglImage_offset_data) = (t_CKINT) img;
-    OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl) = (t_CKINT) chgl;
-}
-
-CK_DLL_DTOR(chuglImage_dtor)
-{
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
-    
-    if(chgl && chgl->good())
-    {
-        SAFE_DELETE(img);
-    }
-    // else just leak
-    OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
-}
-
-CK_DLL_MFUN(chuglImage_load)
-{
-    RETURN->v_int = 0;
-    
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
-    if(!img || !chgl || !chgl->good()) return;
-    
-    Chuck_String *str = GET_NEXT_STRING(ARGS);
-    
-    chgl->enter(); // chgl->lock();
-    
-    RETURN->v_int = img->load(str->str);
-    
-    // chgl->unlock();
-}
-
-CK_DLL_MFUN(chuglImage_unload)
-{
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
-    if(!img || !chgl || !chgl->good()) return;
-    
-    chgl->enter(); // chgl->lock();
-    
-    img->unload();
-    
-    // chgl->unlock();
-}
-
-CK_DLL_MFUN(chuglImage_tex)
-{
-    RETURN->v_int = 0;
-    
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
-    if(!img || !chgl || !chgl->good()) return;
-    
-    RETURN->v_int = img->tex();
-}
-
-CK_DLL_MFUN(chuglImage_draw)
-{
-    RETURN->v_int = 0;
-    
-    chugl_image *img = (chugl_image *) OBJ_MEMBER_INT(SELF, chuglImage_offset_data);
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chuglImage_offset_chugl);
-    if(!img || !chgl || !chgl->good()) return;
-    
-    t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
-    t_CKFLOAT y = GET_NEXT_FLOAT(ARGS);
-    t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
-    t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
-    
-    chgl->enter(); // chgl->lock();
-    
-    glActiveTexture(GL_TEXTURE0);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, img->tex());
-    
-    glBegin(GL_TRIANGLE_STRIP);
-    glTexCoord2f(0,0);
-    glVertex3f(x, y, 0);
-    glTexCoord2f(1,0);
-    glVertex3f(x+width, y, 0);
-    glTexCoord2f(0,1);
-    glVertex3f(x, y+height, 0);
-    glTexCoord2f(1,1);
-    glVertex3f(x+width, y+height, 0);
-    glEnd();
-    
-    img->tex();
-}
-
-
-/*----------------------------------------------------------------------------
-  class: curve
-   desc: ChucK GL animation curves
------------------------------------------------------------------------------*/
-
-class curve
-{
-public:
-    curve(t_CKFLOAT val, t_CKFLOAT t) :
-    m_val(val), m_target(val), m_last_t(t) { }
-    virtual ~curve() { }
-    
-    void interp(t_CKFLOAT t)
-    {
-        if(t > m_last_t)
-        {
-            internal_interp(t, t-m_last_t);
-            m_last_t = t;
-        }
-    }
-    
-    inline t_CKFLOAT getVal() { return m_val; }
-    inline void setVal(t_CKFLOAT val) { m_val = val; }
-    
-    inline t_CKFLOAT getTarget() { return m_target; }
-    inline void setTarget(t_CKFLOAT target) { m_target = target; }
-    
-protected:
-    
-    virtual void internal_interp(t_CKFLOAT t, t_CKFLOAT dt) = 0;
-    
-    t_CKFLOAT m_val, m_target;
-    t_CKDUR m_dur;
-    
-private:
-    t_CKFLOAT m_last_t;
-};
-
-class curveExp : public curve
-{
-public:
-    curveExp(t_CKFLOAT val, t_CKFLOAT t, t_CKFLOAT fs, t_CKFLOAT t40 = 1) :
-    curve(val, t), m_fs(fs)
-    {
-        this->setT40(t40);
-    }
-    
-    void setRate(t_CKFLOAT rate) { m_a1 = 1-rate; }
-    
-    void setT40(t_CKFLOAT t40)
-    {
-        t_CKFLOAT n40 = t40*m_fs;
-        m_a1 = pow(0.01, 1.0/n40);
-    }
-    
-protected:
-    virtual void internal_interp(t_CKFLOAT t, t_CKFLOAT dt)
-    {
-        t_CKFLOAT n = dt*m_fs;
-        t_CKFLOAT a1_n = pow(m_a1, n);
-        m_val = a1_n*m_val + (1-a1_n)*m_target;
-    }
-    
-    t_CKFLOAT m_fs, m_a1;
-};
-
-
-t_CKINT curve_offset_data = 0;
-
-CK_DLL_CTOR(curve_ctor)
-{
-    OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
-    
-    if(SELF->type_ref->name == "curve")
-    {
-        t_CKFLOAT fs = SHRED->vm_ref->srate();
-        t_CKFLOAT t = SHRED->vm_ref->shreduler()->now_system/fs;
-        
-        curve *c = new curveExp(0, t, fs);
-        OBJ_MEMBER_INT(SELF, curve_offset_data) = (t_CKINT) c;
-    }
-}
-
-CK_DLL_DTOR(curve_dtor)
-{
-    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-    SAFE_DELETE(c);
-    OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
-}
-
-CK_DLL_MFUN(curve_getTarget)
-{
-    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-        
-    RETURN->v_float = c->getTarget();
-}
-
-CK_DLL_MFUN(curve_setTarget)
-{
-    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-    
-    t_CKFLOAT target = GET_NEXT_FLOAT(ARGS);
-    
-    c->setTarget(target);
-    
-    RETURN->v_float = target;
-}
-
-CK_DLL_MFUN(curve_setVal)
-{
-    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-    
-    t_CKFLOAT val = GET_NEXT_FLOAT(ARGS);
-    
-    c->setVal(val);
-    
-    RETURN->v_float = val;
-}
-
-CK_DLL_MFUN(curve_getVal)
-{
-    t_CKFLOAT fs = SHRED->vm_ref->srate();
-    t_CKFLOAT t = SHRED->vm_ref->shreduler()->now_system/fs;
-    
-    curve *c = (curve *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-    
-    c->interp(t);
-    
-    RETURN->v_float = c->getVal();
-}
-
-CK_DLL_CTOR(curveExp_ctor)
-{
-    t_CKFLOAT fs = SHRED->vm_ref->srate();
-    t_CKFLOAT t = SHRED->vm_ref->shreduler()->now_system/fs;
-    
-    curveExp *c = new curveExp(0, t, fs);
-    OBJ_MEMBER_INT(SELF, curve_offset_data) = (t_CKINT) c;
-}
-
-CK_DLL_DTOR(curveExp_dtor)
-{
-    curveExp *c = (curveExp *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-    SAFE_DELETE(c);
-    OBJ_MEMBER_INT(SELF, curve_offset_data) = 0;
-}
-
-CK_DLL_MFUN(curveExp_setT40)
-{
-    curveExp *c = (curveExp *) OBJ_MEMBER_INT(SELF, curve_offset_data);
-    
-    t_CKFLOAT t40 = GET_NEXT_FLOAT(ARGS);
-    
-    c->setT40(t40);
-    
-    RETURN->v_float = t40;
 }
 
 
@@ -592,6 +295,24 @@ CK_DLL_QUERY( chugl )
     QUERY->doc_func(QUERY, "Draw the image into the rectangle specified by the given bottom-left corner position (x,y) and width and height.");
     
     QUERY->end_class(QUERY);
+	
+    /*** Pointer ***/
+    
+    QUERY->begin_class(QUERY, "Pointer", "Object");
+    // QUERY->doc_class(QUERY, "");
+
+    QUERY->add_ctor(QUERY, Pointer_ctor);
+    QUERY->add_dtor(QUERY, Pointer_dtor);
+	
+    // Pointer_offset_data = QUERY->add_mvar(QUERY, "int", "@Pointer_data", FALSE);
+    Pointer_offset_x = QUERY->add_mvar(QUERY, "float", "x", FALSE);
+    Pointer_offset_y = QUERY->add_mvar(QUERY, "float", "y", FALSE);
+    Pointer_offset_state = QUERY->add_mvar(QUERY, "int", "state", FALSE);
+    
+    Pointer_offset_move = QUERY->add_mvar(QUERY, "Event", "move", FALSE);
+    Pointer_offset_stateChange = QUERY->add_mvar(QUERY, "Event", "stateChange", FALSE);
+
+    QUERY->end_class(QUERY);
     
     
     /*** chugl ***/
@@ -602,9 +323,12 @@ CK_DLL_QUERY( chugl )
     QUERY->add_dtor(QUERY, chugl_dtor);
     
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
+    chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
+    
     chugl_offset_gl = QUERY->add_mvar(QUERY, "OpenGL", "gl", FALSE);
     QUERY->doc_var(QUERY, "An OpenGL object, for making direct OpenGL calls to the graphics state represented by this instance.");
-    chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
+    
+    chugl_offset_pointer = QUERY->add_mvar(QUERY, "Pointer", "pointer", FALSE);
     
     QUERY->add_mfun(QUERY, chugl_openWindow, "void", "openWindow");
     QUERY->add_arg(QUERY, "float", "width");
@@ -621,6 +345,9 @@ CK_DLL_QUERY( chugl )
     
     QUERY->add_mfun(QUERY, chugl_good, "int", "good");
     QUERY->doc_func(QUERY, "Returns true if the window or screen is ready to be drawn to, and the underlying OpenGL context is ready. ");
+    
+    QUERY->add_mfun(QUERY, chugl_hideCursor, "void", "hideCursor");
+    QUERY->add_mfun(QUERY, chugl_showCursor, "void", "showCursor");
     
     QUERY->add_mfun(QUERY, chugl_clear, "void", "clear");
     QUERY->doc_func(QUERY, "Clear the screen.");

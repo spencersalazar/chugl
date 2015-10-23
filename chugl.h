@@ -39,6 +39,9 @@
 using namespace std;
 
 
+class ixPointer;
+
+
 /*-----------------------------------------------------------------------------
  chugl_array_data_base
  chugl_array_data
@@ -107,6 +110,12 @@ public:
         m_cleanupArray.push_back(array);
     }
     
+    void setPointer(ixPointer *pointer);
+    ixPointer *pointer();
+    
+    virtual void hideCursor() = 0;
+    virtual void showCursor() = 0;
+    
     
 protected:
     void cleanupArrayData();
@@ -122,6 +131,8 @@ protected:
     t_CKBOOL m_enterMainThread;
     t_CKBOOL m_good;
     t_CKFLOAT m_windowWidth, m_windowHeight;
+    
+    ixPointer *m_pointer;
     
     list<chugl_array_data_base *> m_cleanupData;
     list<Chuck_Array *> m_cleanupArray;

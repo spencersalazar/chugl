@@ -23,6 +23,7 @@
 
 #include "chugl.h"
 #include "chugl_opengl.h"
+#include "chugl_ix.h"
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
@@ -34,6 +35,11 @@
 #include <stdio.h>
 #include <limits.h>
 
+
+@class CKOpenGLWindow;
+@class CKOpenGLView;
+
+
 class chugl_osx : public chugl
 {
 public:
@@ -42,6 +48,9 @@ public:
     
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);
     void openFullscreen();
+    
+    virtual void hideCursor();
+    virtual void showCursor();
     
     // void lock();
     // void unlock();
@@ -53,7 +62,8 @@ protected:
     
 private:
     NSOpenGLContext *m_ctx;
-    
+    CKOpenGLWindow *m_window;
+    CKOpenGLWindow *m_view;
 };
 
 
@@ -70,8 +80,6 @@ public:
 };
 
 
-@class CKOpenGLView;
-
 @interface CKOpenGLWindow : NSWindow
 {
     CKOpenGLView *_openGLView;
@@ -85,6 +93,11 @@ public:
 @end
 
 @interface CKOpenGLView : NSOpenGLView
+{
+    chugl *_chugl;
+}
+
+@property (nonatomic) chugl *chugl;
 
 @end
 
@@ -92,6 +105,22 @@ public:
 chugl *chugl::platformMake()
 {
     return new chugl_osx();
+}
+
+
+void chugl_osx::hideCursor()
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [NSCursor hide];
+    });
+}
+
+
+void chugl_osx::showCursor()
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [NSCursor unhide];
+    });
 }
 
 
@@ -108,7 +137,8 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         [window setTitle:@"chugl"];
         [window center];
         [window setExcludedFromWindowsMenu:NO];
-        
+        window.acceptsMouseMovedEvents = YES;
+
         NSOpenGLPixelFormatAttribute attr[] = {
             NSOpenGLPFADepthSize, 32,
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
@@ -123,6 +153,7 @@ void chugl_osx::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds] pixelFormat:pixformat];
         [glView setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
         [[window contentView] addSubview:glView];
+        glView.chugl = this;
         window.openGLView = glView;
         
         window.isFullscreen = NO;
@@ -152,7 +183,8 @@ void chugl_osx::openFullscreen()
             defer:YES];
         [window setTitle:@"chugl"];
         [window setExcludedFromWindowsMenu:NO];
-        
+        window.acceptsMouseMovedEvents = YES;
+
         NSOpenGLPixelFormatAttribute attr[] = {
             NSOpenGLPFADepthSize, 32,
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
@@ -164,6 +196,7 @@ void chugl_osx::openFullscreen()
         CKOpenGLView *glView = [[CKOpenGLView alloc] initWithFrame:[[window contentView] bounds] pixelFormat:pixformat];
         [glView setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
         [[window contentView] addSubview:glView];
+        glView.chugl = this;
         window.openGLView = glView;
         
         window.isFullscreen = YES;
@@ -363,6 +396,32 @@ void chugl_osx::platformExit()
     {
         [super keyDown:theEvent];
     }
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+    NSPoint event_location = [theEvent locationInWindow];
+    NSPoint local_point = [self convertPoint:event_location fromView:nil];
+    self.chugl->pointer()->move(local_point.x, local_point.y);
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+    NSPoint event_location = [theEvent locationInWindow];
+    NSPoint local_point = [self convertPoint:event_location fromView:nil];
+    self.chugl->pointer()->move(local_point.x, local_point.y);
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    int newState = self.chugl->pointer()->state() | 0x1;
+    self.chugl->pointer()->stateChange(newState);
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    int newState = self.chugl->pointer()->state() & ~(0x1);
+    self.chugl->pointer()->stateChange(newState);
 }
 
 @end
