@@ -28,7 +28,8 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 #import <OpenGL/OpenGL.h>
-#import <CoreGraphics/CoreGraphics.h>
+//#import <CoreGraphics/CoreGraphics.h>
+#import <ApplicationServices/ApplicationServices.h>
 #import <dispatch/queue.h>
 
 // general includes
