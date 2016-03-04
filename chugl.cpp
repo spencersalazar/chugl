@@ -306,11 +306,16 @@ CK_DLL_QUERY( chugl )
 	
     // Pointer_offset_data = QUERY->add_mvar(QUERY, "int", "@Pointer_data", FALSE);
     Pointer_offset_x = QUERY->add_mvar(QUERY, "float", "x", FALSE);
+    QUERY->doc_var(QUERY, "Current x position of primary pointer.");
     Pointer_offset_y = QUERY->add_mvar(QUERY, "float", "y", FALSE);
+    QUERY->doc_var(QUERY, "Current y position of primary pointer.");
     Pointer_offset_state = QUERY->add_mvar(QUERY, "int", "state", FALSE);
+    QUERY->doc_var(QUERY, "Current state of primary pointer.");
     
     Pointer_offset_move = QUERY->add_mvar(QUERY, "Event", "move", FALSE);
+    QUERY->doc_func(QUERY, "Returns an Event that signals when the pointer moves.");
     Pointer_offset_stateChange = QUERY->add_mvar(QUERY, "Event", "stateChange", FALSE);
+    QUERY->doc_func(QUERY, "Returns an Event that signals when the pointer changes state (e.g. click or touch).");
 
     QUERY->end_class(QUERY);
     
