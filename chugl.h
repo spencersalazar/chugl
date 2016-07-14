@@ -27,12 +27,7 @@
 #include "chuck_dl.h"
 #include "chuck_def.h"
 
-#ifdef __APPLE__
-#import <OpenGL/OpenGL.h>
-#import <OpenGL/gl.h>
-#else
-#include <gl/gl.h>
-#endif // __APPLE__
+#include "glplat.h"
 
 #include <list>
 

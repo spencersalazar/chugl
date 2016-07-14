@@ -1,4 +1,5 @@
 
+CXX_MODULES+=gl/chugl_api.cpp
 OBJCXX_MODULES+=chugl_mac.mm
 
 ARCHS?=i386 x86_64

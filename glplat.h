@@ -20,15 +20,30 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
   U.S.A.
 -----------------------------------------------------------------------------*/
+/*
+ * OpenGL headers by platform
+ */
 
-#ifndef UTIL_OPENGL
-#define UTIL_OPENGL
 
-#include "chuck_def.h"
+#ifndef GLPLAT_H
+#define GLPLAT_H
 
-#include "glplat.h"
 
-void gen2d_ellipse_fan(GLfloat *buf, GLint nVertex, float x, float y, float xRadius, float yRadius);
-void HSVtoRGB( t_CKFLOAT *r, t_CKFLOAT *g, t_CKFLOAT *b, t_CKFLOAT h, t_CKFLOAT s, t_CKFLOAT v );
 
-#endif // UTIL_OPENGL
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
+#define CHUGL_ES2
+#else
+#import <OpenGL/OpenGL.h>
+#import <OpenGL/gl.h>
+#define CHUGL_GL
+#endif
+#else
+#include <gl/gl.h>
+#define CHUGL_GL
+#endif // __APPLE__
+
+#endif // GLPLAT_H

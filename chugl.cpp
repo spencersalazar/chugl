@@ -32,12 +32,7 @@
 #include "chuck_instr.h"
 #include "chuck_vm.h"
 
-#ifdef __APPLE__
-#import <OpenGL/OpenGL.h>
-#import <OpenGL/gl.h>
-#else
-#include <gl/gl.h>
-#endif // __APPLE__
+#include "glplat.h"
 
 // general includes
 #include <stdio.h>
@@ -135,6 +130,7 @@ void chugl::enter()
         
         if(isMainThread()) m_enterMainThread = TRUE;
         
+#ifdef CHUGL_GL
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0, windowWidth(), 0, windowHeight(), -0.1, 100);
@@ -144,6 +140,7 @@ void chugl::enter()
         
         glEnable(GL_LINE_SMOOTH);
         glEnable(GL_MULTISAMPLE);
+#endif // CHUGL_GL
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

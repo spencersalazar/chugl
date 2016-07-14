@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		091B7B601B385DE800412635 /* chugl_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 091B7B521B385DE800412635 /* chugl_api.cpp */; };
 		091B7B611B385DE800412635 /* chugl_api.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B531B385DE800412635 /* chugl_api.h */; };
 		091B7B621B385DE800412635 /* chugl_ix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 091B7B541B385DE800412635 /* chugl_ix.cpp */; };
 		091B7B631B385DE800412635 /* chugl_ix.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B551B385DE800412635 /* chugl_ix.h */; };
@@ -25,11 +24,29 @@
 		091B7FE81B385FC100412635 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091B7FE71B385FC100412635 /* Foundation.framework */; };
 		091B7FEA1B385FC500412635 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091B7FE91B385FC500412635 /* AppKit.framework */; };
 		091B7FEC1B385FD700412635 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091B7FEB1B385FD700412635 /* CoreGraphics.framework */; };
+		09367E821D3818E4009B30AD /* chugl_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09367E7E1D3818E4009B30AD /* chugl_api.cpp */; };
+		09367E871D3818F4009B30AD /* chugl_ix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 091B7B541B385DE800412635 /* chugl_ix.cpp */; };
+		09367E881D3818F4009B30AD /* util_opengl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 091B7B5E1B385DE800412635 /* util_opengl.cpp */; };
+		09367E8B1D3818F4009B30AD /* chugl_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09367E811D3818E4009B30AD /* chugl_api.cpp */; };
+		09367E8C1D3818F4009B30AD /* chugl_motion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 091B7B571B385DE800412635 /* chugl_motion.cpp */; };
+		09367E8D1D3818F4009B30AD /* chugl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 091B7B5C1B385DE800412635 /* chugl.cpp */; };
+		09367E901D3818F4009B30AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091B7FEB1B385FD700412635 /* CoreGraphics.framework */; };
+		09367E921D3818F4009B30AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091B7FE71B385FC100412635 /* Foundation.framework */; };
+		09367E951D3818F4009B30AD /* util_opengl.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B5F1B385DE800412635 /* util_opengl.h */; };
+		09367E961D3818F4009B30AD /* chugl.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B5D1B385DE800412635 /* chugl.h */; };
+		09367E971D3818F4009B30AD /* chugl_api.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B531B385DE800412635 /* chugl_api.h */; };
+		09367E981D3818F4009B30AD /* chugl_motion.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B581B385DE800412635 /* chugl_motion.h */; };
+		09367E991D3818F4009B30AD /* chugl_ix.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B551B385DE800412635 /* chugl_ix.h */; };
+		09367E9A1D3818F4009B30AD /* chugl_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B5B1B385DE800412635 /* chugl_util.h */; };
+		09367E9B1D3818F4009B30AD /* chugl_opengl.h in Headers */ = {isa = PBXBuildFile; fileRef = 091B7B5A1B385DE800412635 /* chugl_opengl.h */; };
+		09367EA11D38194A009B30AD /* chugl_opengles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09367EA01D38194A009B30AD /* chugl_opengles.cpp */; };
+		09367EA61D381FAB009B30AD /* chugl_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09367EA51D381FAB009B30AD /* chugl_ios.mm */; };
+		09367EA91D382D9E009B30AD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EA71D382D9E009B30AD /* GLKit.framework */; };
+		09367EAA1D382D9E009B30AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EA81D382D9E009B30AD /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		091B7B4A1B385D7400412635 /* chugl.chug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = chugl.chug; sourceTree = BUILT_PRODUCTS_DIR; };
-		091B7B521B385DE800412635 /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
 		091B7B531B385DE800412635 /* chugl_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chugl_api.h; sourceTree = "<group>"; };
 		091B7B541B385DE800412635 /* chugl_ix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_ix.cpp; sourceTree = "<group>"; };
 		091B7B551B385DE800412635 /* chugl_ix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chugl_ix.h; sourceTree = "<group>"; };
@@ -279,6 +296,14 @@
 		091B7FE71B385FC100412635 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		091B7FE91B385FC500412635 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		091B7FEB1B385FD700412635 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		09367E7E1D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
+		09367E811D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
+		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = chugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
+		09367EA01D38194A009B30AD /* chugl_opengles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_opengles.cpp; sourceTree = "<group>"; };
+		09367EA21D381E73009B30AD /* glplat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glplat.h; sourceTree = "<group>"; };
+		09367EA51D381FAB009B30AD /* chugl_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = chugl_ios.mm; sourceTree = "<group>"; };
+		09367EA71D382D9E009B30AD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		09367EA81D382D9E009B30AD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +315,17 @@
 				091B7FEA1B385FC500412635 /* AppKit.framework in Frameworks */,
 				091B7FE81B385FC100412635 /* Foundation.framework in Frameworks */,
 				091B7FE61B385FB600412635 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09367E8F1D3818F4009B30AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09367EA91D382D9E009B30AD /* GLKit.framework in Frameworks */,
+				09367EAA1D382D9E009B30AD /* OpenGLES.framework in Frameworks */,
+				09367E901D3818F4009B30AD /* CoreGraphics.framework in Frameworks */,
+				09367E921D3818F4009B30AD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				091B7B4A1B385D7400412635 /* chugl.chug */,
+				09367E9F1D3818F4009B30AD /* chugl.schug */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,15 +353,19 @@
 		091B7B511B385DDD00412635 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				09367EA21D381E73009B30AD /* glplat.h */,
 				091B7EF11B385EF700412635 /* boost */,
-				091B7B521B385DE800412635 /* chugl_api.cpp */,
+				09367E7D1D3818E4009B30AD /* gl */,
+				09367E801D3818E4009B30AD /* gles */,
 				091B7B531B385DE800412635 /* chugl_api.h */,
 				091B7B541B385DE800412635 /* chugl_ix.cpp */,
 				091B7B551B385DE800412635 /* chugl_ix.h */,
 				091B7B561B385DE800412635 /* chugl_mac.mm */,
+				09367EA51D381FAB009B30AD /* chugl_ios.mm */,
 				091B7B571B385DE800412635 /* chugl_motion.cpp */,
 				091B7B581B385DE800412635 /* chugl_motion.h */,
 				091B7B591B385DE800412635 /* chugl_opengl.cpp */,
+				09367EA01D38194A009B30AD /* chugl_opengles.cpp */,
 				091B7B5A1B385DE800412635 /* chugl_opengl.h */,
 				091B7B5B1B385DE800412635 /* chugl_util.h */,
 				091B7B5C1B385DE800412635 /* chugl.cpp */,
@@ -665,12 +706,30 @@
 		091B7FED1B385FDB00412635 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09367EA71D382D9E009B30AD /* GLKit.framework */,
+				09367EA81D382D9E009B30AD /* OpenGLES.framework */,
 				091B7FEB1B385FD700412635 /* CoreGraphics.framework */,
 				091B7FE91B385FC500412635 /* AppKit.framework */,
 				091B7FE71B385FC100412635 /* Foundation.framework */,
 				091B7FE51B385FB600412635 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		09367E7D1D3818E4009B30AD /* gl */ = {
+			isa = PBXGroup;
+			children = (
+				09367E7E1D3818E4009B30AD /* chugl_api.cpp */,
+			);
+			path = gl;
+			sourceTree = "<group>";
+		};
+		09367E801D3818E4009B30AD /* gles */ = {
+			isa = PBXGroup;
+			children = (
+				09367E811D3818E4009B30AD /* chugl_api.cpp */,
+			);
+			path = gles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -687,6 +746,20 @@
 				091B7B631B385DE800412635 /* chugl_ix.h in Headers */,
 				091B7B691B385DE800412635 /* chugl_util.h in Headers */,
 				091B7B681B385DE800412635 /* chugl_opengl.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09367E941D3818F4009B30AD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09367E951D3818F4009B30AD /* util_opengl.h in Headers */,
+				09367E961D3818F4009B30AD /* chugl.h in Headers */,
+				09367E971D3818F4009B30AD /* chugl_api.h in Headers */,
+				09367E981D3818F4009B30AD /* chugl_motion.h in Headers */,
+				09367E991D3818F4009B30AD /* chugl_ix.h in Headers */,
+				09367E9A1D3818F4009B30AD /* chugl_util.h in Headers */,
+				09367E9B1D3818F4009B30AD /* chugl_opengl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +781,23 @@
 			name = chugl;
 			productName = chugl;
 			productReference = 091B7B4A1B385D7400412635 /* chugl.chug */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		09367E851D3818F4009B30AD /* chugl-es */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09367E9C1D3818F4009B30AD /* Build configuration list for PBXNativeTarget "chugl-es" */;
+			buildPhases = (
+				09367E861D3818F4009B30AD /* Sources */,
+				09367E8F1D3818F4009B30AD /* Frameworks */,
+				09367E941D3818F4009B30AD /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "chugl-es";
+			productName = chugl;
+			productReference = 09367E9F1D3818F4009B30AD /* chugl.schug */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -737,6 +827,7 @@
 			projectRoot = "";
 			targets = (
 				091B7B491B385D7400412635 /* chugl */,
+				09367E851D3818F4009B30AD /* chugl-es */,
 			);
 		};
 /* End PBXProject section */
@@ -748,11 +839,25 @@
 			files = (
 				091B7B621B385DE800412635 /* chugl_ix.cpp in Sources */,
 				091B7B6C1B385DE800412635 /* util_opengl.cpp in Sources */,
+				09367E821D3818E4009B30AD /* chugl_api.cpp in Sources */,
 				091B7B671B385DE800412635 /* chugl_opengl.cpp in Sources */,
 				091B7B651B385DE800412635 /* chugl_motion.cpp in Sources */,
 				091B7B6A1B385DE800412635 /* chugl.cpp in Sources */,
-				091B7B601B385DE800412635 /* chugl_api.cpp in Sources */,
 				091B7B641B385DE800412635 /* chugl_mac.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09367E861D3818F4009B30AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09367E871D3818F4009B30AD /* chugl_ix.cpp in Sources */,
+				09367E881D3818F4009B30AD /* util_opengl.cpp in Sources */,
+				09367EA11D38194A009B30AD /* chugl_opengles.cpp in Sources */,
+				09367E8B1D3818F4009B30AD /* chugl_api.cpp in Sources */,
+				09367E8C1D3818F4009B30AD /* chugl_motion.cpp in Sources */,
+				09367EA61D381FAB009B30AD /* chugl_ios.mm in Sources */,
+				09367E8D1D3818F4009B30AD /* chugl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +987,60 @@
 			};
 			name = Release;
 		};
+		09367E9D1D3818F4009B30AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = schug;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					__MACOSX_CORE__,
+					__CK_DLL_STATIC__,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					chuck/src,
+					"$(PROJECT_DIR)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "-Wl,-undefined,dynamic_lookup";
+				PRODUCT_NAME = chugl;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		09367E9E1D3818F4009B30AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = schug;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__MACOSX_CORE__,
+					__CK_DLL_STATIC__,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					chuck/src,
+					"$(PROJECT_DIR)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "-Wl,-undefined,dynamic_lookup";
+				PRODUCT_NAME = chugl;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -899,6 +1058,15 @@
 			buildConfigurations = (
 				091B7B4F1B385D7400412635 /* Debug */,
 				091B7B501B385D7400412635 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		09367E9C1D3818F4009B30AD /* Build configuration list for PBXNativeTarget "chugl-es" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09367E9D1D3818F4009B30AD /* Debug */,
+				09367E9E1D3818F4009B30AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

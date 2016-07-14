@@ -58,12 +58,7 @@ chugin_template = """
 
 #include "chugl_util.h"
 
-#ifdef __APPLE__
-#import <OpenGL/OpenGL.h>
-#import <OpenGL/gl.h>
-#else
-#include <gl/gl.h>
-#endif // __APPLE__
+#include "glplat.h"
 
 // general includes
 #include <stdio.h>
