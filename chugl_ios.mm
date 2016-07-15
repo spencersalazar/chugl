@@ -44,7 +44,7 @@ class chugl_ios : public chugl
 {
 public:
     chugl_ios() : chugl(), m_ctx(nil) { }
-    virtual ~chugl_ios() { }
+    virtual ~chugl_ios();
     
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);
     void openFullscreen();
@@ -93,6 +93,12 @@ chugl *chugl::platformMake()
     return new chugl_ios();
 }
 
+chugl_ios::~chugl_ios()
+{
+    m_ctx = nil;
+    m_ctxLock = nil;
+    m_viewController = nil;
+}
 
 void chugl_ios::hideCursor()
 {
@@ -147,10 +153,9 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:@"x" forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-        button.titleLabel.font = [UIFont systemFontOfSize:36];
-//        button.titleLabel.textColor = [UIColor whiteColor];
+        button.titleLabel.font = [UIFont fontWithName:@".SFUIDisplay-Light" size:32];
         button.frame = CGRectMake(10, contentBounds.size.height-10-80, 80, 80);
         
         [button addTarget:chuglViewController action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
@@ -223,6 +228,7 @@ void chugl_ios::platformExit()
                      animations:^{
                          self.view.window.alpha = 0;
                      } completion:^(BOOL finished) {
+                         [self.view.window removeFromSuperview];
                          self.view.window.hidden = YES;
                      }];
 }
