@@ -200,7 +200,9 @@ void chugl_ios::platformEnter()
     }
     
     [this->m_ctxLock lock];
-    [EAGLContext setCurrentContext:this->m_ctx];
+    BOOL result = [EAGLContext setCurrentContext:this->m_ctx];
+    if(!result)
+        NSLog(@"error opening current context");
 }
 
 void chugl_ios::platformExit()

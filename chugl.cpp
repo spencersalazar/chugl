@@ -140,11 +140,16 @@ void chugl::enter()
         
         glEnable(GL_LINE_SMOOTH);
         glEnable(GL_MULTISAMPLE);
+#elif defined(CHUGL_GLES)
+        
+        // ...
+        
 #endif // CHUGL_GL
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
+        glClearColor(0.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         m_enter = TRUE;

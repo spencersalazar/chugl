@@ -298,7 +298,7 @@
 		091B7FEB1B385FD700412635 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		09367E7E1D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
 		09367E811D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
-		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = chugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
+		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = chugl.schug; path = libchugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
 		09367EA01D38194A009B30AD /* chugl_opengles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_opengles.cpp; sourceTree = "<group>"; };
 		09367EA21D381E73009B30AD /* glplat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glplat.h; sourceTree = "<group>"; };
 		09367EA51D381FAB009B30AD /* chugl_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = chugl_ios.mm; sourceTree = "<group>"; };
@@ -798,7 +798,7 @@
 			name = "chugl-es";
 			productName = chugl;
 			productReference = 09367E9F1D3818F4009B30AD /* chugl.schug */;
-			productType = "com.apple.product-type.library.dynamic";
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -901,8 +901,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -937,7 +935,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -995,6 +992,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = schug;
+				EXECUTABLE_PREFIX = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					__MACOSX_CORE__,
@@ -1007,7 +1005,6 @@
 					"$(PROJECT_DIR)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-Wl,-undefined,dynamic_lookup";
 				PRODUCT_NAME = chugl;
 				SDKROOT = iphoneos;
@@ -1022,6 +1019,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = schug;
+				EXECUTABLE_PREFIX = "";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__MACOSX_CORE__,
@@ -1034,7 +1032,6 @@
 					"$(PROJECT_DIR)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-Wl,-undefined,dynamic_lookup";
 				PRODUCT_NAME = chugl;
 				SDKROOT = iphoneos;
