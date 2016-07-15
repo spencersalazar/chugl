@@ -23,12 +23,15 @@
 
 #include "chugl_api.h"
 #include "chugl.h"
+#include "chugl_es.h"
 
 #include "util_opengl.h"
 
 #include "chuck_type.h"
 #include "chuck_instr.h"
 #include "chuck_vm.h"
+
+#include "glm/vec2.hpp"
 
 #include <math.h>
 
@@ -235,7 +238,7 @@ CK_DLL_MFUN(chugl_popMatrix)
 
 CK_DLL_MFUN(chugl_rect)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
@@ -245,7 +248,15 @@ CK_DLL_MFUN(chugl_rect)
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    glm::vec2 geo[] = {
+        { x, y, },
+        { x, y+height, },
+        { x+width, y, },
+        { x+width, y+height, },
+    };
+    
+    chgl->render2d(geo, 4, GL_TRIANGLE_STRIP);
+
     
     // chgl->unlock();
 }
@@ -309,7 +320,7 @@ CK_DLL_MFUN(chugl_ellipse)
 
 CK_DLL_MFUN(chugl_clear)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     chgl->enter(); // chgl->lock();

@@ -25,17 +25,35 @@
 #define CHUGL_ES_H
 
 #include "chugl.h"
+#include "glm/vec4.hpp"
+#include "glm/mat4x4.hpp"
+#include <list>
 
 
 class chugl_es : public chugl
 {
 public:
-    chugl_es() : chugl() { }
-    virtual ~chugl_es() { }
+    chugl_es();
+    virtual ~chugl_es();
+
+    glm::vec4 color;
+    std::list<glm::mat4x4> proj;
+    std::list<glm::mat4x4> modelview;
     
+    /*
+     * Draw specified 2d geometry with default color. 
+     */
+    void render2d(glm::vec2 *pos, GLuint num, GLenum mode);
+
 protected:
     virtual void backendEnter();
     virtual void backendExit();
+    
+    void loadShader2d();
+    
+    GLint m_2dshader;
+    GLint m_2dshader_uniform_modelviewproj;
+    GLint m_2dshader_uniform_normal;
 };
 
 #endif // CHUGL_ES_H

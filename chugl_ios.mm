@@ -144,6 +144,8 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         
         GLKView *glView = [[GLKView alloc] initWithFrame:viewBounds context:context];
         glView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        glView.drawableMultisample = GLKViewDrawableMultisample4X;
+        
         glView.userInteractionEnabled = YES;
         
         chuglViewController.view = glView;
@@ -154,8 +156,8 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:@"x" forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [button setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.75] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithWhite:0.6 alpha:0.75] forState:UIControlStateHighlighted];
         button.titleLabel.font = [UIFont fontWithName:@".SFUIDisplay-Light" size:32];
         button.frame = CGRectMake(10, contentBounds.size.height-10-80, 80, 80);
         
@@ -173,9 +175,8 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
                              window.alpha = 1;
                          }];
 
-        
         m_ctxLock = [NSLock new];
-        
+        m_viewController = chuglViewController;
         m_ctx = context;
         m_good = TRUE;
     };
@@ -198,8 +199,8 @@ void chugl_ios::platformEnter()
     {
         // exit on main thread
         dispatch_sync(dispatch_get_main_queue(), ^{
-            glFlush();
             
+            backendExit();
             platformExit();
             
             m_enterMainThread = FALSE;
@@ -207,8 +208,8 @@ void chugl_ios::platformEnter()
         
     }
     
-    [this->m_ctxLock lock];
-    BOOL result = [EAGLContext setCurrentContext:this->m_ctx];
+    [m_ctxLock lock];
+    BOOL result = [EAGLContext setCurrentContext:m_ctx];
     if(!result)
         NSLog(@"error opening current context");
 }
@@ -216,8 +217,9 @@ void chugl_ios::platformEnter()
 void chugl_ios::platformExit()
 {
     // NSLog(@"platform_exit");
+    [m_ctx presentRenderbuffer:GL_RENDERBUFFER];
     [EAGLContext setCurrentContext:nil];
-    [this->m_ctxLock unlock];
+    [m_ctxLock unlock];
 }
 
 
