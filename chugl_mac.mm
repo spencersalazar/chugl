@@ -22,6 +22,7 @@
 -----------------------------------------------------------------------------*/
 
 #include "chugl.h"
+#include "gl/chugl_gl.h"
 #include "chugl_opengl.h"
 #include "chugl_ix.h"
 
@@ -41,10 +42,10 @@
 @class CKOpenGLView;
 
 
-class chugl_osx : public chugl
+class chugl_osx : public chugl_gl
 {
 public:
-    chugl_osx() : chugl(), m_ctx(nil) { }
+    chugl_osx() : chugl_gl(), m_ctx(nil) { }
     virtual ~chugl_osx() { }
     
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);

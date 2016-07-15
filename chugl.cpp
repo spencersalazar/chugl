@@ -130,21 +130,7 @@ void chugl::enter()
         
         if(isMainThread()) m_enterMainThread = TRUE;
         
-#ifdef CHUGL_GL
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0, windowWidth(), 0, windowHeight(), -0.1, 100);
-        
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        
-        glEnable(GL_LINE_SMOOTH);
-        glEnable(GL_MULTISAMPLE);
-#elif defined(CHUGL_GLES)
-        
-        // ...
-        
-#endif // CHUGL_GL
+        backendEnter();
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -169,7 +155,7 @@ void chugl::exit()
         if(m_enterMainThread)
             platformEnter(); // re-enter on this thread
         
-        glFlush();
+        backendExit();
         
         cleanupArrayData();
         

@@ -115,6 +115,8 @@ public:
 protected:
     void cleanupArrayData();
     
+    virtual void backendEnter() = 0;
+    virtual void backendExit() = 0;
     virtual void platformEnter() = 0;
     virtual void platformExit() = 0;
     virtual t_CKBOOL isMainThread() = 0;

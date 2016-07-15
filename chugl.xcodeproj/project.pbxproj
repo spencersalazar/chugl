@@ -43,6 +43,8 @@
 		09367EA61D381FAB009B30AD /* chugl_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09367EA51D381FAB009B30AD /* chugl_ios.mm */; };
 		09367EA91D382D9E009B30AD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EA71D382D9E009B30AD /* GLKit.framework */; };
 		09367EAA1D382D9E009B30AD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09367EA81D382D9E009B30AD /* OpenGLES.framework */; };
+		093680001D38E153009B30AD /* chugl_es.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09367FFF1D38E153009B30AD /* chugl_es.cpp */; };
+		093680021D38E370009B30AD /* chugl_gl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 093680011D38E370009B30AD /* chugl_gl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -298,12 +300,16 @@
 		091B7FEB1B385FD700412635 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		09367E7E1D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
 		09367E811D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
-		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = chugl.schug; path = libchugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
+		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = chugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
 		09367EA01D38194A009B30AD /* chugl_opengles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_opengles.cpp; sourceTree = "<group>"; };
 		09367EA21D381E73009B30AD /* glplat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glplat.h; sourceTree = "<group>"; };
 		09367EA51D381FAB009B30AD /* chugl_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = chugl_ios.mm; sourceTree = "<group>"; };
 		09367EA71D382D9E009B30AD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
 		09367EA81D382D9E009B30AD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		09367FFF1D38E153009B30AD /* chugl_es.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_es.cpp; sourceTree = "<group>"; };
+		093680011D38E370009B30AD /* chugl_gl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_gl.cpp; sourceTree = "<group>"; };
+		093680031D38E3AE009B30AD /* chugl_es.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chugl_es.h; sourceTree = "<group>"; };
+		093680041D38E3B7009B30AD /* chugl_gl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chugl_gl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -720,6 +726,8 @@
 			isa = PBXGroup;
 			children = (
 				09367E7E1D3818E4009B30AD /* chugl_api.cpp */,
+				093680041D38E3B7009B30AD /* chugl_gl.h */,
+				093680011D38E370009B30AD /* chugl_gl.cpp */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -727,6 +735,8 @@
 		09367E801D3818E4009B30AD /* gles */ = {
 			isa = PBXGroup;
 			children = (
+				093680031D38E3AE009B30AD /* chugl_es.h */,
+				09367FFF1D38E153009B30AD /* chugl_es.cpp */,
 				09367E811D3818E4009B30AD /* chugl_api.cpp */,
 			);
 			path = gles;
@@ -839,6 +849,7 @@
 			files = (
 				091B7B621B385DE800412635 /* chugl_ix.cpp in Sources */,
 				091B7B6C1B385DE800412635 /* util_opengl.cpp in Sources */,
+				093680021D38E370009B30AD /* chugl_gl.cpp in Sources */,
 				09367E821D3818E4009B30AD /* chugl_api.cpp in Sources */,
 				091B7B671B385DE800412635 /* chugl_opengl.cpp in Sources */,
 				091B7B651B385DE800412635 /* chugl_motion.cpp in Sources */,
@@ -858,6 +869,7 @@
 				09367E8C1D3818F4009B30AD /* chugl_motion.cpp in Sources */,
 				09367EA61D381FAB009B30AD /* chugl_ios.mm in Sources */,
 				09367E8D1D3818F4009B30AD /* chugl.cpp in Sources */,
+				093680001D38E153009B30AD /* chugl_es.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

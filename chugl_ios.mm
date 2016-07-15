@@ -22,6 +22,7 @@
 -----------------------------------------------------------------------------*/
 
 #include "chugl.h"
+#include "chugl_es.h"
 #include "chugl_opengl.h"
 #include "chugl_ix.h"
 
@@ -40,10 +41,10 @@
 @class ChuglViewController;
 
 
-class chugl_ios : public chugl
+class chugl_ios : public chugl_es
 {
 public:
-    chugl_ios() : chugl(), m_ctx(nil) { }
+    chugl_ios() : chugl_es(), m_ctx(nil) { }
     virtual ~chugl_ios();
     
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);
