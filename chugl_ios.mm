@@ -37,7 +37,7 @@
 #include <limits.h>
 
 
-@class CKOpenGLViewController;
+@class ChuglViewController;
 
 
 class chugl_ios : public chugl
@@ -63,7 +63,7 @@ protected:
 private:
     EAGLContext *m_ctx;
     NSLock *m_ctxLock;
-    CKOpenGLViewController *m_viewController;
+    ChuglViewController *m_viewController;
 };
 
 
@@ -79,9 +79,11 @@ public:
     GLuint tex();
 };
 
-@interface CKOpenGLViewController : GLKViewController
+@interface ChuglViewController : UIViewController
 
 @property (nonatomic) chugl *chugl;
+
+- (void)dismiss;
 
 @end
 
@@ -117,25 +119,54 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         window.windowLevel = UIWindowLevelAlert;
         window.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         
-        CGRect windowBounds = [window bounds];
-        CGPoint center = CGPointMake(windowBounds.origin.x + windowBounds.size.width/2,
-                                     windowBounds.origin.y + windowBounds.size.height/2);
-        
         EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         
-        CGRect viewBounds = CGRectMake(center.x-width/2, center.y-height/2, width, height);
-        GLKView *view = [[GLKView alloc] initWithFrame:viewBounds context:context];
-        view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-        view.userInteractionEnabled = YES;
-        view.enableSetNeedsDisplay = NO;
+        UIViewController *viewController = [[UIViewController alloc] init];
+
+        UIView *contentView = [[UIView alloc] initWithFrame:[window bounds]];
+//        contentView.backgroundColor = [UIColor redColor];
+        viewController.view = contentView;
         
-        CKOpenGLViewController *viewController = [[CKOpenGLViewController alloc] init];
-        viewController.view = view;
+        CGRect contentBounds = [contentView bounds];
+        CGPoint center = CGPointMake(contentBounds.origin.x + contentBounds.size.width/2,
+                                     contentBounds.origin.y + contentBounds.size.height/2);
+        CGRect viewBounds = CGRectMake(center.x-width/2, center.y-height/2, width, height);
+        
+        ChuglViewController *chuglViewController = [[ChuglViewController alloc] init];
+        chuglViewController.chugl = this;
+        
+        GLKView *glView = [[GLKView alloc] initWithFrame:viewBounds context:context];
+        glView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        glView.userInteractionEnabled = YES;
+        
+        chuglViewController.view = glView;
+        
+//        glView.enableSetNeedsDisplay = NO;
+        
+        [contentView addSubview:glView];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:@"x" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        button.titleLabel.font = [UIFont systemFontOfSize:36];
+//        button.titleLabel.textColor = [UIColor whiteColor];
+        button.frame = CGRectMake(10, contentBounds.size.height-10-80, 80, 80);
+        
+        [button addTarget:chuglViewController action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+        
+        [contentView addSubview:button];
         
         window.rootViewController = viewController;
-        [window addSubview:view];
+        [window addSubview:viewController.view];
         
+        window.alpha = 0;
         [window makeKeyAndVisible];
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             window.alpha = 1;
+                         }];
+
         
         m_ctxLock = [NSLock new];
         
@@ -151,37 +182,8 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
 
 void chugl_ios::openFullscreen()
 {
-    void (^block)(void) = ^{
-        UIScreen *screen = [UIScreen mainScreen];
-        UIWindow *window = [[UIWindow alloc] initWithFrame:[screen bounds]];
-        window.windowLevel = UIWindowLevelAlert;
-        window.backgroundColor = [UIColor blackColor];
-
-        EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        
-        GLKView *view = [[GLKView alloc] initWithFrame:[window bounds] context:context];
-        view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-        view.userInteractionEnabled = YES;
-        view.enableSetNeedsDisplay = NO;
-        
-        CKOpenGLViewController *viewController = [[CKOpenGLViewController alloc] init];
-        viewController.view = view;
-        
-        window.rootViewController = viewController;
-        [window addSubview:view];
-        
-        [window makeKeyAndVisible];
-        
-        m_ctxLock = [NSLock new];
-        
-        m_ctx = context;
-        m_good = TRUE;
-    };
-    
-    if(isMainThread())
-        block();
-    else
-        dispatch_sync(dispatch_get_main_queue(), block);
+    UIScreen *screen = [UIScreen mainScreen];
+    this->openWindow(screen.bounds.size.width, screen.bounds.size.height);
 }
 
 void chugl_ios::platformEnter()
@@ -213,7 +215,17 @@ void chugl_ios::platformExit()
 }
 
 
-@implementation CKOpenGLViewController
+@implementation ChuglViewController
+
+- (void)dismiss
+{
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.view.window.alpha = 0;
+                     } completion:^(BOOL finished) {
+                         self.view.window.hidden = YES;
+                     }];
+}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
