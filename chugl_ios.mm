@@ -114,7 +114,32 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
     void (^block)(void) = ^{
         UIScreen *screen = [UIScreen mainScreen];
         UIWindow *window = [[UIWindow alloc] initWithFrame:[screen bounds]];
+        window.windowLevel = UIWindowLevelAlert;
+        window.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         
+        CGRect windowBounds = [window bounds];
+        CGPoint center = CGPointMake(windowBounds.origin.x + windowBounds.size.width/2,
+                                     windowBounds.origin.y + windowBounds.size.height/2);
+        
+        EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        
+        CGRect viewBounds = CGRectMake(center.x-width/2, center.y-height/2, width, height);
+        GLKView *view = [[GLKView alloc] initWithFrame:viewBounds context:context];
+        view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        view.userInteractionEnabled = YES;
+        view.enableSetNeedsDisplay = NO;
+        
+        CKOpenGLViewController *viewController = [[CKOpenGLViewController alloc] init];
+        viewController.view = view;
+        
+        window.rootViewController = viewController;
+        [window addSubview:view];
+        
+        [window makeKeyAndVisible];
+        
+        m_ctxLock = [NSLock new];
+        
+        m_ctx = context;
         m_good = TRUE;
     };
     
@@ -126,18 +151,18 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
 
 void chugl_ios::openFullscreen()
 {
-//    NSRect mainDisplayRect = [[NSScreen mainScreen] frame];
-//    m_windowWidth = mainDisplayRect.size.width;
-//    m_windowHeight = mainDisplayRect.size.height;
-    
     void (^block)(void) = ^{
         UIScreen *screen = [UIScreen mainScreen];
         UIWindow *window = [[UIWindow alloc] initWithFrame:[screen bounds]];
-        
+        window.windowLevel = UIWindowLevelAlert;
+        window.backgroundColor = [UIColor blackColor];
+
         EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         
         GLKView *view = [[GLKView alloc] initWithFrame:[window bounds] context:context];
         view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+        view.userInteractionEnabled = YES;
+        view.enableSetNeedsDisplay = NO;
         
         CKOpenGLViewController *viewController = [[CKOpenGLViewController alloc] init];
         viewController.view = view;
@@ -190,22 +215,22 @@ void chugl_ios::platformExit()
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+    NSLog(@"touchesBegan");
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+    NSLog(@"touchesMoved");
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+    NSLog(@"touchesEnded");
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+    NSLog(@"touchesCancelled");
 }
 
 @end
