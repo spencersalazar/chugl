@@ -215,24 +215,24 @@ CK_DLL_MFUN(chugl_rotateZ)
 
 CK_DLL_MFUN(chugl_pushMatrix)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->modelview.push_front(chgl->modelview.front());
     
     // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_popMatrix)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->modelview.pop_front();
     
     // chgl->unlock();
 }
