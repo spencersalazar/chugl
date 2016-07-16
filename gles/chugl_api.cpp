@@ -32,6 +32,7 @@
 #include "chuck_vm.h"
 
 #include "glm/vec2.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <math.h>
 
@@ -100,7 +101,7 @@ CK_DLL_MFUN(chugl_showCursor)
 
 CK_DLL_MFUN(chugl_color3)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT r = GET_NEXT_FLOAT(ARGS);
@@ -109,14 +110,14 @@ CK_DLL_MFUN(chugl_color3)
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->color = glm::vec4(r, g, b, 1.0);
     
     // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_color4)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT r = GET_NEXT_FLOAT(ARGS);
@@ -126,7 +127,7 @@ CK_DLL_MFUN(chugl_color4)
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->color = glm::vec4(r, g, b, a);
     
     // chgl->unlock();
 }
@@ -170,7 +171,7 @@ CK_DLL_MFUN(chugl_hsv4)
 
 CK_DLL_MFUN(chugl_translate2)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
@@ -178,7 +179,7 @@ CK_DLL_MFUN(chugl_translate2)
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->modelview.front() = glm::translate(chgl->modelview.front(), glm::vec3(x, y, 0));
     
     // chgl->unlock();
 }
@@ -200,14 +201,14 @@ CK_DLL_MFUN(chugl_scale2)
 
 CK_DLL_MFUN(chugl_rotateZ)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT z = GET_NEXT_FLOAT(ARGS);
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->modelview.front() = glm::rotate(chgl->modelview.front(), (float)z, glm::vec3(0.0f, 0.0f, -1.0f));
     
     // chgl->unlock();
 }
