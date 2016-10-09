@@ -44,17 +44,16 @@
 class chugl_ios : public chugl_es
 {
 public:
-    chugl_ios() : chugl_es(), m_ctx(nil) { }
+    chugl_ios() : chugl_es(), m_ctx(nil), m_open(FALSE) { }
     virtual ~chugl_ios();
     
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);
     void openFullscreen();
+    void close();
     t_CKBOOL isOpen();
     
     virtual void hideCursor();
     virtual void showCursor();
-    
-    void setOpen(t_CKBOOL open) { m_open = open; }
     
     // void lock();
     // void unlock();
@@ -198,6 +197,11 @@ void chugl_ios::openFullscreen()
     this->openWindow(screen.bounds.size.width, screen.bounds.size.height);
 }
 
+void chugl_ios::close()
+{
+    m_open = FALSE;
+}
+
 t_CKBOOL chugl_ios::isOpen()
 {
     return m_open;
@@ -241,9 +245,16 @@ void chugl_ios::platformExit()
                      animations:^{
                          self.view.window.alpha = 0;
                      } completion:^(BOOL finished) {
+                         // dispose of window
                          [self.view.window removeFromSuperview];
                          self.view.window.hidden = YES;
-                         self.chugl->setOpen(FALSE);
+                         
+                         // dispose of view
+                         self.view.hidden = YES;
+                         [self.view removeFromSuperview];
+                         self.view = nil;
+                         
+                         self.chugl->close();
                      }];
 }
 

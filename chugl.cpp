@@ -207,6 +207,7 @@ CK_DLL_CTOR(chugl_ctor)
     delete_id_list( list );
     
     Chuck_Object * gl = instantiate_and_initialize_object( type, NULL );
+    gl->add_ref();
     
     OBJ_MEMBER_INT(gl, Chuck_OpenGL_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = gl;
@@ -217,6 +218,7 @@ CK_DLL_CTOR(chugl_ctor)
     Chuck_Type * hackType = type_engine_find_type( env, hackList );
     delete_id_list( hackList );
     Chuck_UGen *hack = (Chuck_UGen *) instantiate_and_initialize_object( hackType, NULL );
+    hack->add_ref();
     
     OBJ_MEMBER_INT(hack, chuglHack_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_INT(SELF, chugl_offset_hack) = (t_CKINT) hack;
@@ -231,6 +233,7 @@ CK_DLL_CTOR(chugl_ctor)
     Chuck_Object * pointer = instantiate_and_initialize_object( ptrType, NULL );
     // TODO: why do i have to call ctor directly?
     Pointer_ctor(pointer, NULL, SHRED, API);
+    pointer->add_ref();
     
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_pointer) = pointer;
     chgl->setPointer(new ixPointer(pointer));
@@ -239,6 +242,21 @@ CK_DLL_CTOR(chugl_ctor)
 CK_DLL_DTOR(chugl_dtor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+
+    Chuck_Object * gl = OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl);
+    gl->release();
+    OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = 0;
+    
+    // disconnect hack tick object
+    Chuck_UGen *hack = (Chuck_UGen *) OBJ_MEMBER_INT(SELF, chugl_offset_hack);
+    hack->disconnect(0);
+    hack->release();
+    OBJ_MEMBER_INT(SELF, chugl_offset_hack) = 0;
+
+    Chuck_Object * pointer = OBJ_MEMBER_OBJECT(SELF, chugl_offset_pointer);
+    pointer->release();
+    OBJ_MEMBER_OBJECT(SELF, chugl_offset_pointer) = 0;
+    
     SAFE_DELETE(chgl);
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = 0;
 }
