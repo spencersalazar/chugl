@@ -44,6 +44,7 @@ public:
      * Draw specified 2d geometry with default color. 
      */
     void render2d(glm::vec2 *pos, GLuint num, GLenum mode);
+    void render2d(GLfloat *pos, GLuint num, GLenum mode);
 
 protected:
     virtual void backendEnter();

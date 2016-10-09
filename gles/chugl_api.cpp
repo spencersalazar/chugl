@@ -134,7 +134,7 @@ CK_DLL_MFUN(chugl_color4)
 
 CK_DLL_MFUN(chugl_hsv3)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT h = GET_NEXT_FLOAT(ARGS);
@@ -145,14 +145,15 @@ CK_DLL_MFUN(chugl_hsv3)
     
     t_CKFLOAT r, g, b;
     HSVtoRGB(&r, &g, &b, h*360, s, v);
-    // TODO
-    
+
+    chgl->color = glm::vec4(r, g, b, 1.0f);
+
     // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_hsv4)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT h = GET_NEXT_FLOAT(ARGS);
@@ -164,7 +165,8 @@ CK_DLL_MFUN(chugl_hsv4)
     
     t_CKFLOAT r, g, b;
     HSVtoRGB(&r, &g, &b, h*360, s, v);
-    // TODO
+
+    chgl->color = glm::vec4(r, g, b, a);
     
     // chgl->unlock();
 }
@@ -186,7 +188,7 @@ CK_DLL_MFUN(chugl_translate2)
 
 CK_DLL_MFUN(chugl_scale2)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
@@ -194,7 +196,7 @@ CK_DLL_MFUN(chugl_scale2)
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    chgl->modelview.front() = glm::scale(chgl->modelview.front(), glm::vec3(x, y, 1));
     
     // chgl->unlock();
 }
@@ -258,13 +260,12 @@ CK_DLL_MFUN(chugl_rect)
     
     chgl->render2d(geo, 4, GL_TRIANGLE_STRIP);
 
-    
     // chgl->unlock();
 }
 
 CK_DLL_MFUN(chugl_triangle)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT ax = GET_NEXT_FLOAT(ARGS);
@@ -274,14 +275,20 @@ CK_DLL_MFUN(chugl_triangle)
     t_CKFLOAT cx = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT cy = GET_NEXT_FLOAT(ARGS);
     
-    chgl->enter(); // chgl->lock();
+    chgl->enter();
     
-    // TODO
+    glm::vec2 geo[] = {
+        { ax, ay, },
+        { bx, by, },
+        { cx, cy, },
+    };
+    
+    chgl->render2d(geo, 3, GL_TRIANGLES);
 }
 
 CK_DLL_MFUN(chugl_line)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT x1 = GET_NEXT_FLOAT(ARGS);
@@ -291,14 +298,17 @@ CK_DLL_MFUN(chugl_line)
     
     chgl->enter(); // chgl->lock();
     
-    // TODO
+    glm::vec2 geo[] = {
+        { x1, y1, },
+        { x2, y2, },
+    };
     
-    // chgl->unlock();
+    chgl->render2d(geo, 2, GL_LINES);
 }
 
 CK_DLL_MFUN(chugl_ellipse)
 {
-    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
     t_CKFLOAT x = GET_NEXT_FLOAT(ARGS);
@@ -306,17 +316,13 @@ CK_DLL_MFUN(chugl_ellipse)
     t_CKFLOAT width = GET_NEXT_FLOAT(ARGS);
     t_CKFLOAT height = GET_NEXT_FLOAT(ARGS);
     
-    chgl->enter(); // chgl->lock();
+    chgl->enter();
     
     int nGeo = 48;
     GLfloat geo[nGeo*2];
     gen2d_ellipse_fan(geo, nGeo, x, y, width/2, height/2);
     
-    // TODO
-    
-    glDrawArrays(GL_TRIANGLE_FAN, 0, nGeo);
-    
-    // chgl->unlock();
+    chgl->render2d(geo, 48, GL_TRIANGLE_FAN);
 }
 
 CK_DLL_MFUN(chugl_clear)
@@ -324,12 +330,10 @@ CK_DLL_MFUN(chugl_clear)
     chugl_es *chgl = (chugl_es *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     if(!chgl->good()) return;
     
-    chgl->enter(); // chgl->lock();
+    chgl->enter();
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    // chgl->unlock();
 }
 
 

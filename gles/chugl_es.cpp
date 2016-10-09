@@ -111,6 +111,31 @@ void chugl_es::render2d(glm::vec2 *pos, GLuint num, GLenum mode)
     glDrawArrays(mode, 0, num);
 }
 
+void chugl_es::render2d(GLfloat *pos, GLuint num, GLenum mode)
+{
+    loadShader2d();
+    
+    glUseProgram(m_2dshader);
+    
+    glVertexAttrib4fv(CHUGL_SHADER_COLOR, &color[0]);
+    glDisableVertexAttribArray(CHUGL_SHADER_COLOR);
+    
+    glVertexAttrib3f(CHUGL_SHADER_NORMAL, 0, 0, -1);
+    glDisableVertexAttribArray(CHUGL_SHADER_NORMAL);
+    
+    glDisableVertexAttribArray(CHUGL_SHADER_TEXCOORD0);
+    
+    glVertexAttribPointer(CHUGL_SHADER_POSITION, 2, GL_FLOAT, GL_FALSE, 0, pos);
+    glEnableVertexAttribArray(CHUGL_SHADER_POSITION);
+    
+    glm::mat4x4 mvp = proj.front()*modelview.front();
+    glUniformMatrix4fv(m_2dshader_uniform_modelviewproj, 1, GL_FALSE, &mvp[0][0]);
+    glm::mat3x3 normal = glm::mat3x3(glm::inverseTranspose(modelview.front()));
+    glUniformMatrix3fv(m_2dshader_uniform_normal, 1, GL_FALSE, &normal[0][0]);
+    
+    glDrawArrays(mode, 0, num);
+}
+
 namespace {
     const char *g_vert2d_shader = "\n\
 attribute vec4 position;\n\

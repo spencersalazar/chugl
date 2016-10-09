@@ -302,7 +302,7 @@
 		091B7FEB1B385FD700412635 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		09367E7E1D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
 		09367E811D3818E4009B30AD /* chugl_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_api.cpp; sourceTree = "<group>"; };
-		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = chugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
+		09367E9F1D3818F4009B30AD /* chugl.schug */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = chugl.schug; sourceTree = BUILT_PRODUCTS_DIR; };
 		09367EA01D38194A009B30AD /* chugl_opengles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chugl_opengles.cpp; sourceTree = "<group>"; };
 		09367EA21D381E73009B30AD /* glplat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glplat.h; sourceTree = "<group>"; };
 		09367EA51D381FAB009B30AD /* chugl_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = chugl_ios.mm; sourceTree = "<group>"; };
