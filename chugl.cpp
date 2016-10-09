@@ -157,9 +157,9 @@ void chugl::exit()
         
         backendExit();
         
-        cleanupArrayData();
-        
         platformExit();
+        
+        cleanupArrayData();
         
         m_enter = FALSE;
     }
