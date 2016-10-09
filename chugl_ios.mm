@@ -49,9 +49,12 @@ public:
     
     void openWindow(t_CKFLOAT width, t_CKFLOAT height);
     void openFullscreen();
+    t_CKBOOL isOpen();
     
     virtual void hideCursor();
     virtual void showCursor();
+    
+    void setOpen(t_CKBOOL open) { m_open = open; }
     
     // void lock();
     // void unlock();
@@ -65,6 +68,7 @@ private:
     EAGLContext *m_ctx;
     NSLock *m_ctxLock;
     ChuglViewController *m_viewController;
+    t_CKBOOL m_open;
 };
 
 
@@ -82,7 +86,7 @@ public:
 
 @interface ChuglViewController : UIViewController
 
-@property (nonatomic) chugl *chugl;
+@property (nonatomic) chugl_ios *chugl;
 
 - (void)dismiss;
 
@@ -179,6 +183,7 @@ void chugl_ios::openWindow(t_CKFLOAT width, t_CKFLOAT height)
         m_viewController = chuglViewController;
         m_ctx = context;
         m_good = TRUE;
+        m_open = TRUE;
     };
     
     if(isMainThread())
@@ -191,6 +196,11 @@ void chugl_ios::openFullscreen()
 {
     UIScreen *screen = [UIScreen mainScreen];
     this->openWindow(screen.bounds.size.width, screen.bounds.size.height);
+}
+
+t_CKBOOL chugl_ios::isOpen()
+{
+    return m_open;
 }
 
 void chugl_ios::platformEnter()
@@ -233,6 +243,7 @@ void chugl_ios::platformExit()
                      } completion:^(BOOL finished) {
                          [self.view.window removeFromSuperview];
                          self.view.window.hidden = YES;
+                         self.chugl->setOpen(FALSE);
                      }];
 }
 

@@ -83,6 +83,7 @@ public:
     
     virtual void openWindow(t_CKFLOAT width, t_CKFLOAT height) = 0;
     virtual void openFullscreen() = 0;
+    virtual t_CKBOOL isOpen() = 0;
     
     // virtual void lock() = 0;
     // virtual void unlock() = 0;

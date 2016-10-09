@@ -331,10 +331,13 @@ CK_DLL_QUERY( chugl )
     QUERY->add_mfun(QUERY, chugl_fullscreen, "void", "fullscreen");
     QUERY->doc_func(QUERY, "Open a fullscreen window for drawing. ");
     
+    QUERY->add_mfun(QUERY, chugl_isOpen, "int", "isOpen");
+    QUERY->doc_func(QUERY, "Return 1 if the chugl window is currently open, or 0 if it has been closed. ");
+    
     QUERY->add_mfun(QUERY, chugl_width, "float", "width");
-    QUERY->doc_func(QUERY, "Width of the window, or screen if a fullscreen window is being used. ");
+    QUERY->doc_func(QUERY, "Width of the window, or of the screen if a fullscreen window is being used. ");
     QUERY->add_mfun(QUERY, chugl_height, "float", "height");
-    QUERY->doc_func(QUERY, "Height of the window, or screen if a fullscreen window is being used. ");
+    QUERY->doc_func(QUERY, "Height of the window, or of the screen if a fullscreen window is being used. ");
     
     QUERY->add_mfun(QUERY, chugl_good, "int", "good");
     QUERY->doc_func(QUERY, "Returns true if the window or screen is ready to be drawn to, and the underlying OpenGL context is ready. ");

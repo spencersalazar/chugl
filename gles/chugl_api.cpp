@@ -47,7 +47,6 @@ T rad2deg(T rad)
 extern t_CKINT chugl_offset_data;
 
 
-// example of getter/setter
 CK_DLL_MFUN(chugl_openWindow)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -58,12 +57,18 @@ CK_DLL_MFUN(chugl_openWindow)
     chgl->openWindow(x, y);
 }
 
-// example of getter/setter
 CK_DLL_MFUN(chugl_fullscreen)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
     
     chgl->openFullscreen();
+}
+
+CK_DLL_MFUN(chugl_isOpen)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_int = chgl->isOpen();
 }
 
 CK_DLL_MFUN(chugl_width)
