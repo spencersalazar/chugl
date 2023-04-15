@@ -22,7 +22,10 @@
 -----------------------------------------------------------------------------*/
 
 #include "chugl.h"
+
+#if CHUGL_ENABLE_OPENGL_BINDINGS
 #include "chugl_opengl.h"
+#endif // CHUGL_ENABLE_OPENGL_BINDINGS
 
 #include "chugl_api.h"
 #include "chugl_ix.h"
@@ -198,9 +201,9 @@ CK_DLL_CTOR(chugl_ctor)
 {
     chugl *chgl = chugl::platformMake();
     OBJ_MEMBER_INT(SELF, chugl_offset_data) = (t_CKINT) chgl;
-    
-    Chuck_Env * env = Chuck_Env::instance();
-    
+
+#if CHUGL_ENABLE_OPENGL_BINDINGS
+    // note: currently broken, update to latest object creation method
     /* create OpenGL object */
     a_Id_List list = new_id_list( "OpenGL", 0 );
     Chuck_Type * type = type_engine_find_type( env, list );    
@@ -208,16 +211,15 @@ CK_DLL_CTOR(chugl_ctor)
     
     Chuck_Object * gl = instantiate_and_initialize_object( type, NULL );
     gl->add_ref();
-    
+
     OBJ_MEMBER_INT(gl, Chuck_OpenGL_offset_chugl) = (t_CKINT) chgl;
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = gl;
+#endif // CHUGL_ENABLE_OPENGL_BINDINGS
     
     /* create chuglHack object */
-    a_Id_List hackList = new_id_list( "chuglHack", 0 );
     
-    Chuck_Type * hackType = type_engine_find_type( env, hackList );
-    delete_id_list( hackList );
-    Chuck_UGen *hack = (Chuck_UGen *) instantiate_and_initialize_object( hackType, NULL );
+    Chuck_DL_Api::Type hackType = API->object->get_type(API, SHRED, "chuglHack");
+    Chuck_UGen *hack = (Chuck_UGen *) API->object->create(API, SHRED, hackType);
     hack->add_ref();
     
     OBJ_MEMBER_INT(hack, chuglHack_offset_chugl) = (t_CKINT) chgl;
@@ -226,13 +228,10 @@ CK_DLL_CTOR(chugl_ctor)
     SHRED->vm_ref->m_bunghole->add(hack, FALSE);
 	
     /* create pointer object */
-    a_Id_List ptrList = new_id_list( "Pointer", 0 );
-    Chuck_Type * ptrType = type_engine_find_type( env, ptrList );    
-    delete_id_list( ptrList );
-    
-    Chuck_Object * pointer = instantiate_and_initialize_object( ptrType, NULL );
+    Chuck_DL_Api::Type ptrType =  API->object->get_type(API, SHRED, "Pointer");    
+    Chuck_Object * pointer = (Chuck_Object *) API->object->create(API, SHRED, ptrType);
     // TODO: why do i have to call ctor directly?
-    Pointer_ctor(pointer, NULL, SHRED, API);
+    Pointer_ctor(pointer, NULL, VM, SHRED, API);
     pointer->add_ref();
     
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_pointer) = pointer;
@@ -243,9 +242,11 @@ CK_DLL_DTOR(chugl_dtor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
 
+#if CHUGL_ENABLE_OPENGL_BINDINGS
     Chuck_Object * gl = OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl);
     gl->release();
     OBJ_MEMBER_OBJECT(SELF, chugl_offset_gl) = 0;
+#endif
     
     // disconnect hack tick object
     Chuck_UGen *hack = (Chuck_UGen *) OBJ_MEMBER_INT(SELF, chugl_offset_hack);
@@ -271,8 +272,10 @@ CK_DLL_QUERY( chugl )
     QUERY->setname(QUERY, "chugl");
     
     
+#if CHUGL_ENABLE_OPENGL_BINDINGS
     /*** OpenGL ***/
     OpenGL_query(QUERY);
+#endif // CHUGL_ENABLE_OPENGL_BINDINGS
     
     
     /*** chuglImage ***/
@@ -336,8 +339,10 @@ CK_DLL_QUERY( chugl )
     chugl_offset_data = QUERY->add_mvar(QUERY, "int", "@chugl_data", FALSE);
     chugl_offset_hack = QUERY->add_mvar(QUERY, "int", "@chugl_hack", FALSE);
     
+#if CHUGL_ENABLE_OPENGL_BINDINGS
     chugl_offset_gl = QUERY->add_mvar(QUERY, "OpenGL", "gl", FALSE);
     QUERY->doc_var(QUERY, "An OpenGL object, for making direct OpenGL calls to the graphics state represented by this instance.");
+#endif // CHUGL_ENABLE_OPENGL_BINDINGS
     
     chugl_offset_pointer = QUERY->add_mvar(QUERY, "Pointer", "pointer", FALSE);
     

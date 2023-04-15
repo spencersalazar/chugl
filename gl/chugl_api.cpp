@@ -83,6 +83,13 @@ CK_DLL_MFUN(chugl_height)
     RETURN->v_float = chgl->windowHeight();
 }
 
+CK_DLL_MFUN(chugl_isOpen)
+{
+    chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
+    
+    RETURN->v_int = chgl->isOpen();
+}
+
 CK_DLL_MFUN(chugl_hideCursor)
 {
     chugl *chgl = (chugl *) OBJ_MEMBER_INT(SELF, chugl_offset_data);
@@ -394,7 +401,7 @@ CK_DLL_MFUN(chuglImage_load)
     
     chgl->enter(); // chgl->lock();
     
-    RETURN->v_int = img->load(str->str);
+    RETURN->v_int = img->load(str->str());
     
     // chgl->unlock();
 }

@@ -69,11 +69,12 @@ CK_DLL_CTOR(Pointer_ctor)
 	OBJ_MEMBER_FLOAT(SELF, Pointer_offset_y) = 0;
 	OBJ_MEMBER_INT(SELF, Pointer_offset_state) = 0;
     
-    Chuck_Event *move_event = (Chuck_Event *) instantiate_and_initialize_object( &t_event, NULL );
+    Chuck_DL_Api::Type eventType =  API->object->get_type(API, SHRED, "Event");    
+    Chuck_Event *move_event = (Chuck_Event *) API->object->create(API, SHRED, eventType);
     move_event->add_ref();
     OBJ_MEMBER_OBJECT(SELF, Pointer_offset_move) = move_event;
     
-    Chuck_Event *state_change_event = (Chuck_Event *) instantiate_and_initialize_object( &t_event, NULL );
+    Chuck_Event *state_change_event = (Chuck_Event *) API->object->create(API, SHRED, eventType);
     state_change_event->add_ref();
     OBJ_MEMBER_OBJECT(SELF, Pointer_offset_stateChange) = state_change_event;
 }

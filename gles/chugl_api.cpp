@@ -402,7 +402,7 @@ CK_DLL_MFUN(chuglImage_load)
     
     chgl->enter(); // chgl->lock();
     
-    RETURN->v_int = img->load(str->str);
+    RETURN->v_int = img->load(str->str());
     
     // chgl->unlock();
 }

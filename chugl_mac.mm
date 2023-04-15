@@ -53,7 +53,9 @@ public:
     
     virtual void hideCursor();
     virtual void showCursor();
-    
+
+    virtual t_CKBOOL isOpen() { /* todo */ return true; }
+
     // void lock();
     // void unlock();
         

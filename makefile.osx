@@ -1,13 +1,16 @@
 
 CXX_MODULES+=gl/chugl_api.cpp gl/chugl_gl.cpp
+
 OBJCXX_MODULES+=chugl_mac.mm
 
-ARCHS?=i386 x86_64
+# ARCHS?=x86_64
+ARCHS?=
 ARCHOPTS=$(addprefix -arch ,$(ARCHS))
 
 FRAMEWORKS=Foundation AppKit OpenGL ApplicationServices
 
-FLAGS=-D__MACOSX_CORE__ -I$(CK_SRC_PATH) $(ARCHOPTS) -fPIC $(ISYSROOT)
+FLAGS=-D__MACOSX_CORE__ $(ARCHOPTS) -fPIC $(ISYSROOT) -stdlib=libc++ \
+-DGL_SILENCE_DEPRECATION
 LDFLAGS=-bundle $(ARCHOPTS) $(ISYSROOT) $(addprefix -framework ,$(FRAMEWORKS)) -ObjC \
 -Wl,-undefined,dynamic_lookup
 
@@ -15,5 +18,5 @@ LD=clang++
 CXX=clang++
 OBJCXX=clang++
 
-MACOSX_DEPLOYMENT_TARGET=10.5
-export MACOSX_DEPLOYMENT_TARGET
+# MACOSX_DEPLOYMENT_TARGET=10.5
+# export MACOSX_DEPLOYMENT_TARGET

@@ -2,11 +2,18 @@
 # chugin name
 CHUGIN_NAME=chugl
 
+# disable direct OpenGL bindings for now
+CHUGL_ENABLE_OPENGL_BINDINGS=
+
 # all of the c/cpp files that compose this chugin
 C_MODULES=
-CXX_MODULES=chugl.cpp chugl_opengl.cpp util_opengl.cpp chugl_ix.cpp \
+CXX_MODULES=chugl.cpp util_opengl.cpp chugl_ix.cpp \
     chugl_motion.cpp
 OBJCXX_MODULES=
+
+ifneq ($(CHUGL_ENABLE_OPENGL_BINDINGS),)
+CXX_MODULES+= chugl_opengl.cpp
+endif
 
 # where the chuck headers are
 CK_SRC_PATH?=chuck/src/
@@ -73,6 +80,11 @@ ifneq ($(CHUCK_STRICT),)
 FLAGS+= -Werror
 endif
 
+ifneq ($(CHUGL_ENABLE_OPENGL_BINDINGS),)
+FLAGS+= -DCHUGL_ENABLE_OPENGL_BINDINGS=1
+endif
+
+FLAGS+= -I$(CK_SRC_PATH)/host -I$(CK_SRC_PATH)/core
 
 
 # default: build a dynamic chugin
@@ -102,15 +114,15 @@ else
 	ranlib $@
 endif
 
-chugl_opengl.o: chugl.h
+# chugl_opengl.o: chugl.h
 
 $(C_OBJECTS): %.o: %.c
 	$(CC) $(FLAGS) -c -o $@ $<
 
-$(CXX_OBJECTS): %.o: %.cpp $(CK_SRC_PATH)/chuck_dl.h
+$(CXX_OBJECTS): %.o: %.cpp $(CK_SRC_PATH)/core/chuck_dl.h
 	$(CXX) $(FLAGS) -c -o $@ $<
 
-$(OBJCXX_OBJECTS): %.o: %.mm $(CK_SRC_PATH)/chuck_dl.h
+$(OBJCXX_OBJECTS): %.o: %.mm $(CK_SRC_PATH)/core/chuck_dl.h
 	$(OBJCXX) $(FLAGS) -c -o $@ $<
 
 chugl_opengl.cpp: OpenGL/gl.xml ck.py genchugin.py
