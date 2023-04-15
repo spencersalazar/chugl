@@ -34,13 +34,13 @@ fun void tree(float x, float y, float r, float g, float b, float angle)
         gfx.popMatrix();
         
         if(!branched)
-            1.0 +=> length;
+            2.0 +=> length;
         
         doDraw => now;
     }
 }
 
-spork ~ tree(WIDTH/2, 0, 1, 0, 0, 0);
+spork ~ tree(WIDTH, 0, 1, 0, 0, 0);
 
 while(true)
 {

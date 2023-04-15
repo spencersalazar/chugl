@@ -9,19 +9,13 @@ Currently in heavy development/alpha status. Mac OS X Only.
 
 ## How to build/install
 
-Latest binary package available here:  
-https://ccrma.stanford.edu/~spencer/chuck/chugl-20150815-154636f.pkg
-
-Or build from source:
+To build from source:
 
 First install Xcode or Command-line build tools.
-Then install lxml, a Python library. E.g. 
 
-    $ sudo pip install lxml
+Clone the main branch of chugl.  
 
-Clone the master branch of chugl.  
-
-    $ git clone https://github.com/spencersalazar/chugl.git  
+    $ git clone git@github.com:spencersalazar/chugl.git
     $ cd chugl
 
 Initialize the chuck submodule.
@@ -36,7 +30,18 @@ Install the chugin.
 
     $ sudo make install  
 
-And you're off to the races! Currently, chugl is only supported in miniAudicle (and not command-line chuck). 
+And you're off to the races! 
+Try running some of the examples in the test/ folder. 
+Note that test/gl examples (direct use of OpenGL) are currently unsupported. 
+
+chugl works out of the box within miniAudicle on macOS. 
+To use chugl with command line ChucK, you can compile and install MAUI.chug: https://github.com/spencersalazar/MAUI.chug
+
+    $ git clone git@github.com:spencersalazar/MAUI.chug.git
+    $ cd MAUI.chug
+    $ make osx
+    $ sudo make install
+
 
 ## Documentation
 
